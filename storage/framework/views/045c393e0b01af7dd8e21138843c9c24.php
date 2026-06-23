@@ -9,12 +9,13 @@
 
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-            <h3 class="text-lg font-bold text-gray-800">Daftar Dosen</h3>
-            <p class="text-sm text-gray-500">Kelola data dosen pengajar</p>
+            <h3 class="text-lg font-bold text-gray-800"><?php echo e(__('app.admin.dosen_list')); ?></h3>
+            <p class="text-sm text-gray-500"><?php echo e(__('app.admin.dosen_subtitle')); ?></p>
         </div>
         <a href="<?php echo e(route('admin.dosen.create')); ?>"
            class="inline-flex items-center gap-2 px-4 py-2.5 bg-uin-green text-white rounded-xl font-medium hover:bg-uin-green-dark transition-colors">
-            <i class="fas fa-plus"></i> Tambah Dosen
+            <i class="fas fa-plus"></i> <?php echo e(__('app.admin.dosen_add')); ?>
+
         </a>
     </div>
 

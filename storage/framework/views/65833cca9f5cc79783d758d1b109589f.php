@@ -27,8 +27,12 @@
                     <option value="<?php echo e($hari); ?>" <?php echo e(request('hari') == $hari ? 'selected' : ''); ?>><?php echo e($hari); ?></option>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </select>
-            <input type="text" name="kelas" value="<?php echo e(request('kelas')); ?>" placeholder="Filter kelas..."
-                   class="flex-1 px-4 py-2 rounded-lg border border-gray-200 text-sm focus:border-uin-green outline-none">
+            <select name="kelas" class="flex-1 px-4 py-2 rounded-lg border border-gray-200 text-sm focus:border-uin-green outline-none">
+                <option value="">Semua Kelas</option>
+                <?php $__currentLoopData = $kelasList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value="<?php echo e($k->nama_kelas); ?>" <?php echo e(request('kelas') == $k->nama_kelas ? 'selected' : ''); ?>><?php echo e($k->nama_kelas); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </select>
             <button type="submit" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">
                 <i class="fas fa-filter mr-1"></i> Filter
             </button>
@@ -61,7 +65,7 @@
                             <td class="px-5 py-3 text-sm text-gray-600"><?php echo e($j->kelas); ?></td>
                             <td class="px-5 py-3">
                                 <div class="flex gap-2">
-                                    <button onclick="editJadwal(<?php echo e($j->id_jadwal); ?>, <?php echo e($j->id_mk); ?>, '<?php echo e($j->nidn); ?>', '<?php echo e($j->hari); ?>', '<?php echo e(substr($j->jam_mulai, 0, 5)); ?>', '<?php echo e(substr($j->jam_selesai, 0, 5)); ?>', '<?php echo e($j->ruang); ?>', '<?php echo e($j->kelas); ?>', '<?php echo e($j->semester_aktif); ?>')"
+                                    <button onclick="editJadwal(<?php echo e($j->id_jadwal); ?>, <?php echo e($j->id_mk); ?>, '<?php echo e($j->nidn); ?>', '<?php echo e($j->hari); ?>', '<?php echo e($j->jam_mulai instanceof \Carbon\Carbon ? $j->jam_mulai->format('H:i') : $j->jam_mulai); ?>', '<?php echo e($j->jam_selesai instanceof \Carbon\Carbon ? $j->jam_selesai->format('H:i') : $j->jam_selesai); ?>', '<?php echo e($j->ruang); ?>', '<?php echo e($j->kelas); ?>', '<?php echo e($j->semester_aktif); ?>')"
                                             class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs font-medium hover:bg-blue-200">
                                         <i class="fas fa-edit"></i>
                                     </button>
@@ -117,8 +121,12 @@
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Kelas</label>
-                        <input type="text" name="kelas" required placeholder="Manajemen A"
-                               class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                        <select name="kelas" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                            <option value="">-- Pilih Kelas --</option>
+                            <?php $__currentLoopData = $kelasList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($k->nama_kelas); ?>"><?php echo e($k->nama_kelas); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Jam Mulai</label>
@@ -181,8 +189,12 @@
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Kelas</label>
-                        <input type="text" name="kelas" id="edit_kelas" required
-                               class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                        <select name="kelas" id="edit_kelas" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                            <option value="">-- Pilih Kelas --</option>
+                            <?php $__currentLoopData = $kelasList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($k->nama_kelas); ?>"><?php echo e($k->nama_kelas); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Jam Mulai</label>

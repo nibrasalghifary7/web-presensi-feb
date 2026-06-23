@@ -11,26 +11,26 @@
 <div class="space-y-6">
 
     {{-- Info Mata Kuliah --}}
-    <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+    <div class="bg-white glass rounded-xl p-5 shadow-sm border border-gray-100 dark:border-white/5">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-                <h3 class="text-lg font-bold text-gray-800">{{ $jadwal->mataKuliah->nama_mk }}</h3>
-                <p class="text-sm text-gray-500">{{ $jadwal->kelas }} &middot; {{ $jadwal->jam_formatted }}</p>
+                <h3 class="text-lg font-bold text-gray-800 dark:text-white">{{ $jadwal->mataKuliah->nama_mk }}</h3>
+                <p class="text-sm text-gray-500 dark:text-slate-400">{{ $jadwal->kelas }} &middot; {{ $jadwal->jam_formatted }}</p>
             </div>
             <a href="{{ route('dosen.laporan', $jadwal->id_jadwal) }}"
-               class="px-4 py-2 bg-uin-green text-white rounded-lg text-sm font-medium hover:bg-uin-green-dark transition-colors">
+               class="px-4 py-2 bg-uin-green dark:bg-aurora-glow text-white rounded-lg text-sm font-medium hover:bg-uin-green-dark dark:hover:bg-aurora-glow-secondary transition-colors">
                 <i class="fas fa-print mr-1"></i> Cetak Laporan
             </a>
         </div>
     </div>
 
     {{-- Tabel Rekap --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white glass rounded-xl shadow-sm border border-gray-100 dark:border-white/5 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full">
-                <thead class="bg-gray-50">
+                <thead class="bg-gray-50 dark:bg-white/5">
                     <tr>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">No</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">No</th>
                         <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">NIM</th>
                         <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Nama</th>
                         <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Hadir</th>

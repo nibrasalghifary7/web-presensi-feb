@@ -1,3 +1,6 @@
+
+
+
 <?php $__env->startSection('title', __('app.admin.kelas_title')); ?>
 <?php $__env->startSection('page-title', __('app.admin.kelas_title')); ?>
 
@@ -48,7 +51,7 @@
                             <td class="px-5 py-3 text-sm font-medium text-gray-800"><?php echo e($k->nama_kelas); ?></td>
                             <td class="px-5 py-3 text-sm text-gray-600"><?php echo e($k->angkatan); ?></td>
                             <td class="px-5 py-3 text-sm text-gray-600"><?php echo e($k->prodi); ?></td>
-                            <td class="px-5 py-3 text-sm text-center text-gray-600"><?php echo e($k->jumlah_mahasiswa); ?></td>
+                            <td class="px-5 py-3 text-sm text-center text-gray-600"><?php echo e($k->mahasiswas_count); ?></td>
                             <td class="px-5 py-3">
                                 <div class="flex gap-2">
                                     <button onclick="editKelas(<?php echo e($k->id_kelas); ?>, '<?php echo e($k->nama_kelas); ?>', '<?php echo e($k->angkatan); ?>')"

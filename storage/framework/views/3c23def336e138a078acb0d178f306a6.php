@@ -73,19 +73,42 @@
                                     <?php endif; ?>
                                 </td>
                                 <td class="px-5 py-3">
-                                    <form action="<?php echo e(route('dosen.validasi.proses', $absen->id_absensi)); ?>" method="POST" class="flex gap-2">
-                                        <?php echo csrf_field(); ?>
-                                        <select name="status" class="text-xs border rounded-lg px-2 py-1">
-                                            <option value="Hadir" <?php echo e($absen->status == 'Hadir' ? 'selected' : ''); ?>>Hadir</option>
-                                            <option value="Izin" <?php echo e($absen->status == 'Izin' ? 'selected' : ''); ?>>Izin</option>
-                                            <option value="Sakit" <?php echo e($absen->status == 'Sakit' ? 'selected' : ''); ?>>Sakit</option>
-                                            <option value="Alpha" <?php echo e($absen->status == 'Alpha' ? 'selected' : ''); ?>>Alpha</option>
-                                        </select>
-                                        <input type="hidden" name="validasi" value="divalidasi">
-                                        <button type="submit" class="px-3 py-1 bg-uin-green text-white rounded-lg text-xs font-medium hover:bg-uin-green-dark">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                    </form>
+                                    <?php if($absen->status === 'Menunggu'): ?>
+                                        <div class="flex gap-1.5">
+                                            
+                                            <form action="<?php echo e(route('dosen.validasi.proses', $absen->id_absensi)); ?>" method="POST">
+                                                <?php echo csrf_field(); ?>
+                                                <input type="hidden" name="status" value="Hadir">
+                                                <input type="hidden" name="validasi" value="divalidasi">
+                                                <button type="submit" class="px-3 py-1.5 bg-emerald-500 text-white rounded-lg text-xs font-medium hover:bg-emerald-600" title="Setujui Hadir">
+                                                    <i class="fas fa-check mr-1"></i> Hadir
+                                                </button>
+                                            </form>
+                                            
+                                            <form action="<?php echo e(route('dosen.validasi.proses', $absen->id_absensi)); ?>" method="POST">
+                                                <?php echo csrf_field(); ?>
+                                                <input type="hidden" name="status" value="Alpha">
+                                                <input type="hidden" name="validasi" value="ditolak">
+                                                <button type="submit" class="px-3 py-1.5 bg-red-500 text-white rounded-lg text-xs font-medium hover:bg-red-600" title="Tolak (Alpha)">
+                                                    <i class="fas fa-times mr-1"></i> Tolak
+                                                </button>
+                                            </form>
+                                        </div>
+                                    <?php else: ?>
+                                        <form action="<?php echo e(route('dosen.validasi.proses', $absen->id_absensi)); ?>" method="POST" class="flex gap-2">
+                                            <?php echo csrf_field(); ?>
+                                            <select name="status" class="text-xs border rounded-lg px-2 py-1">
+                                                <option value="Hadir" <?php echo e($absen->status == 'Hadir' ? 'selected' : ''); ?>>Hadir</option>
+                                                <option value="Izin" <?php echo e($absen->status == 'Izin' ? 'selected' : ''); ?>>Izin</option>
+                                                <option value="Sakit" <?php echo e($absen->status == 'Sakit' ? 'selected' : ''); ?>>Sakit</option>
+                                                <option value="Alpha" <?php echo e($absen->status == 'Alpha' ? 'selected' : ''); ?>>Alpha</option>
+                                            </select>
+                                            <input type="hidden" name="validasi" value="divalidasi">
+                                            <button type="submit" class="px-3 py-1 bg-uin-green text-white rounded-lg text-xs font-medium hover:bg-uin-green-dark">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        </form>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

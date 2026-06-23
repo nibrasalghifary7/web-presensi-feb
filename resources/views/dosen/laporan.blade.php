@@ -9,11 +9,11 @@
 
 @section('content')
 <div class="space-y-6">
-    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+    <div class="bg-white glass rounded-xl p-6 shadow-sm border border-gray-100 dark:border-white/5">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
             <div>
-                <h2 class="text-xl font-bold text-gray-800">Laporan Kehadiran</h2>
-                <p class="text-sm text-gray-500">{{ $jadwal->mataKuliah->nama_mk }} - {{ $jadwal->kelas }}</p>
+                <h2 class="text-xl font-bold text-gray-800 dark:text-white">Laporan Kehadiran</h2>
+                <p class="text-sm text-gray-500 dark:text-slate-400">{{ $jadwal->mataKuliah->nama_mk }} - {{ $jadwal->kelas }}</p>
             </div>
             <div class="flex gap-2">
                 <a href="{{ route('dosen.laporan.pdf', $jadwal->id_jadwal) }}"
@@ -24,20 +24,20 @@
                    class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-colors">
                     <i class="fas fa-file-excel mr-1"></i> Excel
                 </a>
-                <button onclick="window.print()" class="px-4 py-2 bg-uin-green text-white rounded-lg text-sm font-medium hover:bg-uin-green-dark transition-colors">
+                <button onclick="window.print()" class="px-4 py-2 bg-uin-green dark:bg-aurora-glow text-white rounded-lg text-sm font-medium hover:bg-uin-green-dark dark:hover:bg-aurora-glow-secondary transition-colors">
                     <i class="fas fa-print mr-1"></i> Cetak
                 </button>
             </div>
         </div>
 
         {{-- Header Laporan --}}
-        <div class="text-center mb-6 pb-4 border-b border-gray-200">
-            <p class="font-bold text-gray-800">FAKULTAS EKONOMI DAN BISNIS</p>
-            <p class="font-bold text-gray-800">UIN SYARIF HIDAYATULLAH JAKARTA</p>
-            <p class="text-sm text-gray-500 mt-2">LAPORAN KEHADIRAN MAHASISWA</p>
-            <p class="text-sm text-gray-500">{{ $jadwal->mataKuliah->nama_mk }} ({{ $jadwal->mataKuliah->sks }} SKS)</p>
-            <p class="text-sm text-gray-500">Dosen: {{ $jadwal->dosen->nama }}</p>
-            <p class="text-sm text-gray-500">Kelas: {{ $jadwal->kelas }} &middot; Semester: {{ $jadwal->semester_aktif }}</p>
+        <div class="text-center mb-6 pb-4 border-b border-gray-200 dark:border-white/10">
+            <p class="font-bold text-gray-800 dark:text-white">FAKULTAS EKONOMI DAN BISNIS</p>
+            <p class="font-bold text-gray-800 dark:text-white">UIN SYARIF HIDAYATULLAH JAKARTA</p>
+            <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">LAPORAN KEHADIRAN MAHASISWA</p>
+            <p class="text-sm text-gray-500 dark:text-slate-400">{{ $jadwal->mataKuliah->nama_mk }} ({{ $jadwal->mataKuliah->sks }} SKS)</p>
+            <p class="text-sm text-gray-500 dark:text-slate-400">Dosen: {{ $jadwal->dosen->nama }}</p>
+            <p class="text-sm text-gray-500 dark:text-slate-400">Kelas: {{ $jadwal->kelas }} &middot; Semester: {{ $jadwal->semester_aktif }}</p>
         </div>
 
         {{-- Tabel --}}
@@ -86,10 +86,10 @@
         {{-- Tanda Tangan --}}
         <div class="mt-12 flex justify-end">
             <div class="text-center">
-                <p class="text-sm text-gray-600">Tangerang Selatan, {{ now()->translatedFormat('d F Y') }}</p>
-                <p class="text-sm text-gray-600 mt-1">Dosen Pengampu,</p>
+                <p class="text-sm text-gray-600 dark:text-slate-300">Tangerang Selatan, {{ now()->translatedFormat('d F Y') }}</p>
+                <p class="text-sm text-gray-600 dark:text-slate-300 mt-1">Dosen Pengampu,</p>
                 <div class="h-16"></div>
-                <p class="text-sm font-semibold text-gray-800">{{ $jadwal->dosen->nama }}</p>
+                <p class="text-sm font-semibold text-gray-800 dark:text-white">{{ $jadwal->dosen->nama }}</p>
                 <p class="text-xs text-gray-500">NIDN: {{ $jadwal->dosen->nidn }}</p>
             </div>
         </div>
