@@ -1,5 +1,5 @@
-<?php $__env->startSection('title', 'Pengajuan Izin Mahasiswa'); ?>
-<?php $__env->startSection('page-title', 'Pengajuan Izin Mahasiswa'); ?>
+<?php $__env->startSection('title', __('app.dosen.pengajuan_title')); ?>
+<?php $__env->startSection('page-title', __('app.dosen.pengajuan_title')); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="space-y-6">

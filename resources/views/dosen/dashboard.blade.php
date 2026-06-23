@@ -4,17 +4,17 @@
 --}}
 @extends('layouts.app')
 
-@section('title', 'Dashboard Dosen')
-@section('page-title', 'Dashboard Dosen')
+@section('title', __('app.dosen.dashboard'))
+@section('page-title', __('app.dosen.dashboard'))
 
 @section('content')
 <div class="space-y-6">
 
     {{-- Salam --}}
     <div class="bg-gradient-to-r from-uin-green to-uin-green-light rounded-2xl p-6 text-white">
-        <h2 class="text-2xl font-bold">Selamat Datang, {{ $dosen->nama }}</h2>
+        <h2 class="text-2xl font-bold">{{ __('app.dosen.welcome') }}, {{ $dosen->nama }}</h2>
         <p class="text-white/80 text-sm mt-1">
-            <i class="fas fa-id-badge mr-1"></i> NIDN: {{ $dosen->nidn }} &middot; {{ $dosen->bidang_keahlian }}
+            <i class="fas fa-id-badge mr-1"></i> {{ __('app.table.nidn') }}: {{ $dosen->nidn }} &middot; {{ $dosen->bidang_keahlian }}
         </p>
     </div>
 
@@ -27,7 +27,7 @@
                 </div>
                 <div>
                     <p class="text-2xl font-bold text-gray-800">{{ $jadwalHariIni->count() }}</p>
-                    <p class="text-xs text-gray-500">Jadwal Hari Ini</p>
+                    <p class="text-xs text-gray-500">{{ __('app.dosen.jadwal_hari_ini') }}</p>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
                 </div>
                 <div>
                     <p class="text-2xl font-bold text-amber-600">{{ $totalValidasiPending }}</p>
-                    <p class="text-xs text-gray-500">Menunggu Validasi</p>
+                    <p class="text-xs text-gray-500">{{ __('app.dosen.validasi_pending') }}</p>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
     {{-- Jadwal Mengajar Hari Ini --}}
     <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
         <h3 class="text-lg font-bold text-gray-800 mb-4">
-            <i class="fas fa-calendar-days text-uin-green mr-2"></i>Jadwal Mengajar Hari Ini
+            <i class="fas fa-calendar-days text-uin-green mr-2"></i>{{ __('app.dosen.jadwal_hari_ini') }}
         </h3>
 
         @if($jadwalHariIni->isEmpty())

@@ -1,8 +1,8 @@
 
 
 
-<?php $__env->startSection('title', 'Edit Mahasiswa'); ?>
-<?php $__env->startSection('page-title', 'Edit Mahasiswa'); ?>
+<?php $__env->startSection('title', __('app.admin.mahasiswa_edit')); ?>
+<?php $__env->startSection('page-title', __('app.admin.mahasiswa_edit')); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="max-w-2xl">

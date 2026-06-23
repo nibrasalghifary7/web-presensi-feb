@@ -1,5 +1,5 @@
-<?php $__env->startSection('title', 'Kelola Absensi'); ?>
-<?php $__env->startSection('page-title', 'Data Absensi'); ?>
+<?php $__env->startSection('title', __('app.admin.absensi_title')); ?>
+<?php $__env->startSection('page-title', __('app.admin.absensi_title')); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="space-y-6">

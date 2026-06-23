@@ -14,6 +14,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 
 // ========================================
@@ -26,6 +27,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
+/**
+ * Switch bahasa aplikasi.
+ */
+Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
 
 /**
  * Autentikasi - Login & Registrasi.

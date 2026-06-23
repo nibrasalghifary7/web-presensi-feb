@@ -5,8 +5,8 @@
 --}}
 @extends('layouts.app')
 
-@section('title', 'Kelola Pengajuan Izin')
-@section('page-title', 'Pengajuan Izin / Sakit')
+@section('title', __('app.admin.pengajuan_title'))
+@section('page-title', __('app.admin.pengajuan_title'))
 
 @section('content')
 <div class="space-y-6">

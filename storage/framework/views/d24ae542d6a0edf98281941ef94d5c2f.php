@@ -1,8 +1,8 @@
 
 
 
-<?php $__env->startSection('title', 'Dashboard Mahasiswa'); ?>
-<?php $__env->startSection('page-title', 'Dashboard'); ?>
+<?php $__env->startSection('title', __('app.mahasiswa.dashboard')); ?>
+<?php $__env->startSection('page-title', __('app.mahasiswa.dashboard')); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="space-y-6">
@@ -11,9 +11,9 @@
     <div class="bg-gradient-to-r from-uin-green to-uin-green-light rounded-2xl p-6 text-white">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-                <h2 class="text-2xl font-bold">Halo, <?php echo e($mahasiswa->nama); ?>! 👋</h2>
+                <h2 class="text-2xl font-bold"><?php echo e(__('app.dosen.welcome')); ?>, <?php echo e($mahasiswa->nama); ?>! 👋</h2>
                 <p class="text-white/80 text-sm mt-1">
-                    <i class="fas fa-id-card mr-1"></i> <?php echo e($mahasiswa->nim); ?> &middot; <?php echo e($mahasiswa->kelas); ?> &middot; Angkatan <?php echo e($mahasiswa->angkatan); ?>
+                    <i class="fas fa-id-card mr-1"></i> <?php echo e($mahasiswa->nim); ?> &middot; <?php echo e($mahasiswa->kelas); ?> &middot; <?php echo e(__('app.table.angkatan')); ?> <?php echo e($mahasiswa->angkatan); ?>
 
                 </p>
             </div>
@@ -34,7 +34,7 @@
                 </div>
                 <div>
                     <p class="text-2xl font-bold text-gray-800"><?php echo e($totalPertemuan); ?></p>
-                    <p class="text-xs text-gray-500">Total Pertemuan</p>
+                    <p class="text-xs text-gray-500"><?php echo e(__('app.mahasiswa.total_pertemuan')); ?></p>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                 </div>
                 <div>
                     <p class="text-2xl font-bold text-emerald-600"><?php echo e($totalHadir); ?></p>
-                    <p class="text-xs text-gray-500">Hadir</p>
+                    <p class="text-xs text-gray-500"><?php echo e(__('app.mahasiswa.hadir')); ?></p>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
                 </div>
                 <div>
                     <p class="text-2xl font-bold text-amber-600"><?php echo e($totalIzinSakit); ?></p>
-                    <p class="text-xs text-gray-500">Izin / Sakit</p>
+                    <p class="text-xs text-gray-500"><?php echo e(__('app.mahasiswa.izin_sakit')); ?></p>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                 </div>
                 <div>
                     <p class="text-2xl font-bold text-red-600"><?php echo e($totalAlpha); ?></p>
-                    <p class="text-xs text-gray-500">Alpha</p>
+                    <p class="text-xs text-gray-500"><?php echo e(__('app.mahasiswa.alpha')); ?></p>
                 </div>
             </div>
         </div>
@@ -83,8 +83,8 @@
     <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-                <h3 class="text-lg font-bold text-gray-800">Persentase Kehadiran</h3>
-                <p class="text-sm text-gray-500 mt-1">Syarat mengikuti ujian: minimal 75% kehadiran</p>
+                <h3 class="text-lg font-bold text-gray-800"><?php echo e(__('app.mahasiswa.persentase')); ?></h3>
+                <p class="text-sm text-gray-500 mt-1"><?php echo e(__('app.mahasiswa.persentase_desc')); ?></p>
             </div>
             <div class="flex items-center gap-4">
                 
@@ -105,11 +105,13 @@
                 <div>
                     <?php if($persentase >= 75): ?>
                         <span class="inline-flex items-center gap-1 px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium">
-                            <i class="fas fa-check-circle"></i> Memenuhi Syarat
+                            <i class="fas fa-check-circle"></i> <?php echo e(__('app.mahasiswa.memenuhi_syarat')); ?>
+
                         </span>
                     <?php else: ?>
                         <span class="inline-flex items-center gap-1 px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
-                            <i class="fas fa-exclamation-triangle"></i> Belum Memenuhi
+                            <i class="fas fa-exclamation-triangle"></i> <?php echo e(__('app.mahasiswa.belum_memenuhi')); ?>
+
                         </span>
                     <?php endif; ?>
                 </div>
@@ -120,13 +122,14 @@
     
     <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
         <h3 class="text-lg font-bold text-gray-800 mb-4">
-            <i class="fas fa-calendar-day text-uin-green mr-2"></i>Jadwal Hari Ini
+            <i class="fas fa-calendar-day text-uin-green mr-2"></i><?php echo e(__('app.mahasiswa.jadwal_hari_ini')); ?>
+
         </h3>
 
         <?php if($jadwalHariIni->isEmpty()): ?>
             <div class="text-center py-8 text-gray-400">
                 <i class="fas fa-calendar-xmark text-4xl mb-3"></i>
-                <p>Tidak ada jadwal kuliah hari ini</p>
+                <p><?php echo e(__('app.mahasiswa.no_jadwal')); ?></p>
             </div>
         <?php else: ?>
             <div class="space-y-3">
@@ -148,7 +151,8 @@
                         </div>
                         <a href="<?php echo e(route('mahasiswa.absensi')); ?>"
                            class="px-4 py-2 bg-uin-green text-white rounded-lg text-sm font-medium hover:bg-uin-green-dark transition-colors">
-                            <i class="fas fa-check mr-1"></i> Absen
+                            <i class="fas fa-check mr-1"></i> <?php echo e(__('app.mahasiswa.absen')); ?>
+
                         </a>
                     </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

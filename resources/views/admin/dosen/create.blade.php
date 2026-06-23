@@ -3,8 +3,8 @@
 --}}
 @extends('layouts.app')
 
-@section('title', 'Tambah Dosen')
-@section('page-title', 'Tambah Dosen')
+@section('title', __('app.admin.dosen_add'))
+@section('page-title', __('app.admin.dosen_add'))
 
 @section('content')
 <div class="max-w-2xl">

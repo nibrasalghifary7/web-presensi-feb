@@ -1,5 +1,5 @@
-<?php $__env->startSection('title', 'Kelola Pengajuan Izin'); ?>
-<?php $__env->startSection('page-title', 'Pengajuan Izin / Sakit'); ?>
+<?php $__env->startSection('title', __('app.admin.pengajuan_title')); ?>
+<?php $__env->startSection('page-title', __('app.admin.pengajuan_title')); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="space-y-6">

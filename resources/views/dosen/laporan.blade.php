@@ -4,8 +4,8 @@
 --}}
 @extends('layouts.app')
 
-@section('title', 'Laporan Kehadiran')
-@section('page-title', 'Laporan Kehadiran')
+@section('title', __('app.dosen.laporan_title'))
+@section('page-title', __('app.dosen.laporan_title'))
 
 @section('content')
 <div class="space-y-6">

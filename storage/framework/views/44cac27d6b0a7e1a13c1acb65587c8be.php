@@ -1,17 +1,17 @@
 
 
 
-<?php $__env->startSection('title', 'Dashboard Dosen'); ?>
-<?php $__env->startSection('page-title', 'Dashboard Dosen'); ?>
+<?php $__env->startSection('title', __('app.dosen.dashboard')); ?>
+<?php $__env->startSection('page-title', __('app.dosen.dashboard')); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="space-y-6">
 
     
     <div class="bg-gradient-to-r from-uin-green to-uin-green-light rounded-2xl p-6 text-white">
-        <h2 class="text-2xl font-bold">Selamat Datang, <?php echo e($dosen->nama); ?></h2>
+        <h2 class="text-2xl font-bold"><?php echo e(__('app.dosen.welcome')); ?>, <?php echo e($dosen->nama); ?></h2>
         <p class="text-white/80 text-sm mt-1">
-            <i class="fas fa-id-badge mr-1"></i> NIDN: <?php echo e($dosen->nidn); ?> &middot; <?php echo e($dosen->bidang_keahlian); ?>
+            <i class="fas fa-id-badge mr-1"></i> <?php echo e(__('app.table.nidn')); ?>: <?php echo e($dosen->nidn); ?> &middot; <?php echo e($dosen->bidang_keahlian); ?>
 
         </p>
     </div>
@@ -25,7 +25,7 @@
                 </div>
                 <div>
                     <p class="text-2xl font-bold text-gray-800"><?php echo e($jadwalHariIni->count()); ?></p>
-                    <p class="text-xs text-gray-500">Jadwal Hari Ini</p>
+                    <p class="text-xs text-gray-500"><?php echo e(__('app.dosen.jadwal_hari_ini')); ?></p>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                 </div>
                 <div>
                     <p class="text-2xl font-bold text-amber-600"><?php echo e($totalValidasiPending); ?></p>
-                    <p class="text-xs text-gray-500">Menunggu Validasi</p>
+                    <p class="text-xs text-gray-500"><?php echo e(__('app.dosen.validasi_pending')); ?></p>
                 </div>
             </div>
         </div>
@@ -45,7 +45,8 @@
     
     <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
         <h3 class="text-lg font-bold text-gray-800 mb-4">
-            <i class="fas fa-calendar-days text-uin-green mr-2"></i>Jadwal Mengajar Hari Ini
+            <i class="fas fa-calendar-days text-uin-green mr-2"></i><?php echo e(__('app.dosen.jadwal_hari_ini')); ?>
+
         </h3>
 
         <?php if($jadwalHariIni->isEmpty()): ?>

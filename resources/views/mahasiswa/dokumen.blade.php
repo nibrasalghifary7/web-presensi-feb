@@ -4,8 +4,8 @@
 --}}
 @extends('layouts.app')
 
-@section('title', 'Pengajuan Izin')
-@section('page-title', 'Pengajuan Izin / Sakit')
+@section('title', __('app.mahasiswa.dokumen_title'))
+@section('page-title', __('app.mahasiswa.dokumen_title'))
 
 @section('content')
 <div class="space-y-6">
@@ -14,7 +14,7 @@
         {{-- Form Pengajuan --}}
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
             <h3 class="text-lg font-bold text-gray-800 mb-5">
-                <i class="fas fa-file-medical text-uin-green mr-2"></i>Form Pengajuan Izin / Sakit
+                <i class="fas fa-file-medical text-uin-green mr-2"></i>{{ __('app.mahasiswa.form_pengajuan') }}
             </h3>
 
             <form method="POST" action="{{ route('mahasiswa.dokumen.submit') }}" enctype="multipart/form-data" class="space-y-4">

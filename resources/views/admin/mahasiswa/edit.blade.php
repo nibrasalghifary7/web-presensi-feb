@@ -3,8 +3,8 @@
 --}}
 @extends('layouts.app')
 
-@section('title', 'Edit Mahasiswa')
-@section('page-title', 'Edit Mahasiswa')
+@section('title', __('app.admin.mahasiswa_edit'))
+@section('page-title', __('app.admin.mahasiswa_edit'))
 
 @section('content')
 <div class="max-w-2xl">

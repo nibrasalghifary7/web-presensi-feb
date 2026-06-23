@@ -1,5 +1,5 @@
-<?php $__env->startSection('title', 'Kelola Kelas'); ?>
-<?php $__env->startSection('page-title', 'Data Kelas'); ?>
+<?php $__env->startSection('title', __('app.admin.kelas_title')); ?>
+<?php $__env->startSection('page-title', __('app.admin.kelas_title')); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="space-y-6">

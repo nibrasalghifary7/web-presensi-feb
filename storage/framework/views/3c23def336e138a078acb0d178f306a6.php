@@ -1,8 +1,8 @@
 
 
 
-<?php $__env->startSection('title', 'Validasi Absensi'); ?>
-<?php $__env->startSection('page-title', 'Validasi Absensi'); ?>
+<?php $__env->startSection('title', __('app.dosen.validasi_title')); ?>
+<?php $__env->startSection('page-title', __('app.dosen.validasi_title')); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="space-y-6">

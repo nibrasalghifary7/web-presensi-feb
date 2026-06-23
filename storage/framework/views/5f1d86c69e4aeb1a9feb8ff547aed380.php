@@ -1,5 +1,5 @@
-<?php $__env->startSection('title', 'Import Mahasiswa'); ?>
-<?php $__env->startSection('page-title', 'Import Mahasiswa'); ?>
+<?php $__env->startSection('title', __('app.admin.mahasiswa_import')); ?>
+<?php $__env->startSection('page-title', __('app.admin.mahasiswa_import')); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="space-y-6 max-w-2xl">

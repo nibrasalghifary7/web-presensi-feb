@@ -58,15 +58,14 @@
             <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-2xl shadow-lg mb-3">
                 <i class="fas fa-user-plus text-uin-green text-2xl"></i>
             </div>
-            <h1 class="text-2xl font-bold text-white mb-1">Daftar Akun Mahasiswa</h1>
-            <p class="text-white/70 text-sm">M-Presence FEB &middot; UIN Syarif Hidayatullah Jakarta</p>
+            <h1 class="text-2xl font-bold text-white mb-1">{{ __('app.auth.register_title') }}</h1>
+            <p class="text-white/70 text-sm">{{ __('app.app_name') }} &middot; {{ __('app.university') }}</p>
         </div>
 
         {{-- Form Registrasi --}}
         <div class="bg-white rounded-2xl shadow-2xl p-6 sm:p-8">
             <div class="text-center mb-5">
-                <h2 class="text-lg font-bold text-gray-800">Buat Akun Baru</h2>
-                <p class="text-xs text-gray-500 mt-1">Lengkapi data diri Anda untuk mendaftar</p>
+                <h2 class="text-lg font-bold text-gray-800">{{ __('app.auth.register_subtitle') }}</h2>
             </div>
 
             {{-- Alert Error --}}
@@ -89,10 +88,10 @@
                 {{-- Input NIM --}}
                 <div>
                     <label for="nim" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-id-card text-uin-green mr-1"></i> NIM
+                        <i class="fas fa-id-card text-uin-green mr-1"></i> {{ __('app.auth.nim') }}
                     </label>
                     <input type="text" id="nim" name="nim" value="{{ old('nim') }}"
-                           placeholder="Contoh: 12408011010024"
+                           placeholder="12408011010024"
                            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
                                   focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
                                   outline-none transition-all text-sm"
@@ -102,10 +101,9 @@
                 {{-- Input Nama Lengkap --}}
                 <div>
                     <label for="nama" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-user text-uin-green mr-1"></i> Nama Lengkap
+                        <i class="fas fa-user text-uin-green mr-1"></i> {{ __('app.auth.nama') }}
                     </label>
                     <input type="text" id="nama" name="nama" value="{{ old('nama') }}"
-                           placeholder="Masukkan nama lengkap"
                            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
                                   focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
                                   outline-none transition-all text-sm"
@@ -115,7 +113,7 @@
                 {{-- Input Email --}}
                 <div>
                     <label for="email" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-envelope text-uin-green mr-1"></i> Email
+                        <i class="fas fa-envelope text-uin-green mr-1"></i> {{ __('app.auth.email') }}
                     </label>
                     <input type="email" id="email" name="email" value="{{ old('email') }}"
                            placeholder="contoh@email.com"
@@ -128,7 +126,7 @@
                 {{-- Input No. HP --}}
                 <div>
                     <label for="phone" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-phone text-uin-green mr-1"></i> Nomor HP
+                        <i class="fas fa-phone text-uin-green mr-1"></i> {{ __('app.auth.phone') }}
                     </label>
                     <input type="tel" id="phone" name="phone" value="{{ old('phone') }}"
                            placeholder="08xxxxxxxxxx"
@@ -141,14 +139,14 @@
                 {{-- Input Kelas --}}
                 <div>
                     <label for="kelas" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-users text-uin-green mr-1"></i> Kelas
+                        <i class="fas fa-users text-uin-green mr-1"></i> {{ __('app.auth.kelas') }}
                     </label>
                     <select id="kelas" name="kelas"
                             class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
                                    focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
                                    outline-none transition-all text-sm appearance-none"
                             required>
-                        <option value="">-- Pilih Kelas --</option>
+                        <option value="">{{ __('app.placeholder.select_kelas') }}</option>
                         <option value="Manajemen A" {{ old('kelas') == 'Manajemen A' ? 'selected' : '' }}>Manajemen A</option>
                         <option value="Manajemen B" {{ old('kelas') == 'Manajemen B' ? 'selected' : '' }}>Manajemen B</option>
                         <option value="Manajemen C" {{ old('kelas') == 'Manajemen C' ? 'selected' : '' }}>Manajemen C</option>
@@ -160,14 +158,14 @@
                 {{-- Input Angkatan --}}
                 <div>
                     <label for="angkatan" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-calendar text-uin-green mr-1"></i> Angkatan
+                        <i class="fas fa-calendar text-uin-green mr-1"></i> {{ __('app.auth.angkatan') }}
                     </label>
                     <select id="angkatan" name="angkatan"
                             class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
                                    focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
                                    outline-none transition-all text-sm appearance-none"
                             required>
-                        <option value="">-- Pilih Angkatan --</option>
+                        <option value="">{{ __('app.placeholder.select_angkatan') }}</option>
                         @for($y = date('Y'); $y >= 2020; $y--)
                             <option value="{{ $y }}" {{ old('angkatan') == $y ? 'selected' : '' }}>{{ $y }}</option>
                         @endfor
@@ -177,11 +175,10 @@
                 {{-- Input Password --}}
                 <div>
                     <label for="password" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-lock text-uin-green mr-1"></i> Password
+                        <i class="fas fa-lock text-uin-green mr-1"></i> {{ __('app.auth.password') }}
                     </label>
                     <div class="relative">
                         <input type="password" id="password" name="password"
-                               placeholder="Minimal 6 karakter"
                                class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
                                       focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
                                       outline-none transition-all text-sm pr-12"
@@ -196,11 +193,10 @@
                 {{-- Input Konfirmasi Password --}}
                 <div>
                     <label for="password_confirmation" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-lock text-uin-green mr-1"></i> Konfirmasi Password
+                        <i class="fas fa-lock text-uin-green mr-1"></i> {{ __('app.auth.password_confirm') }}
                     </label>
                     <div class="relative">
                         <input type="password" id="password_confirmation" name="password_confirmation"
-                               placeholder="Ulangi password"
                                class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
                                       focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
                                       outline-none transition-all text-sm pr-12"
@@ -218,16 +214,16 @@
                                rounded-xl shadow-lg hover:shadow-xl transition-all duration-300
                                flex items-center justify-center gap-2 mt-2">
                     <i class="fas fa-user-plus"></i>
-                    <span>Daftar Sekarang</span>
+                    <span>{{ __('app.register') }}</span>
                 </button>
             </form>
 
             {{-- Link ke Login --}}
             <div class="mt-5 text-center">
                 <p class="text-sm text-gray-500">
-                    Sudah punya akun?
+                    {{ __('app.auth.has_account') }}
                     <a href="{{ route('login') }}" class="text-uin-green font-semibold hover:underline">
-                        Masuk di sini
+                        {{ __('app.auth.login_here') }}
                     </a>
                 </p>
             </div>
@@ -235,7 +231,7 @@
 
         {{-- Footer --}}
         <p class="text-center text-white/50 text-xs mt-5">
-            &copy; {{ date('Y') }} M-Presence FEB &middot; UIN Syarif Hidayatullah Jakarta
+            &copy; {{ date('Y') }} {{ __('app.app_name') }} &middot; {{ __('app.university') }}
         </p>
     </div>
 

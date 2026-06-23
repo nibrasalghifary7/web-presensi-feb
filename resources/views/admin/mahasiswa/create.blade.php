@@ -3,14 +3,14 @@
 --}}
 @extends('layouts.app')
 
-@section('title', 'Tambah Mahasiswa')
-@section('page-title', 'Tambah Mahasiswa')
+@section('title', __('app.admin.mahasiswa_add'))
+@section('page-title', __('app.admin.mahasiswa_add'))
 
 @section('content')
 <div class="max-w-2xl">
     <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
         <h3 class="text-lg font-bold text-gray-800 mb-5">
-            <i class="fas fa-user-plus text-uin-green mr-2"></i>Form Tambah Mahasiswa
+            <i class="fas fa-user-plus text-uin-green mr-2"></i>{{ __('app.admin.mahasiswa_add') }}
         </h3>
 
         <form method="POST" action="{{ route('admin.mahasiswa.store') }}" class="space-y-4">

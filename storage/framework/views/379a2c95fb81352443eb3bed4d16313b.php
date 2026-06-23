@@ -1,8 +1,8 @@
 
 
 
-<?php $__env->startSection('title', 'Tambah Dosen'); ?>
-<?php $__env->startSection('page-title', 'Tambah Dosen'); ?>
+<?php $__env->startSection('title', __('app.admin.dosen_add')); ?>
+<?php $__env->startSection('page-title', __('app.admin.dosen_add')); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="max-w-2xl">

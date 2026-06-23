@@ -1,5 +1,5 @@
-<?php $__env->startSection('title', 'Kelola Akun'); ?>
-<?php $__env->startSection('page-title', 'Kelola Akun Pengguna'); ?>
+<?php $__env->startSection('title', __('app.admin.users_title')); ?>
+<?php $__env->startSection('page-title', __('app.admin.users_title')); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="space-y-6">

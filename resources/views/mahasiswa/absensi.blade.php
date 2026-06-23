@@ -5,8 +5,8 @@
 --}}
 @extends('layouts.app')
 
-@section('title', 'Absensi')
-@section('page-title', 'Absensi Hari Ini')
+@section('title', __('app.mahasiswa.absensi_title'))
+@section('page-title', __('app.mahasiswa.absensi_title'))
 
 @section('content')
 <div class="space-y-6">
@@ -21,8 +21,7 @@
     @if($jadwalHariIni->isEmpty())
         <div class="bg-white rounded-xl p-12 shadow-sm border border-gray-100 text-center">
             <i class="fas fa-calendar-xmark text-5xl text-gray-300 mb-4"></i>
-            <h3 class="text-lg font-semibold text-gray-600">Tidak Ada Jadwal Hari Ini</h3>
-            <p class="text-sm text-gray-400 mt-1">Anda tidak memiliki mata kuliah yang dijadwalkan hari ini.</p>
+            <h3 class="text-lg font-semibold text-gray-600">{{ __('app.mahasiswa.no_jadwal') }}</h3>
         </div>
     @else
         @foreach($jadwalHariIni as $jadwal)
@@ -57,27 +56,23 @@
                     <div class="flex flex-col items-end gap-2">
                         @if($sudahAbsen)
                             <span class="inline-flex items-center gap-1 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-xl text-sm font-medium">
-                                <i class="fas fa-check-circle"></i> Sudah Absen
+                                <i class="fas fa-check-circle"></i> {{ __('app.mahasiswa.sudah_absen') }}
                             </span>
-                            <span class="text-xs text-gray-400">Status: {{ $absensiHariIni[$jadwal->id_jadwal] }}</span>
                         @elseif(isset($sesiAktif[$jadwal->id_jadwal]))
                             <form action="{{ route('mahasiswa.absensi.proses', $jadwal->id_jadwal) }}" method="POST">
                                 @csrf
                                 <button type="submit"
                                         class="px-6 py-2.5 bg-uin-green text-white rounded-xl font-semibold
                                                hover:bg-uin-green-dark shadow-md hover:shadow-lg transition-all">
-                                    <i class="fas fa-check mr-1"></i> Absen Sekarang
+                                    <i class="fas fa-check mr-1"></i> {{ __('app.mahasiswa.absen_sekarang') }}
                                 </button>
                             </form>
-                            <span class="text-xs text-emerald-600">
-                                <i class="fas fa-circle text-[8px] mr-1 animate-pulse"></i> Sesi aktif — Anda bisa absen
-                            </span>
                         @else
                             <span class="inline-flex items-center gap-1 px-4 py-2 bg-gray-100 text-gray-500 rounded-xl text-sm font-medium">
-                                <i class="fas fa-lock"></i> Sesi Belum Dibuka
+                                <i class="fas fa-lock"></i> {{ __('app.mahasiswa.sesi_belum_dibuka') }}
                             </span>
                             <span class="text-xs text-gray-400">
-                                <i class="fas fa-info-circle mr-1"></i> Menunggu dosen membuka sesi pertemuan
+                                <i class="fas fa-info-circle mr-1"></i> {{ __('app.mahasiswa.menunggu_sesi') }}
                             </span>
                         @endif
                     </div>

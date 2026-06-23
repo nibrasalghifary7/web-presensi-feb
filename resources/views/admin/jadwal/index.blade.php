@@ -3,8 +3,8 @@
 --}}
 @extends('layouts.app')
 
-@section('title', 'Kelola Jadwal')
-@section('page-title', 'Jadwal Kuliah')
+@section('title', __('app.admin.jadwal_title'))
+@section('page-title', __('app.admin.jadwal_title'))
 
 @section('content')
 <div class="space-y-6">

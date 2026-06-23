@@ -61,14 +61,14 @@
                 <div class="inline-flex items-center justify-center w-20 h-20 bg-white rounded-2xl shadow-lg mb-4">
                     <i class="fas fa-graduation-cap text-uin-green text-4xl"></i>
                 </div>
-                <h1 class="text-3xl font-bold text-white mb-1">M-Presence FEB</h1>
-                <p class="text-uin-green text-sm">Sistem Informasi Absensi Berbasis Web</p>
-                <p class="text-uin-green text-xs mt-1">Fakultas Ekonomi dan Bisnis</p>
-                <p class="text-uin-green text-xs">UIN Syarif Hidayatullah Jakarta</p>
+                <h1 class="text-3xl font-bold text-white mb-1">{{ __('app.app_name') }}</h1>
+                <p class="text-uin-green text-sm">{{ __('app.app_description') }}</p>
+                <p class="text-uin-green text-xs mt-1">{{ __('app.faculty') }}</p>
+                <p class="text-uin-green text-xs">{{ __('app.university') }}</p>
             </div>
             <div class="text-center mb-6">
-                <h2 class="text-xl font-bold text-gray-800">Masuk ke Akun</h2>
-                <p class="text-sm text-gray-500 mt-1">Gunakan NIM/NIP/Username dan password Anda</p>
+                <h2 class="text-xl font-bold text-gray-800">{{ __('app.auth.login_title') }}</h2>
+                <p class="text-sm text-gray-500 mt-1">{{ __('app.auth.login_subtitle') }}</p>
             </div>
 
             {{-- Alert Error --}}
@@ -97,10 +97,10 @@
                 {{-- Input NIM/NIP/Username --}}
                 <div>
                     <label for="username" class="block text-sm font-semibold text-gray-700 mb-1.5">
-                        <i class="fas fa-id-card text-uin-green mr-1"></i> NIM / NIP / Username
+                        <i class="fas fa-id-card text-uin-green mr-1"></i> {{ __('app.auth.username') }}
                     </label>
                     <input type="text" id="username" name="username" value="{{ old('username') }}"
-                           placeholder="Masukkan NIM, NIP, atau Username"
+                           placeholder="{{ __('app.auth.username_placeholder') }}"
                            class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50
                                   focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
                                   outline-none transition-all text-sm"
@@ -110,11 +110,11 @@
                 {{-- Input Password --}}
                 <div>
                     <label for="password" class="block text-sm font-semibold text-gray-700 mb-1.5">
-                        <i class="fas fa-lock text-uin-green mr-1"></i> Password
+                        <i class="fas fa-lock text-uin-green mr-1"></i> {{ __('app.auth.password') }}
                     </label>
                     <div class="relative">
                         <input type="password" id="password" name="password"
-                               placeholder="Masukkan password Anda"
+                               placeholder="{{ __('app.auth.password_placeholder') }}"
                                class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50
                                       focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
                                       outline-none transition-all text-sm pr-12"
@@ -132,7 +132,7 @@
                     <label class="flex items-center gap-2 cursor-pointer">
                         <input type="checkbox" name="remember"
                                class="w-4 h-4 rounded border-gray-300 text-uin-green focus:ring-uin-green/20">
-                        <span class="text-sm text-gray-600">Ingat saya</span>
+                        <span class="text-sm text-gray-600">{{ __('app.auth.remember_me') }}</span>
                     </label>
                 </div>
 
@@ -142,16 +142,16 @@
                                rounded-xl shadow-lg hover:shadow-xl transition-all duration-300
                                flex items-center justify-center gap-2">
                     <i class="fas fa-sign-in-alt"></i>
-                    <span>Masuk</span>
+                    <span>{{ __('app.login') }}</span>
                 </button>
             </form>
 
             {{-- Link Registrasi --}}
             <div class="mt-6 text-center">
                 <p class="text-sm text-gray-500">
-                    Belum punya akun?
+                    {{ __('app.auth.no_account') }}
                     <a href="{{ route('register') }}" class="text-uin-green font-semibold hover:underline">
-                        Daftar Sekarang
+                        {{ __('app.auth.register_now') }}
                     </a>
                 </p>
             </div>
@@ -159,7 +159,7 @@
 
         {{-- Footer --}}
         <p class="text-center text-white/50 text-xs mt-6">
-            &copy; {{ date('Y') }} M-Presence FEB &middot; UIN Syarif Hidayatullah Jakarta
+            &copy; {{ date('Y') }} {{ __('app.app_name') }} &middot; {{ __('app.university') }}
         </p>
     </div>
 

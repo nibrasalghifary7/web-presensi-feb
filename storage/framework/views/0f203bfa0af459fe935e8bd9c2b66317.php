@@ -70,25 +70,25 @@
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('mahasiswa.dashboard') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-home w-5 text-center"></i>
-                        <span class="text-sm font-medium">Dashboard</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.dashboard')); ?></span>
                     </a>
                     <a href="<?php echo e(route('mahasiswa.absensi')); ?>"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('mahasiswa.absensi') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-calendar-check w-5 text-center"></i>
-                        <span class="text-sm font-medium">Absensi</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.absensi')); ?></span>
                     </a>
                     <a href="<?php echo e(route('mahasiswa.riwayat')); ?>"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('mahasiswa.riwayat') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-clock-rotate-left w-5 text-center"></i>
-                        <span class="text-sm font-medium">Riwayat Kehadiran</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.riwayat')); ?></span>
                     </a>
                     <a href="<?php echo e(route('mahasiswa.dokumen')); ?>"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('mahasiswa.dokumen') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-file-pen w-5 text-center"></i>
-                        <span class="text-sm font-medium">Pengajuan Izin</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.dokumen')); ?></span>
                     </a>
 
                 <?php elseif(auth()->user()->isDosen()): ?>
@@ -97,13 +97,13 @@
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('dosen.dashboard') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-home w-5 text-center"></i>
-                        <span class="text-sm font-medium">Dashboard</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.dashboard')); ?></span>
                     </a>
                     <a href="<?php echo e(route('dosen.pengajuan.index')); ?>"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('dosen.pengajuan.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-file-medical w-5 text-center"></i>
-                        <span class="text-sm font-medium">Pengajuan Izin</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.pengajuan')); ?></span>
                     </a>
 
                 <?php elseif(auth()->user()->isAdmin()): ?>
@@ -112,61 +112,61 @@
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('admin.dashboard') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-chart-pie w-5 text-center"></i>
-                        <span class="text-sm font-medium">Dashboard</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.dashboard')); ?></span>
                     </a>
                     <a href="<?php echo e(route('admin.mahasiswa.index')); ?>"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('admin.mahasiswa.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-user-graduate w-5 text-center"></i>
-                        <span class="text-sm font-medium">Data Mahasiswa</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.mahasiswa')); ?></span>
                     </a>
                     <a href="<?php echo e(route('admin.dosen.index')); ?>"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('admin.dosen.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-chalkboard-teacher w-5 text-center"></i>
-                        <span class="text-sm font-medium">Data Dosen</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.dosen')); ?></span>
                     </a>
                     <a href="<?php echo e(route('admin.mata-kuliah.index')); ?>"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('admin.mata-kuliah.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-book w-5 text-center"></i>
-                        <span class="text-sm font-medium">Mata Kuliah</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.mata_kuliah')); ?></span>
                     </a>
                     <a href="<?php echo e(route('admin.jadwal.index')); ?>"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('admin.jadwal.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-calendar-alt w-5 text-center"></i>
-                        <span class="text-sm font-medium">Jadwal Kuliah</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.jadwal')); ?></span>
                     </a>
                     <a href="<?php echo e(route('admin.kelas.index')); ?>"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('admin.kelas.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-users w-5 text-center"></i>
-                        <span class="text-sm font-medium">Data Kelas</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.kelas')); ?></span>
                     </a>
                     <a href="<?php echo e(route('admin.absensi.index')); ?>"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('admin.absensi.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-clipboard-check w-5 text-center"></i>
-                        <span class="text-sm font-medium">Data Absensi</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.absensi')); ?></span>
                     </a>
                     <a href="<?php echo e(route('admin.pengajuan.index')); ?>"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('admin.pengajuan.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-file-circle-exclamation w-5 text-center"></i>
-                        <span class="text-sm font-medium">Pengajuan Izin</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.pengajuan')); ?></span>
                     </a>
                     <a href="<?php echo e(route('admin.users.index')); ?>"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('admin.users.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-user-gear w-5 text-center"></i>
-                        <span class="text-sm font-medium">Kelola Akun</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.users')); ?></span>
                     </a>
                     <a href="<?php echo e(route('admin.laporan.index')); ?>"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               <?php echo e(request()->routeIs('admin.laporan.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'); ?>">
                         <i class="fas fa-chart-bar w-5 text-center"></i>
-                        <span class="text-sm font-medium">Laporan</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.menu.laporan')); ?></span>
                     </a>
                 <?php endif; ?>
             </nav>
@@ -178,7 +178,7 @@
                     <button type="submit"
                             class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/80 hover:bg-red-500/20 hover:text-white transition-all">
                         <i class="fas fa-right-from-bracket w-5 text-center"></i>
-                        <span class="text-sm font-medium">Keluar</span>
+                        <span class="text-sm font-medium"><?php echo e(__('app.logout')); ?></span>
                     </button>
                 </form>
             </div>
@@ -200,6 +200,37 @@
 
                     
                     <div class="flex items-center gap-3">
+                        
+                        <div class="relative" x-data="{ langOpen: false }">
+                            <button @click="langOpen = !langOpen" class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-200 text-sm hover:bg-gray-50 transition-colors">
+                                <i class="fas fa-globe text-gray-500"></i>
+                                <span class="text-sm font-medium text-gray-700"><?php echo e(app()->getLocale() === 'id' ? 'ID' : 'EN'); ?></span>
+                                <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                            </button>
+                            <div x-show="langOpen" @click.away="langOpen = false" x-transition
+                                 class="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-lg border border-gray-100 z-50">
+                                <a href="<?php echo e(route('language.switch', 'id')); ?>"
+                                   class="flex items-center gap-3 px-4 py-2.5 text-sm rounded-t-xl transition-colors
+                                          <?php echo e(app()->getLocale() === 'id' ? 'bg-uin-green/10 text-uin-green font-semibold' : 'text-gray-700 hover:bg-gray-50'); ?>">
+                                    <span class="text-lg">🇮🇩</span>
+                                    <span>Indonesia</span>
+                                    <?php if(app()->getLocale() === 'id'): ?>
+                                        <i class="fas fa-check text-uin-green ml-auto"></i>
+                                    <?php endif; ?>
+                                </a>
+                                <a href="<?php echo e(route('language.switch', 'en')); ?>"
+                                   class="flex items-center gap-3 px-4 py-2.5 text-sm rounded-b-xl transition-colors
+                                          <?php echo e(app()->getLocale() === 'en' ? 'bg-uin-green/10 text-uin-green font-semibold' : 'text-gray-700 hover:bg-gray-50'); ?>">
+                                    <span class="text-lg">🇬🇧</span>
+                                    <span>English</span>
+                                    <?php if(app()->getLocale() === 'en'): ?>
+                                        <i class="fas fa-check text-uin-green ml-auto"></i>
+                                    <?php endif; ?>
+                                </a>
+                            </div>
+                        </div>
+
+                        
                         <div class="hidden sm:block text-right">
                             <p class="text-sm font-medium text-gray-700"><?php echo e(auth()->user()->name); ?></p>
                             <p class="text-xs text-gray-500 capitalize"><?php echo e(auth()->user()->role); ?></p>
@@ -248,7 +279,8 @@
             
             <footer class="px-6 py-4 text-center text-xs text-gray-400 border-t border-gray-100 flex-shrink-0">
                 <i class="fas fa-graduation-cap mr-1"></i>
-                M-Presence FEB &middot; Sistem Informasi Absensi &middot; Fakultas Ekonomi dan Bisnis UIN Syarif Hidayatullah Jakarta
+                <?php echo __('app.footer'); ?>
+
             </footer>
         </div>
     </div>

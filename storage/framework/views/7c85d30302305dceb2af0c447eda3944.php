@@ -1,8 +1,8 @@
 
 
 
-<?php $__env->startSection('title', 'Pengajuan Izin'); ?>
-<?php $__env->startSection('page-title', 'Pengajuan Izin / Sakit'); ?>
+<?php $__env->startSection('title', __('app.mahasiswa.dokumen_title')); ?>
+<?php $__env->startSection('page-title', __('app.mahasiswa.dokumen_title')); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="space-y-6">
@@ -11,7 +11,8 @@
         
         <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
             <h3 class="text-lg font-bold text-gray-800 mb-5">
-                <i class="fas fa-file-medical text-uin-green mr-2"></i>Form Pengajuan Izin / Sakit
+                <i class="fas fa-file-medical text-uin-green mr-2"></i><?php echo e(__('app.mahasiswa.form_pengajuan')); ?>
+
             </h3>
 
             <form method="POST" action="<?php echo e(route('mahasiswa.dokumen.submit')); ?>" enctype="multipart/form-data" class="space-y-4">

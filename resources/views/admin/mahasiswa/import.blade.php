@@ -4,8 +4,8 @@
 --}}
 @extends('layouts.app')
 
-@section('title', 'Import Mahasiswa')
-@section('page-title', 'Import Mahasiswa')
+@section('title', __('app.admin.mahasiswa_import'))
+@section('page-title', __('app.admin.mahasiswa_import'))
 
 @section('content')
 <div class="space-y-6 max-w-2xl">

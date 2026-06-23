@@ -50,15 +50,14 @@
             <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-2xl shadow-lg mb-3">
                 <i class="fas fa-user-plus text-uin-green text-2xl"></i>
             </div>
-            <h1 class="text-2xl font-bold text-white mb-1">Daftar Akun Mahasiswa</h1>
-            <p class="text-white/70 text-sm">M-Presence FEB &middot; UIN Syarif Hidayatullah Jakarta</p>
+            <h1 class="text-2xl font-bold text-white mb-1"><?php echo e(__('app.auth.register_title')); ?></h1>
+            <p class="text-white/70 text-sm"><?php echo e(__('app.app_name')); ?> &middot; <?php echo e(__('app.university')); ?></p>
         </div>
 
         
         <div class="bg-white rounded-2xl shadow-2xl p-6 sm:p-8">
             <div class="text-center mb-5">
-                <h2 class="text-lg font-bold text-gray-800">Buat Akun Baru</h2>
-                <p class="text-xs text-gray-500 mt-1">Lengkapi data diri Anda untuk mendaftar</p>
+                <h2 class="text-lg font-bold text-gray-800"><?php echo e(__('app.auth.register_subtitle')); ?></h2>
             </div>
 
             
@@ -81,10 +80,11 @@
                 
                 <div>
                     <label for="nim" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-id-card text-uin-green mr-1"></i> NIM
+                        <i class="fas fa-id-card text-uin-green mr-1"></i> <?php echo e(__('app.auth.nim')); ?>
+
                     </label>
                     <input type="text" id="nim" name="nim" value="<?php echo e(old('nim')); ?>"
-                           placeholder="Contoh: 12408011010024"
+                           placeholder="12408011010024"
                            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
                                   focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
                                   outline-none transition-all text-sm"
@@ -94,10 +94,10 @@
                 
                 <div>
                     <label for="nama" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-user text-uin-green mr-1"></i> Nama Lengkap
+                        <i class="fas fa-user text-uin-green mr-1"></i> <?php echo e(__('app.auth.nama')); ?>
+
                     </label>
                     <input type="text" id="nama" name="nama" value="<?php echo e(old('nama')); ?>"
-                           placeholder="Masukkan nama lengkap"
                            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
                                   focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
                                   outline-none transition-all text-sm"
@@ -107,7 +107,8 @@
                 
                 <div>
                     <label for="email" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-envelope text-uin-green mr-1"></i> Email
+                        <i class="fas fa-envelope text-uin-green mr-1"></i> <?php echo e(__('app.auth.email')); ?>
+
                     </label>
                     <input type="email" id="email" name="email" value="<?php echo e(old('email')); ?>"
                            placeholder="contoh@email.com"
@@ -120,7 +121,8 @@
                 
                 <div>
                     <label for="phone" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-phone text-uin-green mr-1"></i> Nomor HP
+                        <i class="fas fa-phone text-uin-green mr-1"></i> <?php echo e(__('app.auth.phone')); ?>
+
                     </label>
                     <input type="tel" id="phone" name="phone" value="<?php echo e(old('phone')); ?>"
                            placeholder="08xxxxxxxxxx"
@@ -133,14 +135,15 @@
                 
                 <div>
                     <label for="kelas" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-users text-uin-green mr-1"></i> Kelas
+                        <i class="fas fa-users text-uin-green mr-1"></i> <?php echo e(__('app.auth.kelas')); ?>
+
                     </label>
                     <select id="kelas" name="kelas"
                             class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
                                    focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
                                    outline-none transition-all text-sm appearance-none"
                             required>
-                        <option value="">-- Pilih Kelas --</option>
+                        <option value=""><?php echo e(__('app.placeholder.select_kelas')); ?></option>
                         <option value="Manajemen A" <?php echo e(old('kelas') == 'Manajemen A' ? 'selected' : ''); ?>>Manajemen A</option>
                         <option value="Manajemen B" <?php echo e(old('kelas') == 'Manajemen B' ? 'selected' : ''); ?>>Manajemen B</option>
                         <option value="Manajemen C" <?php echo e(old('kelas') == 'Manajemen C' ? 'selected' : ''); ?>>Manajemen C</option>
@@ -152,14 +155,15 @@
                 
                 <div>
                     <label for="angkatan" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-calendar text-uin-green mr-1"></i> Angkatan
+                        <i class="fas fa-calendar text-uin-green mr-1"></i> <?php echo e(__('app.auth.angkatan')); ?>
+
                     </label>
                     <select id="angkatan" name="angkatan"
                             class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
                                    focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
                                    outline-none transition-all text-sm appearance-none"
                             required>
-                        <option value="">-- Pilih Angkatan --</option>
+                        <option value=""><?php echo e(__('app.placeholder.select_angkatan')); ?></option>
                         <?php for($y = date('Y'); $y >= 2020; $y--): ?>
                             <option value="<?php echo e($y); ?>" <?php echo e(old('angkatan') == $y ? 'selected' : ''); ?>><?php echo e($y); ?></option>
                         <?php endfor; ?>
@@ -169,11 +173,11 @@
                 
                 <div>
                     <label for="password" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-lock text-uin-green mr-1"></i> Password
+                        <i class="fas fa-lock text-uin-green mr-1"></i> <?php echo e(__('app.auth.password')); ?>
+
                     </label>
                     <div class="relative">
                         <input type="password" id="password" name="password"
-                               placeholder="Minimal 6 karakter"
                                class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
                                       focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
                                       outline-none transition-all text-sm pr-12"
@@ -188,11 +192,11 @@
                 
                 <div>
                     <label for="password_confirmation" class="block text-sm font-semibold text-gray-700 mb-1">
-                        <i class="fas fa-lock text-uin-green mr-1"></i> Konfirmasi Password
+                        <i class="fas fa-lock text-uin-green mr-1"></i> <?php echo e(__('app.auth.password_confirm')); ?>
+
                     </label>
                     <div class="relative">
                         <input type="password" id="password_confirmation" name="password_confirmation"
-                               placeholder="Ulangi password"
                                class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
                                       focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
                                       outline-none transition-all text-sm pr-12"
@@ -210,16 +214,18 @@
                                rounded-xl shadow-lg hover:shadow-xl transition-all duration-300
                                flex items-center justify-center gap-2 mt-2">
                     <i class="fas fa-user-plus"></i>
-                    <span>Daftar Sekarang</span>
+                    <span><?php echo e(__('app.register')); ?></span>
                 </button>
             </form>
 
             
             <div class="mt-5 text-center">
                 <p class="text-sm text-gray-500">
-                    Sudah punya akun?
+                    <?php echo e(__('app.auth.has_account')); ?>
+
                     <a href="<?php echo e(route('login')); ?>" class="text-uin-green font-semibold hover:underline">
-                        Masuk di sini
+                        <?php echo e(__('app.auth.login_here')); ?>
+
                     </a>
                 </p>
             </div>
@@ -227,7 +233,8 @@
 
         
         <p class="text-center text-white/50 text-xs mt-5">
-            &copy; <?php echo e(date('Y')); ?> M-Presence FEB &middot; UIN Syarif Hidayatullah Jakarta
+            &copy; <?php echo e(date('Y')); ?> <?php echo e(__('app.app_name')); ?> &middot; <?php echo e(__('app.university')); ?>
+
         </p>
     </div>
 
