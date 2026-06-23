@@ -35,9 +35,9 @@
                    class="flex-1 px-4 py-2 rounded-lg border border-gray-200 text-sm focus:border-uin-green focus:ring-1 focus:ring-uin-green/20 outline-none">
             <select name="kelas" class="px-4 py-2 rounded-lg border border-gray-200 text-sm">
                 <option value="">Semua Kelas</option>
-                <option value="Manajemen A" {{ request('kelas') == 'Manajemen A' ? 'selected' : '' }}>Manajemen A</option>
-                <option value="Manajemen B" {{ request('kelas') == 'Manajemen B' ? 'selected' : '' }}>Manajemen B</option>
-                <option value="Manajemen C" {{ request('kelas') == 'Manajemen C' ? 'selected' : '' }}>Manajemen C</option>
+                @foreach($kelasList as $k)
+                    <option value="{{ $k->nama_kelas }}" {{ request('kelas') == $k->nama_kelas ? 'selected' : '' }}>{{ $k->nama_kelas }}</option>
+                @endforeach
             </select>
             <button type="submit" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">
                 <i class="fas fa-search mr-1"></i> Filter

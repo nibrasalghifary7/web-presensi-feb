@@ -73,8 +73,9 @@ class AdminController extends Controller
         }
 
         $mahasiswas = $query->orderBy('nama')->paginate(10);
+        $kelasList = Kelas::orderBy('nama_kelas')->get();
 
-        return view('admin.mahasiswa.index', compact('mahasiswas'));
+        return view('admin.mahasiswa.index', compact('mahasiswas', 'kelasList'));
     }
 
     /**
@@ -82,7 +83,8 @@ class AdminController extends Controller
      */
     public function mahasiswaCreate()
     {
-        return view('admin.mahasiswa.create');
+        $kelasList = Kelas::orderBy('nama_kelas')->get();
+        return view('admin.mahasiswa.create', compact('kelasList'));
     }
 
     /**
@@ -131,7 +133,8 @@ class AdminController extends Controller
     public function mahasiswaEdit($nim)
     {
         $mahasiswa = Mahasiswa::where('nim', $nim)->with('user')->firstOrFail();
-        return view('admin.mahasiswa.edit', compact('mahasiswa'));
+        $kelasList = Kelas::orderBy('nama_kelas')->get();
+        return view('admin.mahasiswa.edit', compact('mahasiswa', 'kelasList'));
     }
 
     /**
@@ -491,8 +494,9 @@ class AdminController extends Controller
         $jadwals = $query->orderBy('hari')->orderBy('jam_mulai')->paginate(10);
         $mataKuliahs = MataKuliah::all();
         $dosens = Dosen::all();
+        $kelasList = Kelas::orderBy('nama_kelas')->get();
 
-        return view('admin.jadwal.index', compact('jadwals', 'mataKuliahs', 'dosens'));
+        return view('admin.jadwal.index', compact('jadwals', 'mataKuliahs', 'dosens', 'kelasList'));
     }
 
     /**
@@ -616,7 +620,7 @@ class AdminController extends Controller
      */
     public function kelasIndex(Request $request)
     {
-        $query = Kelas::query();
+        $query = Kelas::query()->withCount('mahasiswas');
 
         if ($request->filled('search')) {
             $query->where('nama_kelas', 'like', "%{$request->search}%");

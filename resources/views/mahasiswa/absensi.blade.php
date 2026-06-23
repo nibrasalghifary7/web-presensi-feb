@@ -55,9 +55,15 @@
                     {{-- Tombol Absensi --}}
                     <div class="flex flex-col items-end gap-2">
                         @if($sudahAbsen)
-                            <span class="inline-flex items-center gap-1 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-xl text-sm font-medium">
-                                <i class="fas fa-check-circle"></i> {{ __('app.mahasiswa.sudah_absen') }}
-                            </span>
+                            @if($absensiHariIni[$jadwal->id_jadwal] === 'Menunggu')
+                                <span class="inline-flex items-center gap-1 px-4 py-2 bg-blue-100 text-blue-700 rounded-xl text-sm font-medium">
+                                    <i class="fas fa-clock"></i> Menunggu Validasi
+                                </span>
+                            @else
+                                <span class="inline-flex items-center gap-1 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-xl text-sm font-medium">
+                                    <i class="fas fa-check-circle"></i> {{ $absensiHariIni[$jadwal->id_jadwal] }}
+                                </span>
+                            @endif
                         @elseif(isset($sesiAktif[$jadwal->id_jadwal]))
                             <form action="{{ route('mahasiswa.absensi.proses', $jadwal->id_jadwal) }}" method="POST">
                                 @csrf

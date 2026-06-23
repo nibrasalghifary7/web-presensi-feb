@@ -18,9 +18,9 @@
             theme: {
                 extend: {
                     colors: {
-                        'uin-green': '#006633',
-                        'uin-green-dark': '#004d26',
-                        'uin-green-light': '#008844',
+                        'uin-green': '#25429f',
+                        'uin-green-dark': '#1a2f7a',
+                        'uin-green-light': '#3d8ade',
                         'uin-gold': '#c8a951',
                         'uin-gold-light': '#e8d48b',
                     }
@@ -97,6 +97,12 @@
                         <i class="fas fa-file-pen w-5 text-center"></i>
                         <span class="text-sm font-medium">{{ __('app.menu.dokumen') }}</span>
                     </a>
+                    <a href="{{ route('mahasiswa.kehadiran') }}"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
+                              {{ request()->routeIs('mahasiswa.kehadiran') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-chart-pie w-5 text-center"></i>
+                        <span class="text-sm font-medium">Persentase Kehadiran</span>
+                    </a>
 
                 @elseif(auth()->user()->isDosen())
                     {{-- Menu Dosen --}}
@@ -133,6 +139,12 @@
                         <i class="fas fa-chalkboard-teacher w-5 text-center"></i>
                         <span class="text-sm font-medium">{{ __('app.menu.dosen') }}</span>
                     </a>
+                    <a href="{{ route('admin.kelas.index') }}"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
+                              {{ request()->routeIs('admin.kelas.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-users w-5 text-center"></i>
+                        <span class="text-sm font-medium">{{ __('app.menu.kelas') }}</span>
+                    </a>
                     <a href="{{ route('admin.mata-kuliah.index') }}"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
                               {{ request()->routeIs('admin.mata-kuliah.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
@@ -144,12 +156,6 @@
                               {{ request()->routeIs('admin.jadwal.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
                         <i class="fas fa-calendar-alt w-5 text-center"></i>
                         <span class="text-sm font-medium">{{ __('app.menu.jadwal') }}</span>
-                    </a>
-                    <a href="{{ route('admin.kelas.index') }}"
-                       class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
-                              {{ request()->routeIs('admin.kelas.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                        <i class="fas fa-users w-5 text-center"></i>
-                        <span class="text-sm font-medium">{{ __('app.menu.kelas') }}</span>
                     </a>
                     <a href="{{ route('admin.absensi.index') }}"
                        class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
@@ -178,16 +184,9 @@
                 @endif
             </nav>
 
-            {{-- Tombol Logout di bagian bawah sidebar (Fixed) --}}
+            {{-- Spacer --}}
             <div class="px-3 py-4 border-t border-white/10 flex-shrink-0">
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit"
-                            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/80 hover:bg-red-500/20 hover:text-white transition-all">
-                        <i class="fas fa-right-from-bracket w-5 text-center"></i>
-                        <span class="text-sm font-medium">{{ __('app.logout') }}</span>
-                    </button>
-                </form>
+                <p class="text-xs text-white/40 text-center">M-Presence FEB v1.0</p>
             </div>
         </aside>
 
@@ -239,13 +238,41 @@
                             </div>
                         </div>
 
-                        {{-- Info User --}}
-                        <div class="hidden sm:block text-right">
-                            <p class="text-sm font-medium text-gray-700">{{ auth()->user()->name }}</p>
-                            <p class="text-xs text-gray-500 capitalize">{{ auth()->user()->role }}</p>
-                        </div>
-                        <div class="w-9 h-9 bg-uin-green rounded-full flex items-center justify-center text-white font-bold text-sm">
-                            {{ substr(auth()->user()->name, 0, 1) }}
+                        {{-- User Dropdown --}}
+                        <div class="relative" x-data="{ userOpen: false }">
+                            <button @click="userOpen = !userOpen" class="flex items-center gap-2.5 p-1.5 pr-3 rounded-xl hover:bg-gray-50 transition-colors">
+                                <div class="w-9 h-9 bg-uin-green rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                    {{ substr(auth()->user()->name, 0, 1) }}
+                                </div>
+                                <div class="hidden sm:block text-left">
+                                    <p class="text-sm font-medium text-gray-700 leading-tight">{{ auth()->user()->name }}</p>
+                                    <p class="text-xs text-gray-500 capitalize">{{ auth()->user()->role }}</p>
+                                </div>
+                                <i class="fas fa-chevron-down text-xs text-gray-400 hidden sm:block"></i>
+                            </button>
+                            <div x-show="userOpen" @click.away="userOpen = false" x-transition
+                                 class="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-lg border border-gray-100 z-50 overflow-hidden">
+                                <div class="px-4 py-3 border-b border-gray-100">
+                                    <p class="text-sm font-semibold text-gray-800">{{ auth()->user()->name }}</p>
+                                    <p class="text-xs text-gray-500">{{ auth()->user()->email ?? auth()->user()->username }}</p>
+                                </div>
+                                @if(auth()->user()->isMahasiswa())
+                                <a href="{{ route('mahasiswa.profil') }}"
+                                   class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                    <i class="fas fa-user w-4 text-center text-gray-400"></i>
+                                    <span>Profil Saya</span>
+                                </a>
+                                @endif
+                                <div class="border-t border-gray-100"></div>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit"
+                                            class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                                        <i class="fas fa-right-from-bracket w-4 text-center"></i>
+                                        <span>{{ __('app.logout') }}</span>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

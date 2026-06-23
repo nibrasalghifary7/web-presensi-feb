@@ -74,19 +74,42 @@
                                     @endif
                                 </td>
                                 <td class="px-5 py-3">
-                                    <form action="{{ route('dosen.validasi.proses', $absen->id_absensi) }}" method="POST" class="flex gap-2">
-                                        @csrf
-                                        <select name="status" class="text-xs border rounded-lg px-2 py-1">
-                                            <option value="Hadir" {{ $absen->status == 'Hadir' ? 'selected' : '' }}>Hadir</option>
-                                            <option value="Izin" {{ $absen->status == 'Izin' ? 'selected' : '' }}>Izin</option>
-                                            <option value="Sakit" {{ $absen->status == 'Sakit' ? 'selected' : '' }}>Sakit</option>
-                                            <option value="Alpha" {{ $absen->status == 'Alpha' ? 'selected' : '' }}>Alpha</option>
-                                        </select>
-                                        <input type="hidden" name="validasi" value="divalidasi">
-                                        <button type="submit" class="px-3 py-1 bg-uin-green text-white rounded-lg text-xs font-medium hover:bg-uin-green-dark">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                    </form>
+                                    @if($absen->status === 'Menunggu')
+                                        <div class="flex gap-1.5">
+                                            {{-- Setujui sebagai Hadir --}}
+                                            <form action="{{ route('dosen.validasi.proses', $absen->id_absensi) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="status" value="Hadir">
+                                                <input type="hidden" name="validasi" value="divalidasi">
+                                                <button type="submit" class="px-3 py-1.5 bg-emerald-500 text-white rounded-lg text-xs font-medium hover:bg-emerald-600" title="Setujui Hadir">
+                                                    <i class="fas fa-check mr-1"></i> Hadir
+                                                </button>
+                                            </form>
+                                            {{-- Tolak (Alpha) --}}
+                                            <form action="{{ route('dosen.validasi.proses', $absen->id_absensi) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="status" value="Alpha">
+                                                <input type="hidden" name="validasi" value="ditolak">
+                                                <button type="submit" class="px-3 py-1.5 bg-red-500 text-white rounded-lg text-xs font-medium hover:bg-red-600" title="Tolak (Alpha)">
+                                                    <i class="fas fa-times mr-1"></i> Tolak
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @else
+                                        <form action="{{ route('dosen.validasi.proses', $absen->id_absensi) }}" method="POST" class="flex gap-2">
+                                            @csrf
+                                            <select name="status" class="text-xs border rounded-lg px-2 py-1">
+                                                <option value="Hadir" {{ $absen->status == 'Hadir' ? 'selected' : '' }}>Hadir</option>
+                                                <option value="Izin" {{ $absen->status == 'Izin' ? 'selected' : '' }}>Izin</option>
+                                                <option value="Sakit" {{ $absen->status == 'Sakit' ? 'selected' : '' }}>Sakit</option>
+                                                <option value="Alpha" {{ $absen->status == 'Alpha' ? 'selected' : '' }}>Alpha</option>
+                                            </select>
+                                            <input type="hidden" name="validasi" value="divalidasi">
+                                            <button type="submit" class="px-3 py-1 bg-uin-green text-white rounded-lg text-xs font-medium hover:bg-uin-green-dark">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

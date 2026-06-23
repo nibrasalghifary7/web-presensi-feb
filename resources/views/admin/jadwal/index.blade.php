@@ -29,8 +29,12 @@
                     <option value="{{ $hari }}" {{ request('hari') == $hari ? 'selected' : '' }}>{{ $hari }}</option>
                 @endforeach
             </select>
-            <input type="text" name="kelas" value="{{ request('kelas') }}" placeholder="Filter kelas..."
-                   class="flex-1 px-4 py-2 rounded-lg border border-gray-200 text-sm focus:border-uin-green outline-none">
+            <select name="kelas" class="flex-1 px-4 py-2 rounded-lg border border-gray-200 text-sm focus:border-uin-green outline-none">
+                <option value="">Semua Kelas</option>
+                @foreach($kelasList as $k)
+                    <option value="{{ $k->nama_kelas }}" {{ request('kelas') == $k->nama_kelas ? 'selected' : '' }}>{{ $k->nama_kelas }}</option>
+                @endforeach
+            </select>
             <button type="submit" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">
                 <i class="fas fa-filter mr-1"></i> Filter
             </button>
@@ -63,7 +67,7 @@
                             <td class="px-5 py-3 text-sm text-gray-600">{{ $j->kelas }}</td>
                             <td class="px-5 py-3">
                                 <div class="flex gap-2">
-                                    <button onclick="editJadwal({{ $j->id_jadwal }}, {{ $j->id_mk }}, '{{ $j->nidn }}', '{{ $j->hari }}', '{{ substr($j->jam_mulai, 0, 5) }}', '{{ substr($j->jam_selesai, 0, 5) }}', '{{ $j->ruang }}', '{{ $j->kelas }}', '{{ $j->semester_aktif }}')"
+                                    <button onclick="editJadwal({{ $j->id_jadwal }}, {{ $j->id_mk }}, '{{ $j->nidn }}', '{{ $j->hari }}', '{{ $j->jam_mulai instanceof \Carbon\Carbon ? $j->jam_mulai->format('H:i') : $j->jam_mulai }}', '{{ $j->jam_selesai instanceof \Carbon\Carbon ? $j->jam_selesai->format('H:i') : $j->jam_selesai }}', '{{ $j->ruang }}', '{{ $j->kelas }}', '{{ $j->semester_aktif }}')"
                                             class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs font-medium hover:bg-blue-200">
                                         <i class="fas fa-edit"></i>
                                     </button>
@@ -119,8 +123,12 @@
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Kelas</label>
-                        <input type="text" name="kelas" required placeholder="Manajemen A"
-                               class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                        <select name="kelas" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                            <option value="">-- Pilih Kelas --</option>
+                            @foreach($kelasList as $k)
+                                <option value="{{ $k->nama_kelas }}">{{ $k->nama_kelas }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Jam Mulai</label>
@@ -183,8 +191,12 @@
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Kelas</label>
-                        <input type="text" name="kelas" id="edit_kelas" required
-                               class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                        <select name="kelas" id="edit_kelas" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                            <option value="">-- Pilih Kelas --</option>
+                            @foreach($kelasList as $k)
+                                <option value="{{ $k->nama_kelas }}">{{ $k->nama_kelas }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Jam Mulai</label>

@@ -72,8 +72,8 @@ class DosenController extends Controller
     public function prosesValidasi(Request $request, $idAbsensi)
     {
         $request->validate([
-            'status' => 'required|in:Hadir,Izin,Sakit,Alpha',
-            'validasi' => 'required|in:divalidasi,ditolak',
+            'status' => 'required|in:Menunggu,Hadir,Izin,Sakit,Alpha',
+            'validasi' => 'required|in:pending,divalidasi,ditolak',
         ]);
 
         $absensi = Absensi::findOrFail($idAbsensi);

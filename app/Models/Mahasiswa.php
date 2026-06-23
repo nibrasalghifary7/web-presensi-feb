@@ -29,6 +29,7 @@ class Mahasiswa extends Model
         'kelas',
         'angkatan',
         'prodi',
+        'status_aktif',
     ];
 
     // ========================================
@@ -41,6 +42,14 @@ class Mahasiswa extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Relasi belongs-to ke tabel kelas (via nama_kelas).
+     */
+    public function kelasRel(): BelongsTo
+    {
+        return $this->belongsTo(Kelas::class, 'kelas', 'nama_kelas');
     }
 
     /**

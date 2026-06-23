@@ -54,7 +54,7 @@
                             <td class="px-5 py-3 text-sm font-medium text-gray-800">{{ $k->nama_kelas }}</td>
                             <td class="px-5 py-3 text-sm text-gray-600">{{ $k->angkatan }}</td>
                             <td class="px-5 py-3 text-sm text-gray-600">{{ $k->prodi }}</td>
-                            <td class="px-5 py-3 text-sm text-center text-gray-600">{{ $k->jumlah_mahasiswa }}</td>
+                            <td class="px-5 py-3 text-sm text-center text-gray-600">{{ $k->mahasiswas_count }}</td>
                             <td class="px-5 py-3">
                                 <div class="flex gap-2">
                                     <button onclick="editKelas({{ $k->id_kelas }}, '{{ $k->nama_kelas }}', '{{ $k->angkatan }}')"

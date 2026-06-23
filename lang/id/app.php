@@ -51,6 +51,9 @@ return [
         'laporan' => 'Laporan',
         'riwayat' => 'Riwayat Kehadiran',
         'dokumen' => 'Pengajuan Izin',
+        'kehadiran' => 'Persentase Kehadiran',
+        'profil' => 'Profil Saya',
+        'ganti_password' => 'Ganti Password',
     ],
 
     // ========================================

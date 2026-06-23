@@ -15,7 +15,7 @@
     <div class="bg-gradient-to-r from-uin-green to-uin-green-light rounded-2xl p-6 text-white">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-                <h2 class="text-2xl font-bold">{{ __('app.dosen.welcome') }}, {{ $mahasiswa->nama }}! 👋</h2>
+                <h2 class="text-2xl font-bold">{{ __('app.dosen.welcome') }}, {{ $mahasiswa->nama }}!</h2>
                 <p class="text-white/80 text-sm mt-1">
                     <i class="fas fa-id-card mr-1"></i> {{ $mahasiswa->nim }} &middot; {{ $mahasiswa->kelas }} &middot; {{ __('app.table.angkatan') }} {{ $mahasiswa->angkatan }}
                 </p>

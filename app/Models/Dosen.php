@@ -27,6 +27,7 @@ class Dosen extends Model
         'email',
         'phone',
         'bidang_keahlian',
+        'status_aktif',
     ];
 
     // ========================================

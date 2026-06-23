@@ -9,12 +9,12 @@
     <title>Laporan Absensi</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 11px; color: #333; margin: 0; padding: 20px; }
-        .header { text-align: center; border-bottom: 3px double #006633; padding-bottom: 15px; margin-bottom: 20px; }
-        .header h1 { margin: 0; font-size: 16px; color: #006633; text-transform: uppercase; }
-        .header h2 { margin: 5px 0 0 0; font-size: 14px; color: #006633; }
+        .header { text-align: center; border-bottom: 3px double #25429f; padding-bottom: 15px; margin-bottom: 20px; }
+        .header h1 { margin: 0; font-size: 16px; color: #25429f; text-transform: uppercase; }
+        .header h2 { margin: 5px 0 0 0; font-size: 14px; color: #25429f; }
         .header p { margin: 5px 0 0 0; font-size: 11px; color: #666; }
         table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        th { background-color: #006633; color: white; padding: 8px 10px; text-align: left; font-size: 10px; text-transform: uppercase; }
+        th { background-color: #25429f; color: white; padding: 8px 10px; text-align: left; font-size: 10px; text-transform: uppercase; }
         td { padding: 6px 10px; border-bottom: 1px solid #dee2e6; font-size: 10px; }
         tr:nth-child(even) { background-color: #f8f9fa; }
         .text-center { text-align: center; }

@@ -97,6 +97,8 @@ class Jadwal extends Model
      */
     public function getJamFormattedAttribute(): string
     {
-        return substr($this->jam_mulai, 0, 5) . ' - ' . substr($this->jam_selesai, 0, 5);
+        $mulai = $this->jam_mulai instanceof \Carbon\Carbon ? $this->jam_mulai->format('H:i') : substr($this->jam_mulai, 0, 5);
+        $selesai = $this->jam_selesai instanceof \Carbon\Carbon ? $this->jam_selesai->format('H:i') : substr($this->jam_selesai, 0, 5);
+        return $mulai . ' - ' . $selesai;
     }
 }

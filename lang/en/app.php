@@ -51,6 +51,9 @@ return [
         'laporan' => 'Reports',
         'riwayat' => 'Attendance History',
         'dokumen' => 'Leave Request',
+        'kehadiran' => 'Attendance Percentage',
+        'profil' => 'My Profile',
+        'ganti_password' => 'Change Password',
     ],
 
     // ========================================

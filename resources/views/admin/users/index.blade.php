@@ -70,7 +70,7 @@
                                     <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">Mahasiswa</span>
                                 @endif
                             </td>
-                            <td class="px-5 py-3 text-sm text-gray-600">{{ $u->created_at->translatedFormat('d M Y') }}</td>
+                            <td class="px-5 py-3 text-sm text-gray-600">{{ $u->created_at ? $u->created_at->translatedFormat('d M Y') : '-' }}</td>
                             <td class="px-5 py-3">
                                 <div class="flex gap-2">
                                     <button onclick="editUser({{ $u->id }}, '{{ $u->name }}', '{{ $u->email ?? '' }}', '{{ $u->phone ?? '' }}', '{{ $u->role }}')"

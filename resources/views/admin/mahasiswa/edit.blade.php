@@ -41,8 +41,9 @@
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Kelas</label>
                     <select name="kelas" required
                             class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green focus:ring-1 focus:ring-uin-green/20 outline-none">
-                        @foreach(['Manajemen A', 'Manajemen B', 'Manajemen C', 'Akuntansi A', 'Akuntansi B'] as $kelas)
-                            <option value="{{ $kelas }}" {{ $mahasiswa->kelas == $kelas ? 'selected' : '' }}>{{ $kelas }}</option>
+                        <option value="">-- Pilih Kelas --</option>
+                        @foreach($kelasList as $k)
+                            <option value="{{ $k->nama_kelas }}" {{ $mahasiswa->kelas == $k->nama_kelas ? 'selected' : '' }}>{{ $k->nama_kelas }}</option>
                         @endforeach
                     </select>
                 </div>

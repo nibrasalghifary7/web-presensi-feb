@@ -29,8 +29,8 @@ class MahasiswaController extends Controller
         $user = Auth::user();
         $mahasiswa = $user->mahasiswa;
 
-        // Hitung statistik kehadiran
-        $totalPertemuan = Absensi::where('nim', $mahasiswa->nim)->count();
+        // Hitung statistik kehadiran (hanya yang sudah divalidasi dosen)
+        $totalPertemuan = Absensi::where('nim', $mahasiswa->nim)->where('status', '!=', 'Menunggu')->count();
         $totalHadir = Absensi::where('nim', $mahasiswa->nim)->where('status', 'Hadir')->count();
         $totalIzinSakit = Absensi::where('nim', $mahasiswa->nim)->whereIn('status', ['Izin', 'Sakit'])->count();
         $totalAlpha = Absensi::where('nim', $mahasiswa->nim)->where('status', 'Alpha')->count();
@@ -112,13 +112,13 @@ class MahasiswaController extends Controller
             return back()->with('error', 'Anda sudah melakukan absensi untuk mata kuliah ini hari ini.');
         }
 
-        // Catat absensi
+        // Catat absensi dengan status "Menunggu" (belum divalidasi dosen)
         Absensi::create([
             'nim' => $mahasiswa->nim,
             'id_jadwal' => $idJadwal,
             'tanggal' => today(),
             'jam_masuk' => now(),
-            'status' => 'Hadir',
+            'status' => 'Menunggu',
             'validasi' => 'pending',
         ]);
 
@@ -218,5 +218,85 @@ class MahasiswaController extends Controller
         ]);
 
         return back()->with('success', 'Pengajuan izin/sakit berhasil dikirim! Menunggu persetujuan.');
+    }
+
+    /**
+     * Menampilkan halaman profil mahasiswa (PRD F-13).
+     * Data read-only, tidak bisa edit mandiri.
+     */
+    public function profil()
+    {
+        $user = Auth::user();
+        $mahasiswa = $user->mahasiswa;
+
+        return view('mahasiswa.profil', compact('user', 'mahasiswa'));
+    }
+
+    /**
+     * Menampilkan persentase kehadiran per mata kuliah (PRD F-16).
+     * Progress bar dengan warna indikator: Hijau (≥75%), Kuning (60-74%), Merah (<60%).
+     */
+    public function kehadiran()
+    {
+        $user = Auth::user();
+        $mahasiswa = $user->mahasiswa;
+
+        // Ambil semua absensi mahasiswa, group by jadwal (mata kuliah)
+        $absensiPerMK = Absensi::where('nim', $mahasiswa->nim)
+            ->with(['jadwal.mataKuliah', 'jadwal.dosen'])
+            ->get()
+            ->groupBy('id_jadwal');
+
+        $rekapMK = [];
+        $totalHadirGlobal = 0;
+        $totalPertemuanGlobal = 0;
+
+        foreach ($absensiPerMK as $idJadwal => $absensis) {
+            $jadwal = $absensis->first()->jadwal;
+            $mk = $jadwal->mataKuliah;
+            $dosen = $jadwal->dosen;
+
+            // Hanya hitung yang sudah divalidasi (bukan Menunggu)
+            $validated = $absensis->where('status', '!=', 'Menunggu');
+            $totalPertemuan = $validated->count();
+            $hadir = $validated->where('status', 'Hadir')->count();
+            $izin = $validated->where('status', 'Izin')->count();
+            $sakit = $validated->where('status', 'Sakit')->count();
+            $alpha = $validated->where('status', 'Alpha')->count();
+            $persen = $totalPertemuan > 0 ? round(($hadir / $totalPertemuan) * 100, 1) : 0;
+
+            // Status berdasarkan threshold PRD
+            if ($persen >= 75) {
+                $statusKehadiran = 'aman';
+                $statusLabel = 'Aman';
+            } elseif ($persen >= 60) {
+                $statusKehadiran = 'peringatan';
+                $statusLabel = 'Peringatan';
+            } else {
+                $statusKehadiran = 'bahaya';
+                $statusLabel = 'Bahaya';
+            }
+
+            $rekapMK[] = [
+                'kode_mk' => $mk->kode_mk ?? '-',
+                'nama_mk' => $mk->nama_mk ?? '-',
+                'nama_dosen' => $dosen->nama ?? '-',
+                'total_pertemuan' => $totalPertemuan,
+                'hadir' => $hadir,
+                'izin' => $izin,
+                'sakit' => $sakit,
+                'alpha' => $alpha,
+                'persen' => $persen,
+                'status' => $statusKehadiran,
+                'status_label' => $statusLabel,
+            ];
+
+            $totalHadirGlobal += $hadir;
+            $totalPertemuanGlobal += $totalPertemuan;
+        }
+
+        $rataRataGlobal = $totalPertemuanGlobal > 0 ? round(($totalHadirGlobal / $totalPertemuanGlobal) * 100, 1) : 0;
+
+        return view('mahasiswa.kehadiran', compact('user', 'mahasiswa', 'rekapMK', 'rataRataGlobal'));
     }
 }

@@ -41,15 +41,24 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 
-    // Halaman Registrasi (khusus mahasiswa)
-    Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+    // Halaman Registrasi
+    Route::get('/register', function () { return redirect()->route('register-mahasiswa'); })->name('register');
+    Route::get('/register-mahasiswa', [AuthController::class, 'showRegistrationForm'])->name('register-mahasiswa');
     Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+    Route::get('/register-dosen', [AuthController::class, 'showDosenRegistrationForm'])->name('register-dosen');
+    Route::post('/register-dosen', [AuthController::class, 'registerDosen'])->name('register-dosen.post');
 });
 
 /**
  * Logout (bisa diakses semua role yang sudah login).
  */
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+
+// Ganti Password (semua role yang sudah login)
+Route::middleware('auth')->group(function () {
+    Route::get('/ganti-password', [AuthController::class, 'showChangePasswordForm'])->name('password.change.form');
+    Route::post('/ganti-password', [AuthController::class, 'changePassword'])->name('password.change');
+});
 
 // ========================================
 // ROUTE MAHASISWA
@@ -69,6 +78,12 @@ Route::middleware(['auth', 'role:mahasiswa'])->prefix('mahasiswa')->name('mahasi
     // Pengajuan Izin/Sakit
     Route::get('/dokumen', [MahasiswaController::class, 'formIzin'])->name('dokumen');
     Route::post('/dokumen', [MahasiswaController::class, 'submitIzin'])->name('dokumen.submit');
+
+    // Profil Mahasiswa (PRD F-13)
+    Route::get('/profil', [MahasiswaController::class, 'profil'])->name('profil');
+
+    // Persentase Kehadiran (PRD F-16)
+    Route::get('/kehadiran', [MahasiswaController::class, 'kehadiran'])->name('kehadiran');
 });
 
 // ========================================

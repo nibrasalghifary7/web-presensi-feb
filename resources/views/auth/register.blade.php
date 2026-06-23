@@ -18,9 +18,9 @@
             theme: {
                 extend: {
                     colors: {
-                        'uin-green': '#006633',
-                        'uin-green-dark': '#004d26',
-                        'uin-green-light': '#008844',
+                        'uin-green': '#25429f',
+                        'uin-green-dark': '#1a2f7a',
+                        'uin-green-light': '#3d8ade',
                         'uin-gold': '#c8a951',
                     }
                 }
@@ -36,7 +36,7 @@
             100% { background-position: 0% 50%; }
         }
         .animated-gradient {
-            background: linear-gradient(135deg, #006633 0%, #004d26 25%, #008844 50%, #004d26 75%, #006633 100%);
+            background: linear-gradient(135deg, #25429f 0%, #1a2f7a 25%, #3d8ade 50%, #1a2f7a 75%, #25429f 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
         }
