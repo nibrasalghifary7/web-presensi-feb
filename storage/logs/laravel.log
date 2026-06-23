@@ -90,3 +90,182 @@
 #35 D:/ghifa's court/web-presensi-feb/artisan(9): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
 #36 {main}
 "} 
+[2026-06-23 20:21:05] local.ERROR: The "--compact" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--compact\" option does not exist. at C:/laragon/www/web-presensi-feb/vendor/symfony/console/Input/ArgvInput.php:226)
+[stacktrace]
+#0 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Input/ArgvInput.php(155): Symfony/Component/Console/Input/ArgvInput->addLongOption('compact', NULL)
+#1 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Input/ArgvInput.php(88): Symfony/Component/Console/Input/ArgvInput->parseLongOption('--compact')
+#2 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Input/ArgvInput.php(77): Symfony/Component/Console/Input/ArgvInput->parseToken('--compact', true)
+#3 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Input/Input.php(53): Symfony/Component/Console/Input/ArgvInput->parse()
+#4 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Command/Command.php(295): Symfony/Component/Console/Input/Input->bind(Object(Symfony/Component/Console/Input/InputDefinition))
+#5 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Command.php(182): Symfony/Component/Console/Command/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#6 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(1117): Illuminate/Console/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#7 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(356): Symfony/Component/Console/Application->doRunCommand(Object(Illuminate/Foundation/Console/RouteListCommand), Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#8 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#9 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#10 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#11 C:/laragon/www/web-presensi-feb/artisan(9): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#12 {main}
+"} 
+[2026-06-23 20:21:23] local.ERROR: syntax error, unexpected single-quoted string ");", expecting ")" {"exception":"[object] (ParseError(code: 0): syntax error, unexpected single-quoted string \");
+\", expecting \")\" at C:/laragon/www/web-presensi-feb/app/Http/Controllers/DosenController.php:199)
+[stacktrace]
+#0 C:/laragon/www/web-presensi-feb/vendor/composer/ClassLoader.php(428): Composer/Autoload/includeFile('C://laragon//www//...')
+#1 [internal function]: Composer/Autoload/ClassLoader->loadClass('App//Http//Contro...')
+#2 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Routing/Route.php(1117): is_a('App//Http//Contro...', 'Illuminate//Rout...', true)
+#3 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Routing/Route.php(1054): Illuminate/Routing/Route->controllerMiddleware()
+#4 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Routing/Router.php(820): Illuminate/Routing/Route->gatherMiddleware()
+#5 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/RouteListCommand.php(211): Illuminate/Routing/Router->gatherRouteMiddleware(Object(Illuminate/Routing/Route))
+#6 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/RouteListCommand.php(148): Illuminate/Foundation/Console/RouteListCommand->getMiddleware(Object(Illuminate/Routing/Route))
+#7 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/RouteListCommand.php(118): Illuminate/Foundation/Console/RouteListCommand->getRouteInformation(Object(Illuminate/Routing/Route))
+#8 [internal function]: Illuminate/Foundation/Console/RouteListCommand->{closure:Illuminate/Foundation/Console/RouteListCommand::getRoutes():117}(Object(Illuminate/Routing/Route), 14)
+#9 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Collections/Arr.php(609): array_map(Object(Closure), Array, Array)
+#10 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Collections/Collection.php(799): Illuminate/Support/Arr::map(Array, Object(Closure))
+#11 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/RouteListCommand.php(117): Illuminate/Support/Collection->map(Object(Closure))
+#12 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/RouteListCommand.php(103): Illuminate/Foundation/Console/RouteListCommand->getRoutes()
+#13 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate/Foundation/Console/RouteListCommand->handle()
+#14 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate/Container/BoundMethod::{closure:Illuminate/Container/BoundMethod::call():35}()
+#15 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(95): Illuminate/Container/Util::unwrapIfClosure(Object(Closure))
+#16 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate/Container/BoundMethod::callBoundMethod(Object(Illuminate/Foundation/Application), Array, Object(Closure))
+#17 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/Container.php(696): Illuminate/Container/BoundMethod::call(Object(Illuminate/Foundation/Application), Array, Array, NULL)
+#18 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Command.php(213): Illuminate/Container/Container->call(Array)
+#19 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Command/Command.php(341): Illuminate/Console/Command->execute(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#20 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Command.php(182): Symfony/Component/Console/Command/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#21 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(1117): Illuminate/Console/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#22 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(356): Symfony/Component/Console/Application->doRunCommand(Object(Illuminate/Foundation/Console/RouteListCommand), Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#23 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#24 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#25 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#26 C:/laragon/www/web-presensi-feb/artisan(9): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#27 {main}
+"} 
+[2026-06-23 20:23:10] local.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at C:/laragon/www/web-presensi-feb/vendor/symfony/console/Input/ArgvInput.php:226)
+[stacktrace]
+#0 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Input/ArgvInput.php(153): Symfony/Component/Console/Input/ArgvInput->addLongOption('columns', 'method,uri,name')
+#1 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Input/ArgvInput.php(88): Symfony/Component/Console/Input/ArgvInput->parseLongOption('--columns=metho...')
+#2 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Input/ArgvInput.php(77): Symfony/Component/Console/Input/ArgvInput->parseToken('--columns=metho...', true)
+#3 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Input/Input.php(53): Symfony/Component/Console/Input/ArgvInput->parse()
+#4 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Command/Command.php(295): Symfony/Component/Console/Input/Input->bind(Object(Symfony/Component/Console/Input/InputDefinition))
+#5 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Command.php(182): Symfony/Component/Console/Command/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#6 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(1117): Illuminate/Console/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#7 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(356): Symfony/Component/Console/Application->doRunCommand(Object(Illuminate/Foundation/Console/RouteListCommand), Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#8 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#9 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#10 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#11 C:/laragon/www/web-presensi-feb/artisan(9): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#12 {main}
+"} 
+[2026-06-23 20:32:43] local.ERROR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'web_presensi_feb.cache' doesn't exist (Connection: mysql, SQL: delete from `cache`) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 42S02): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'web_presensi_feb.cache' doesn't exist (Connection: mysql, SQL: delete from `cache`) at C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Database/Connection.php:825)
+[stacktrace]
+#0 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Database/Connection.php(779): Illuminate/Database/Connection->runQueryCallback('delete from `ca...', Array, Object(Closure))
+#1 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Database/Connection.php(584): Illuminate/Database/Connection->run('delete from `ca...', Array, Object(Closure))
+#2 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Database/Connection.php(548): Illuminate/Database/Connection->affectingStatement('delete from `ca...', Array)
+#3 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4024): Illuminate/Database/Connection->delete('delete from `ca...', Array)
+#4 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Cache/DatabaseStore.php(422): Illuminate/Database/Query/Builder->delete()
+#5 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Cache/Repository.php(792): Illuminate/Cache/DatabaseStore->flush()
+#6 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Cache/Console/ClearCommand.php(69): Illuminate/Cache/Repository->__call('flush', Array)
+#7 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate/Cache/Console/ClearCommand->handle()
+#8 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate/Container/BoundMethod::{closure:Illuminate/Container/BoundMethod::call():35}()
+#9 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(95): Illuminate/Container/Util::unwrapIfClosure(Object(Closure))
+#10 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate/Container/BoundMethod::callBoundMethod(Object(Illuminate/Foundation/Application), Array, Object(Closure))
+#11 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/Container.php(696): Illuminate/Container/BoundMethod::call(Object(Illuminate/Foundation/Application), Array, Array, NULL)
+#12 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Command.php(213): Illuminate/Container/Container->call(Array)
+#13 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Command/Command.php(341): Illuminate/Console/Command->execute(Object(Symfony/Component/Console/Input/ArrayInput), Object(Illuminate/Console/OutputStyle))
+#14 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Command.php(182): Symfony/Component/Console/Command/Command->run(Object(Symfony/Component/Console/Input/ArrayInput), Object(Illuminate/Console/OutputStyle))
+#15 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Concerns/CallsCommands.php(68): Illuminate/Console/Command->run(Object(Symfony/Component/Console/Input/ArrayInput), Object(Symfony/Component/Console/Output/NullOutput))
+#16 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Concerns/CallsCommands.php(41): Illuminate/Console/Command->runCommand('cache:clear', Array, Object(Symfony/Component/Console/Output/NullOutput))
+#17 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Concerns/CallsCommands.php(53): Illuminate/Console/Command->callSilent('cache:clear', Array)
+#18 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/OptimizeClearCommand.php(48): Illuminate/Console/Command->callSilently('cache:clear')
+#19 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/View/Components/Task.php(40): Illuminate/Foundation/Console/OptimizeClearCommand->{closure:Illuminate/Foundation/Console/OptimizeClearCommand::handle():48}()
+#20 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/View/Components/Factory.php(60): Illuminate/Console/View/Components/Task->render('cache', Object(Closure))
+#21 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/OptimizeClearCommand.php(48): Illuminate/Console/View/Components/Factory->__call('task', Array)
+#22 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate/Foundation/Console/OptimizeClearCommand->handle()
+#23 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate/Container/BoundMethod::{closure:Illuminate/Container/BoundMethod::call():35}()
+#24 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(95): Illuminate/Container/Util::unwrapIfClosure(Object(Closure))
+#25 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate/Container/BoundMethod::callBoundMethod(Object(Illuminate/Foundation/Application), Array, Object(Closure))
+#26 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/Container.php(696): Illuminate/Container/BoundMethod::call(Object(Illuminate/Foundation/Application), Array, Array, NULL)
+#27 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Command.php(213): Illuminate/Container/Container->call(Array)
+#28 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Command/Command.php(341): Illuminate/Console/Command->execute(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#29 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Command.php(182): Symfony/Component/Console/Command/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#30 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(1117): Illuminate/Console/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#31 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(356): Symfony/Component/Console/Application->doRunCommand(Object(Illuminate/Foundation/Console/OptimizeClearCommand), Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#32 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#33 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#34 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#35 C:/laragon/www/web-presensi-feb/artisan(9): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#36 {main}
+
+[previous exception] [object] (PDOException(code: 42S02): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'web_presensi_feb.cache' doesn't exist at C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Database/Connection.php:592)
+[stacktrace]
+#0 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Database/Connection.php(592): PDO->prepare('delete from `ca...')
+#1 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Database/Connection.php(812): Illuminate/Database/Connection->{closure:Illuminate/Database/Connection::affectingStatement():584}('delete from `ca...', Array)
+#2 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Database/Connection.php(779): Illuminate/Database/Connection->runQueryCallback('delete from `ca...', Array, Object(Closure))
+#3 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Database/Connection.php(584): Illuminate/Database/Connection->run('delete from `ca...', Array, Object(Closure))
+#4 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Database/Connection.php(548): Illuminate/Database/Connection->affectingStatement('delete from `ca...', Array)
+#5 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4024): Illuminate/Database/Connection->delete('delete from `ca...', Array)
+#6 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Cache/DatabaseStore.php(422): Illuminate/Database/Query/Builder->delete()
+#7 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Cache/Repository.php(792): Illuminate/Cache/DatabaseStore->flush()
+#8 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Cache/Console/ClearCommand.php(69): Illuminate/Cache/Repository->__call('flush', Array)
+#9 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate/Cache/Console/ClearCommand->handle()
+#10 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate/Container/BoundMethod::{closure:Illuminate/Container/BoundMethod::call():35}()
+#11 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(95): Illuminate/Container/Util::unwrapIfClosure(Object(Closure))
+#12 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate/Container/BoundMethod::callBoundMethod(Object(Illuminate/Foundation/Application), Array, Object(Closure))
+#13 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/Container.php(696): Illuminate/Container/BoundMethod::call(Object(Illuminate/Foundation/Application), Array, Array, NULL)
+#14 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Command.php(213): Illuminate/Container/Container->call(Array)
+#15 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Command/Command.php(341): Illuminate/Console/Command->execute(Object(Symfony/Component/Console/Input/ArrayInput), Object(Illuminate/Console/OutputStyle))
+#16 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Command.php(182): Symfony/Component/Console/Command/Command->run(Object(Symfony/Component/Console/Input/ArrayInput), Object(Illuminate/Console/OutputStyle))
+#17 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Concerns/CallsCommands.php(68): Illuminate/Console/Command->run(Object(Symfony/Component/Console/Input/ArrayInput), Object(Symfony/Component/Console/Output/NullOutput))
+#18 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Concerns/CallsCommands.php(41): Illuminate/Console/Command->runCommand('cache:clear', Array, Object(Symfony/Component/Console/Output/NullOutput))
+#19 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Concerns/CallsCommands.php(53): Illuminate/Console/Command->callSilent('cache:clear', Array)
+#20 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/OptimizeClearCommand.php(48): Illuminate/Console/Command->callSilently('cache:clear')
+#21 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/View/Components/Task.php(40): Illuminate/Foundation/Console/OptimizeClearCommand->{closure:Illuminate/Foundation/Console/OptimizeClearCommand::handle():48}()
+#22 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/View/Components/Factory.php(60): Illuminate/Console/View/Components/Task->render('cache', Object(Closure))
+#23 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/OptimizeClearCommand.php(48): Illuminate/Console/View/Components/Factory->__call('task', Array)
+#24 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate/Foundation/Console/OptimizeClearCommand->handle()
+#25 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate/Container/BoundMethod::{closure:Illuminate/Container/BoundMethod::call():35}()
+#26 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(95): Illuminate/Container/Util::unwrapIfClosure(Object(Closure))
+#27 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate/Container/BoundMethod::callBoundMethod(Object(Illuminate/Foundation/Application), Array, Object(Closure))
+#28 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Container/Container.php(696): Illuminate/Container/BoundMethod::call(Object(Illuminate/Foundation/Application), Array, Array, NULL)
+#29 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Command.php(213): Illuminate/Container/Container->call(Array)
+#30 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Command/Command.php(341): Illuminate/Console/Command->execute(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#31 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Console/Command.php(182): Symfony/Component/Console/Command/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#32 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(1117): Illuminate/Console/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#33 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(356): Symfony/Component/Console/Application->doRunCommand(Object(Illuminate/Foundation/Console/OptimizeClearCommand), Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#34 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#35 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#36 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#37 C:/laragon/www/web-presensi-feb/artisan(9): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#38 {main}
+"} 
+[2026-06-23 22:25:05] local.ERROR: Command "session:clear" is not defined.
+
+Did you mean one of these?
+    auth:clear-resets
+    cache:clear
+    config:clear
+    event:clear
+    optimize:clear
+    queue:clear
+    route:clear
+    schedule:clear-cache
+    session:table
+    view:clear {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"session:clear\" is not defined.
+
+Did you mean one of these?
+    auth:clear-resets
+    cache:clear
+    config:clear
+    event:clear
+    optimize:clear
+    queue:clear
+    route:clear
+    schedule:clear-cache
+    session:table
+    view:clear at C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php:759)
+[stacktrace]
+#0 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(298): Symfony/Component/Console/Application->find('session:clear')
+#1 C:/laragon/www/web-presensi-feb/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#2 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#3 C:/laragon/www/web-presensi-feb/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#4 C:/laragon/www/web-presensi-feb/artisan(9): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#5 {main}
+"} 

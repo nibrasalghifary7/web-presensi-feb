@@ -10,16 +10,22 @@
 @section('content')
 <div class="space-y-6">
 
-    {{-- Header & Tombol Tambah --}}
+    {{-- Header & Tombol --}}
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
             <h3 class="text-lg font-bold text-gray-800">Daftar Mahasiswa</h3>
             <p class="text-sm text-gray-500">Kelola data mahasiswa Program Studi Manajemen</p>
         </div>
-        <a href="{{ route('admin.mahasiswa.create') }}"
-           class="inline-flex items-center gap-2 px-4 py-2.5 bg-uin-green text-white rounded-xl font-medium hover:bg-uin-green-dark transition-colors">
-            <i class="fas fa-plus"></i> Tambah Mahasiswa
-        </a>
+        <div class="flex gap-2">
+            <a href="{{ route('admin.mahasiswa.import.form') }}"
+               class="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-500 text-white rounded-xl font-medium hover:bg-blue-600 transition-colors">
+                <i class="fas fa-file-import"></i> Import CSV
+            </a>
+            <a href="{{ route('admin.mahasiswa.create') }}"
+               class="inline-flex items-center gap-2 px-4 py-2.5 bg-uin-green text-white rounded-xl font-medium hover:bg-uin-green-dark transition-colors">
+                <i class="fas fa-plus"></i> Tambah
+            </a>
+        </div>
     </div>
 
     {{-- Filter & Pencarian --}}

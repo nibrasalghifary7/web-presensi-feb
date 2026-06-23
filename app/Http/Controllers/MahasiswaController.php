@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Absensi;
 use App\Models\Jadwal;
 use App\Models\PengajuanIzin;
+use App\Models\Sesi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -50,7 +51,7 @@ class MahasiswaController extends Controller
 
     /**
      * Menampilkan halaman absensi (klik kehadiran).
-     * Menampilkan jadwal mata kuliah yang aktif hari ini.
+     * Menampilkan jadwal mata kuliah yang aktif hari ini beserta status sesi.
      */
     public function absensi()
     {
@@ -68,12 +69,18 @@ class MahasiswaController extends Controller
             ->whereDate('tanggal', today())
             ->pluck('status', 'id_jadwal');
 
-        return view('mahasiswa.absensi', compact('user', 'mahasiswa', 'jadwalHariIni', 'absensiHariIni'));
+        // Ambil sesi aktif hari ini untuk jadwal-jadwal ini
+        $sesiAktif = Sesi::whereIn('id_jadwal', $jadwalHariIni->pluck('id_jadwal'))
+            ->whereDate('tanggal', today())
+            ->where('status', 'dibuka')
+            ->pluck('id_sesi', 'id_jadwal');
+
+        return view('mahasiswa.absensi', compact('user', 'mahasiswa', 'jadwalHariIni', 'absensiHariIni', 'sesiAktif'));
     }
 
     /**
      * Memproses klik absensi dari mahasiswa.
-     * Placeholder untuk pengembangan QR Code / GPS di masa depan.
+     * Hanya bisa absen jika sesi pertemuan sudah dibuka oleh dosen.
      */
     public function prosesAbsensi(Request $request, $idJadwal)
     {
@@ -85,6 +92,16 @@ class MahasiswaController extends Controller
             ->where('kelas', $mahasiswa->kelas)
             ->firstOrFail();
 
+        // Cek apakah ada sesi aktif untuk jadwal ini hari ini
+        $sesiAktif = Sesi::where('id_jadwal', $idJadwal)
+            ->whereDate('tanggal', today())
+            ->where('status', 'dibuka')
+            ->first();
+
+        if (!$sesiAktif) {
+            return back()->with('error', 'Sesi pertemuan belum dibuka oleh dosen. Anda belum bisa melakukan absensi.');
+        }
+
         // Cek apakah sudah absen hari ini untuk jadwal ini
         $sudahAbsen = Absensi::where('nim', $mahasiswa->nim)
             ->where('id_jadwal', $idJadwal)
@@ -94,10 +111,6 @@ class MahasiswaController extends Controller
         if ($sudahAbsen) {
             return back()->with('error', 'Anda sudah melakukan absensi untuk mata kuliah ini hari ini.');
         }
-
-        // TODO: Validasi QR Code / GPS di sini
-        // $request->validate(['qr_code' => 'required|string']);
-        // $request->validate(['latitude' => 'required|numeric', 'longitude' => 'required|numeric']);
 
         // Catat absensi
         Absensi::create([
@@ -125,7 +138,7 @@ class MahasiswaController extends Controller
         $riwayat = Absensi::where('nim', $mahasiswa->nim)
             ->with(['jadwal.mataKuliah'])
             ->orderByDesc('tanggal')
-            ->paginate(15);
+            ->paginate(10);
 
         // Hitung statistik
         $totalHadir = Absensi::where('nim', $mahasiswa->nim)->where('status', 'Hadir')->count();

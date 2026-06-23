@@ -18,7 +18,6 @@
             theme: {
                 extend: {
                     colors: {
-                        // Warna khas UIN Syarif Hidayatullah Jakarta
                         'uin-green': '#006633',
                         'uin-green-dark': '#004d26',
                         'uin-green-light': '#008844',
@@ -41,10 +40,10 @@
 <body class="h-full bg-gray-50 font-sans antialiased">
 
     {{-- Wrapper utama dengan sidebar --}}
-    <div class="min-h-screen flex" x-data="{ sidebarOpen: false }">
+    <div class="h-screen flex overflow-hidden" x-data="{ sidebarOpen: false }">
 
         {{-- ========================================
-             SIDEBAR NAVIGASI
+             SIDEBAR NAVIGASI (FIXED)
              Responsive: hidden di mobile, muncul di desktop
              ======================================== --}}
         {{-- Overlay untuk mobile --}}
@@ -56,10 +55,10 @@
 
         {{-- Sidebar --}}
         <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-               class="fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-uin-green to-uin-green-dark text-white transform transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto flex flex-col">
+               class="fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-uin-green to-uin-green-dark text-white transform transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto flex flex-col h-screen">
 
             {{-- Logo & Brand --}}
-            <div class="flex items-center gap-3 px-5 py-5 border-b border-white/10">
+            <div class="flex items-center gap-3 px-5 py-5 border-b border-white/10 flex-shrink-0">
                 <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
                     <i class="fas fa-graduation-cap text-uin-green text-xl"></i>
                 </div>
@@ -69,7 +68,7 @@
                 </div>
             </div>
 
-            {{-- Navigasi --}}
+            {{-- Navigasi (Scrollable) --}}
             <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
                 {{-- Menu berdasarkan role --}}
                 @if(auth()->user()->isMahasiswa())
@@ -107,10 +106,11 @@
                         <i class="fas fa-home w-5 text-center"></i>
                         <span class="text-sm font-medium">Dashboard</span>
                     </a>
-                    <a href="{{ route('dosen.dashboard') }}"
-                       class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-white/80 hover:bg-white/10 hover:text-white">
-                        <i class="fas fa-calendar-day w-5 text-center"></i>
-                        <span class="text-sm font-medium">Jadwal Mengajar</span>
+                    <a href="{{ route('dosen.pengajuan.index') }}"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
+                              {{ request()->routeIs('dosen.pengajuan.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-file-medical w-5 text-center"></i>
+                        <span class="text-sm font-medium">Pengajuan Izin</span>
                     </a>
 
                 @elseif(auth()->user()->isAdmin())
@@ -145,11 +145,41 @@
                         <i class="fas fa-calendar-alt w-5 text-center"></i>
                         <span class="text-sm font-medium">Jadwal Kuliah</span>
                     </a>
+                    <a href="{{ route('admin.kelas.index') }}"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
+                              {{ request()->routeIs('admin.kelas.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-users w-5 text-center"></i>
+                        <span class="text-sm font-medium">Data Kelas</span>
+                    </a>
+                    <a href="{{ route('admin.absensi.index') }}"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
+                              {{ request()->routeIs('admin.absensi.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-clipboard-check w-5 text-center"></i>
+                        <span class="text-sm font-medium">Data Absensi</span>
+                    </a>
+                    <a href="{{ route('admin.pengajuan.index') }}"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
+                              {{ request()->routeIs('admin.pengajuan.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-file-circle-exclamation w-5 text-center"></i>
+                        <span class="text-sm font-medium">Pengajuan Izin</span>
+                    </a>
+                    <a href="{{ route('admin.users.index') }}"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
+                              {{ request()->routeIs('admin.users.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-user-gear w-5 text-center"></i>
+                        <span class="text-sm font-medium">Kelola Akun</span>
+                    </a>
+                    <a href="{{ route('admin.laporan.index') }}"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all
+                              {{ request()->routeIs('admin.laporan.*') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                        <i class="fas fa-chart-bar w-5 text-center"></i>
+                        <span class="text-sm font-medium">Laporan</span>
+                    </a>
                 @endif
             </nav>
 
-            {{-- Tombol Logout di bagian bawah sidebar --}}
-            <div class="px-3 py-4 border-t border-white/10">
+            {{-- Tombol Logout di bagian bawah sidebar (Fixed) --}}
+            <div class="px-3 py-4 border-t border-white/10 flex-shrink-0">
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit"
@@ -162,9 +192,9 @@
         </aside>
 
         {{-- ========================================
-             KONTEN UTAMA
+             KONTEN UTAMA (SCROLLABLE)
              ======================================== --}}
-        <div class="flex-1 flex flex-col min-w-0">
+        <div class="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto">
 
             {{-- Header / Topbar --}}
             <header class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-30">
@@ -224,7 +254,7 @@
             </main>
 
             {{-- Footer --}}
-            <footer class="px-6 py-4 text-center text-xs text-gray-400 border-t border-gray-100">
+            <footer class="px-6 py-4 text-center text-xs text-gray-400 border-t border-gray-100 flex-shrink-0">
                 <i class="fas fa-graduation-cap mr-1"></i>
                 M-Presence FEB &middot; Sistem Informasi Absensi &middot; Fakultas Ekonomi dan Bisnis UIN Syarif Hidayatullah Jakarta
             </footer>

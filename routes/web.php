@@ -80,6 +80,15 @@ Route::middleware(['auth', 'role:dosen'])->prefix('dosen')->name('dosen.')->grou
     // Rekap & Laporan
     Route::get('/rekap/{idJadwal}', [DosenController::class, 'rekap'])->name('rekap');
     Route::get('/laporan/{idJadwal}', [DosenController::class, 'cetakLaporan'])->name('laporan');
+    Route::get('/laporan/{idJadwal}/pdf', [DosenController::class, 'exportPdf'])->name('laporan.pdf');
+    Route::get('/laporan/{idJadwal}/excel', [DosenController::class, 'exportExcel'])->name('laporan.excel');
+
+    // Pengajuan Izin Mahasiswa
+    Route::get('/pengajuan', [DosenController::class, 'pengajuanIndex'])->name('pengajuan.index');
+
+    // Sesi Pertemuan
+    Route::post('/sesi/buka/{idJadwal}', [DosenController::class, 'bukaSesi'])->name('sesi.buka');
+    Route::post('/sesi/tutup/{idSesi}', [DosenController::class, 'tutupSesi'])->name('sesi.tutup');
 });
 
 // ========================================
@@ -97,6 +106,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/mahasiswa/{nim}/edit', [AdminController::class, 'mahasiswaEdit'])->name('mahasiswa.edit');
     Route::put('/mahasiswa/{nim}', [AdminController::class, 'mahasiswaUpdate'])->name('mahasiswa.update');
     Route::delete('/mahasiswa/{nim}', [AdminController::class, 'mahasiswaDestroy'])->name('mahasiswa.destroy');
+    Route::get('/mahasiswa/import', [AdminController::class, 'mahasiswaImportForm'])->name('mahasiswa.import.form');
+    Route::post('/mahasiswa/import', [AdminController::class, 'mahasiswaImport'])->name('mahasiswa.import');
+    Route::get('/mahasiswa/template', [AdminController::class, 'mahasiswaTemplate'])->name('mahasiswa.template');
 
     // CRUD Dosen
     Route::get('/dosen', [AdminController::class, 'dosenIndex'])->name('dosen.index');
@@ -115,5 +127,34 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Manajemen Jadwal
     Route::get('/jadwal', [AdminController::class, 'jadwalIndex'])->name('jadwal.index');
     Route::post('/jadwal', [AdminController::class, 'jadwalStore'])->name('jadwal.store');
+    Route::put('/jadwal/{id}', [AdminController::class, 'jadwalUpdate'])->name('jadwal.update');
     Route::delete('/jadwal/{id}', [AdminController::class, 'jadwalDestroy'])->name('jadwal.destroy');
+
+    // Pengajuan Izin/Sakit
+    Route::get('/pengajuan', [AdminController::class, 'pengajuanIndex'])->name('pengajuan.index');
+    Route::post('/pengajuan/{id}/approve', [AdminController::class, 'pengajuanApprove'])->name('pengajuan.approve');
+    Route::post('/pengajuan/{id}/reject', [AdminController::class, 'pengajuanReject'])->name('pengajuan.reject');
+
+    // CRUD Kelas (F-04)
+    Route::get('/kelas', [AdminController::class, 'kelasIndex'])->name('kelas.index');
+    Route::post('/kelas', [AdminController::class, 'kelasStore'])->name('kelas.store');
+    Route::put('/kelas/{id}', [AdminController::class, 'kelasUpdate'])->name('kelas.update');
+    Route::delete('/kelas/{id}', [AdminController::class, 'kelasDestroy'])->name('kelas.destroy');
+
+    // Kelola Absensi (F-06)
+    Route::get('/absensi', [AdminController::class, 'absensiIndex'])->name('absensi.index');
+    Route::put('/absensi/{id}', [AdminController::class, 'absensiUpdate'])->name('absensi.update');
+    Route::delete('/absensi/{id}', [AdminController::class, 'absensiDestroy'])->name('absensi.destroy');
+
+    // Kelola Akun Pengguna (F-07)
+    Route::get('/users', [AdminController::class, 'usersIndex'])->name('users.index');
+    Route::post('/users', [AdminController::class, 'usersStore'])->name('users.store');
+    Route::put('/users/{id}', [AdminController::class, 'usersUpdate'])->name('users.update');
+    Route::delete('/users/{id}', [AdminController::class, 'usersDestroy'])->name('users.destroy');
+    Route::post('/users/{id}/reset-password', [AdminController::class, 'usersResetPassword'])->name('users.reset-password');
+
+    // Laporan Absensi (F-08)
+    Route::get('/laporan', [AdminController::class, 'laporanIndex'])->name('laporan.index');
+    Route::get('/laporan/pdf', [AdminController::class, 'laporanPdf'])->name('laporan.pdf');
+    Route::get('/laporan/excel', [AdminController::class, 'laporanExcel'])->name('laporan.excel');
 });

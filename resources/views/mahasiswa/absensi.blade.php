@@ -60,7 +60,7 @@
                                 <i class="fas fa-check-circle"></i> Sudah Absen
                             </span>
                             <span class="text-xs text-gray-400">Status: {{ $absensiHariIni[$jadwal->id_jadwal] }}</span>
-                        @else
+                        @elseif(isset($sesiAktif[$jadwal->id_jadwal]))
                             <form action="{{ route('mahasiswa.absensi.proses', $jadwal->id_jadwal) }}" method="POST">
                                 @csrf
                                 <button type="submit"
@@ -69,9 +69,15 @@
                                     <i class="fas fa-check mr-1"></i> Absen Sekarang
                                 </button>
                             </form>
-                            {{-- Placeholder untuk QR/GPS --}}
+                            <span class="text-xs text-emerald-600">
+                                <i class="fas fa-circle text-[8px] mr-1 animate-pulse"></i> Sesi aktif — Anda bisa absen
+                            </span>
+                        @else
+                            <span class="inline-flex items-center gap-1 px-4 py-2 bg-gray-100 text-gray-500 rounded-xl text-sm font-medium">
+                                <i class="fas fa-lock"></i> Sesi Belum Dibuka
+                            </span>
                             <span class="text-xs text-gray-400">
-                                <i class="fas fa-info-circle mr-1"></i> Klik untuk mencatat kehadiran
+                                <i class="fas fa-info-circle mr-1"></i> Menunggu dosen membuka sesi pertemuan
                             </span>
                         @endif
                     </div>

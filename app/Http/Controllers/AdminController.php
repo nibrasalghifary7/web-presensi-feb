@@ -8,6 +8,8 @@ use App\Models\Dosen;
 use App\Models\MataKuliah;
 use App\Models\Jadwal;
 use App\Models\Absensi;
+use App\Models\PengajuanIzin;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -70,7 +72,7 @@ class AdminController extends Controller
             });
         }
 
-        $mahasiswas = $query->orderBy('nama')->paginate(20);
+        $mahasiswas = $query->orderBy('nama')->paginate(10);
 
         return view('admin.mahasiswa.index', compact('mahasiswas'));
     }
@@ -172,6 +174,127 @@ class AdminController extends Controller
                          ->with('success', 'Data mahasiswa berhasil dihapus.');
     }
 
+    /**
+     * Menampilkan form import mahasiswa.
+     */
+    public function mahasiswaImportForm()
+    {
+        return view('admin.mahasiswa.import');
+    }
+
+    /**
+     * Download template CSV import mahasiswa.
+     */
+    public function mahasiswaTemplate()
+    {
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="template-import-mahasiswa.csv"',
+        ];
+
+        $callback = function () {
+            $file = fopen('php://output', 'w');
+            // Header CSV
+            fputcsv($file, ['nim', 'nama', 'email', 'phone', 'kelas', 'angkatan', 'prodi', 'password']);
+            // Contoh data
+            fputcsv($file, ['12408011010099', 'Contoh Mahasiswa', 'contoh@student.uin-jkt.ac.id', '081234567890', 'Manajemen A', '2024', 'Manajemen', 'password123']);
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    /**
+     * Import data mahasiswa dari CSV.
+     */
+    public function mahasiswaImport(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:csv,txt|max:5120',
+        ], [
+            'file.required' => 'Pilih file CSV terlebih dahulu.',
+            'file.mimes' => 'Format file harus CSV.',
+            'file.max' => 'Ukuran file maksimal 5MB.',
+        ]);
+
+        $file = $request->file('file');
+        $handle = fopen($file->getPathname(), 'r');
+
+        // Skip header row
+        $header = fgetcsv($handle);
+
+        $success = 0;
+        $failed = 0;
+        $errors = [];
+
+        $line = 1;
+        while (($data = fgetcsv($handle)) !== false) {
+            $line++;
+
+            // Pastikan jumlah kolom sesuai
+            if (count($data) < 7) {
+                $errors[] = "Baris {$line}: Data tidak lengkap.";
+                $failed++;
+                continue;
+            }
+
+            $nim = trim($data[0]);
+            $nama = trim($data[1]);
+            $email = trim($data[2]);
+            $phone = trim($data[3]);
+            $kelas = trim($data[4]);
+            $angkatan = trim($data[5]);
+            $prodi = trim($data[6]);
+            $password = isset($data[7]) && !empty($data[7]) ? trim($data[7]) : 'password123';
+
+            // Validasi NIM unik
+            if (User::where('username', $nim)->exists()) {
+                $errors[] = "Baris {$line}: NIM {$nim} sudah terdaftar.";
+                $failed++;
+                continue;
+            }
+
+            try {
+                // Buat user
+                $user = User::create([
+                    'username' => $nim,
+                    'name' => $nama,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'password' => \Illuminate\Support\Facades\Hash::make($password),
+                    'role' => 'mahasiswa',
+                ]);
+
+                // Buat profil mahasiswa
+                Mahasiswa::create([
+                    'nim' => $nim,
+                    'user_id' => $user->id,
+                    'nama' => $nama,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'kelas' => $kelas,
+                    'angkatan' => $angkatan,
+                    'prodi' => $prodi ?: 'Manajemen',
+                ]);
+
+                $success++;
+            } catch (\Exception $e) {
+                $errors[] = "Baris {$line}: " . $e->getMessage();
+                $failed++;
+            }
+        }
+
+        fclose($handle);
+
+        $message = "Import selesai: {$success} berhasil, {$failed} gagal.";
+        if (!empty($errors)) {
+            $message .= ' Error: ' . implode(' | ', array_slice($errors, 0, 5));
+        }
+
+        return redirect()->route('admin.mahasiswa.index')
+                         ->with('success', $message);
+    }
+
     // ========================================
     // CRUD DOSEN
     // ========================================
@@ -191,7 +314,7 @@ class AdminController extends Controller
             });
         }
 
-        $dosens = $query->orderBy('nama')->paginate(20);
+        $dosens = $query->orderBy('nama')->paginate(10);
 
         return view('admin.dosen.index', compact('dosens'));
     }
@@ -294,7 +417,7 @@ class AdminController extends Controller
      */
     public function mataKuliahIndex()
     {
-        $mataKuliahs = MataKuliah::orderBy('nama_mk')->paginate(20);
+        $mataKuliahs = MataKuliah::orderBy('nama_mk')->paginate(10);
         return view('admin.mata-kuliah.index', compact('mataKuliahs'));
     }
 
@@ -365,7 +488,7 @@ class AdminController extends Controller
             $query->where('kelas', $request->kelas);
         }
 
-        $jadwals = $query->orderBy('hari')->orderBy('jam_mulai')->paginate(20);
+        $jadwals = $query->orderBy('hari')->orderBy('jam_mulai')->paginate(10);
         $mataKuliahs = MataKuliah::all();
         $dosens = Dosen::all();
 
@@ -395,6 +518,30 @@ class AdminController extends Controller
     }
 
     /**
+     * Mengupdate jadwal.
+     */
+    public function jadwalUpdate(Request $request, $id)
+    {
+        $jadwal = Jadwal::findOrFail($id);
+
+        $request->validate([
+            'id_mk' => 'required|exists:mata_kuliahs,id_mk',
+            'nidn' => 'required|exists:dosens,nidn',
+            'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu',
+            'jam_mulai' => 'required|date_format:H:i',
+            'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
+            'ruang' => 'nullable|string|max:50',
+            'kelas' => 'required|string|max:20',
+            'semester_aktif' => 'required|string|max:20',
+        ]);
+
+        $jadwal->update($request->all());
+
+        return redirect()->route('admin.jadwal.index')
+                         ->with('success', 'Jadwal berhasil diupdate.');
+    }
+
+    /**
      * Menghapus jadwal.
      */
     public function jadwalDestroy($id)
@@ -403,5 +550,492 @@ class AdminController extends Controller
 
         return redirect()->route('admin.jadwal.index')
                          ->with('success', 'Jadwal berhasil dihapus.');
+    }
+
+    // ========================================
+    // PENGAJUAN IZIN/SAKIT
+    // ========================================
+
+    /**
+     * Menampilkan daftar pengajuan izin/sakit dari mahasiswa.
+     * Admin bisa filter berdasarkan status dan menyetujui/menolak.
+     */
+    public function pengajuanIndex(Request $request)
+    {
+        $query = PengajuanIzin::with(['mahasiswa', 'jadwal.mataKuliah']);
+
+        // Filter berdasarkan status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Pencarian berdasarkan nama atau NIM
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->whereHas('mahasiswa', function ($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                  ->orWhere('nim', 'like', "%{$search}%");
+            });
+        }
+
+        $pengajuans = $query->orderByDesc('created_at')->paginate(10);
+
+        return view('admin.pengajuan.index', compact('pengajuans'));
+    }
+
+    /**
+     * Menyetujui pengajuan izin/sakit.
+     * Mengubah status pengajuan menjadi 'disetujui'.
+     */
+    public function pengajuanApprove($id)
+    {
+        $pengajuan = PengajuanIzin::findOrFail($id);
+        $pengajuan->update(['status' => 'disetujui']);
+
+        return back()->with('success', 'Pengajuan izin/sakit berhasil disetujui.');
+    }
+
+    /**
+     * Menolak pengajuan izin/sakit.
+     * Mengubah status pengajuan menjadi 'ditolak'.
+     */
+    public function pengajuanReject($id)
+    {
+        $pengajuan = PengajuanIzin::findOrFail($id);
+        $pengajuan->update(['status' => 'ditolak']);
+
+        return back()->with('success', 'Pengajuan izin/sakit berhasil ditolak.');
+    }
+
+    // ========================================
+    // KELOLA DATA KELAS (F-04)
+    // ========================================
+
+    /**
+     * Menampilkan daftar kelas.
+     */
+    public function kelasIndex(Request $request)
+    {
+        $query = Kelas::query();
+
+        if ($request->filled('search')) {
+            $query->where('nama_kelas', 'like', "%{$request->search}%");
+        }
+
+        $kelas = $query->orderBy('nama_kelas')->paginate(10);
+
+        return view('admin.kelas.index', compact('kelas'));
+    }
+
+    /**
+     * Menyimpan data kelas baru.
+     */
+    public function kelasStore(Request $request)
+    {
+        $request->validate([
+            'nama_kelas' => 'required|string|max:20|unique:kelas,nama_kelas',
+            'angkatan' => 'required|string|max:10',
+        ]);
+
+        Kelas::create([
+            'nama_kelas' => $request->nama_kelas,
+            'angkatan' => $request->angkatan,
+            'prodi' => $request->prodi ?? 'Manajemen',
+        ]);
+
+        return redirect()->route('admin.kelas.index')
+                         ->with('success', 'Data kelas berhasil ditambahkan.');
+    }
+
+    /**
+     * Mengupdate data kelas.
+     */
+    public function kelasUpdate(Request $request, $id)
+    {
+        $kelas = Kelas::findOrFail($id);
+
+        $request->validate([
+            'nama_kelas' => 'required|string|max:20|unique:kelas,nama_kelas,' . $id . ',id_kelas',
+            'angkatan' => 'required|string|max:10',
+        ]);
+
+        $kelas->update($request->only(['nama_kelas', 'angkatan', 'prodi']));
+
+        return redirect()->route('admin.kelas.index')
+                         ->with('success', 'Data kelas berhasil diupdate.');
+    }
+
+    /**
+     * Menghapus data kelas.
+     */
+    public function kelasDestroy($id)
+    {
+        Kelas::findOrFail($id)->delete();
+
+        return redirect()->route('admin.kelas.index')
+                         ->with('success', 'Data kelas berhasil dihapus.');
+    }
+
+    // ========================================
+    // KELOLA ABSENSI (F-06)
+    // ========================================
+
+    /**
+     * Menampilkan semua data absensi.
+     * Admin bisa filter dan koreksi data absensi.
+     */
+    public function absensiIndex(Request $request)
+    {
+        $query = Absensi::with(['mahasiswa', 'jadwal.mataKuliah', 'jadwal.dosen']);
+
+        // Filter berdasarkan kelas
+        if ($request->filled('kelas')) {
+            $query->whereHas('jadwal', function ($q) use ($request) {
+                $q->where('kelas', $request->kelas);
+            });
+        }
+
+        // Filter berdasarkan mata kuliah
+        if ($request->filled('id_mk')) {
+            $query->whereHas('jadwal', function ($q) use ($request) {
+                $q->where('id_mk', $request->id_mk);
+            });
+        }
+
+        // Filter berdasarkan status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Filter berdasarkan tanggal
+        if ($request->filled('tanggal')) {
+            $query->whereDate('tanggal', $request->tanggal);
+        }
+
+        // Pencarian berdasarkan NIM atau nama
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->whereHas('mahasiswa', function ($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                  ->orWhere('nim', 'like', "%{$search}%");
+            });
+        }
+
+        $absensis = $query->orderByDesc('tanggal')->orderByDesc('created_at')->paginate(10);
+        $mataKuliahs = MataKuliah::all();
+        $kelasList = Jadwal::select('kelas')->distinct()->pluck('kelas');
+
+        return view('admin.absensi.index', compact('absensis', 'mataKuliahs', 'kelasList'));
+    }
+
+    /**
+     * Mengupdate status absensi (koreksi manual oleh admin).
+     */
+    public function absensiUpdate(Request $request, $id)
+    {
+        $absensi = Absensi::findOrFail($id);
+
+        $request->validate([
+            'status' => 'required|in:Hadir,Izin,Sakit,Alpha',
+            'catatan' => 'nullable|string|max:255',
+        ]);
+
+        $absensi->update([
+            'status' => $request->status,
+            'catatan' => $request->catatan,
+            'validasi' => 'divalidasi',
+        ]);
+
+        return back()->with('success', 'Status absensi berhasil diperbarui.');
+    }
+
+    /**
+     * Menghapus data absensi.
+     */
+    public function absensiDestroy($id)
+    {
+        Absensi::findOrFail($id)->delete();
+
+        return back()->with('success', 'Data absensi berhasil dihapus.');
+    }
+
+    // ========================================
+    // KELOLA AKUN PENGGUNA (F-07)
+    // ========================================
+
+    /**
+     * Menampilkan daftar akun pengguna.
+     */
+    public function usersIndex(Request $request)
+    {
+        $query = User::query();
+
+        // Filter berdasarkan role
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
+        }
+
+        // Pencarian berdasarkan username, nama, atau email
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('username', 'like', "%{$search}%")
+                  ->orWhere('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        $users = $query->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('admin.users.index', compact('users'));
+    }
+
+    /**
+     * Menyimpan akun pengguna baru.
+     */
+    public function usersStore(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string|max:50|unique:users,username',
+            'name' => 'required|string|max:100',
+            'email' => 'nullable|email|max:100',
+            'password' => 'required|string|min:6|confirmed',
+            'role' => 'required|in:admin,dosen,mahasiswa',
+        ]);
+
+        User::create([
+            'username' => $request->username,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+        ]);
+
+        return redirect()->route('admin.users.index')
+                         ->with('success', 'Akun pengguna berhasil ditambahkan.');
+    }
+
+    /**
+     * Mengupdate data akun pengguna.
+     */
+    public function usersUpdate(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:100',
+            'email' => 'nullable|email|max:100',
+            'role' => 'required|in:admin,dosen,mahasiswa',
+        ]);
+
+        $user->update($request->only(['name', 'email', 'phone', 'role']));
+
+        return redirect()->route('admin.users.index')
+                         ->with('success', 'Akun pengguna berhasil diupdate.');
+    }
+
+    /**
+     * Menghapus akun pengguna.
+     */
+    public function usersDestroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        // Prevent deleting own account
+        if ($user->id === auth()->id()) {
+            return back()->with('error', 'Tidak bisa menghapus akun sendiri.');
+        }
+
+        $user->delete();
+
+        return redirect()->route('admin.users.index')
+                         ->with('success', 'Akun pengguna berhasil dihapus.');
+    }
+
+    /**
+     * Reset password pengguna ke default.
+     */
+    public function usersResetPassword($id)
+    {
+        $user = User::findOrFail($id);
+        $newPassword = 'password123';
+        $user->update(['password' => Hash::make($newPassword)]);
+
+        return back()->with('success', 'Password berhasil direset ke: ' . $newPassword);
+    }
+
+    // ========================================
+    // LAPORAN ABSENSI (F-08)
+    // ========================================
+
+    /**
+     * Menampilkan halaman laporan absensi dengan filter.
+     */
+    public function laporanIndex(Request $request)
+    {
+        $query = Absensi::with(['mahasiswa', 'jadwal.mataKuliah', 'jadwal.dosen']);
+
+        // Filter berdasarkan kelas
+        if ($request->filled('kelas')) {
+            $query->whereHas('jadwal', function ($q) use ($request) {
+                $q->where('kelas', $request->kelas);
+            });
+        }
+
+        // Filter berdasarkan mata kuliah
+        if ($request->filled('id_mk')) {
+            $query->whereHas('jadwal', function ($q) use ($request) {
+                $q->where('id_mk', $request->id_mk);
+            });
+        }
+
+        // Filter berdasarkan dosen
+        if ($request->filled('nidn')) {
+            $query->whereHas('jadwal', function ($q) use ($request) {
+                $q->where('nidn', $request->nidn);
+            });
+        }
+
+        // Filter berdasarkan tanggal range
+        if ($request->filled('tanggal_mulai')) {
+            $query->where('tanggal', '>=', $request->tanggal_mulai);
+        }
+        if ($request->filled('tanggal_akhir')) {
+            $query->where('tanggal', '<=', $request->tanggal_akhir);
+        }
+
+        $absensis = $query->orderByDesc('tanggal')->paginate(50);
+
+        // Data untuk filter
+        $mataKuliahs = MataKuliah::all();
+        $dosens = Dosen::all();
+        $kelasList = Jadwal::select('kelas')->distinct()->pluck('kelas');
+
+        // Rekap statistik
+        $totalHadir = (clone $query)->where('status', 'Hadir')->count();
+        $totalIzin = (clone $query)->where('status', 'Izin')->count();
+        $totalSakit = (clone $query)->where('status', 'Sakit')->count();
+        $totalAlpha = (clone $query)->where('status', 'Alpha')->count();
+        $totalSemua = $totalHadir + $totalIzin + $totalSakit + $totalAlpha;
+
+        return view('admin.laporan.index', compact(
+            'absensis', 'mataKuliahs', 'dosens', 'kelasList',
+            'totalHadir', 'totalIzin', 'totalSakit', 'totalAlpha', 'totalSemua'
+        ));
+    }
+
+    /**
+     * Export laporan absensi dalam format PDF.
+     */
+    public function laporanPdf(Request $request)
+    {
+        $query = Absensi::with(['mahasiswa', 'jadwal.mataKuliah', 'jadwal.dosen']);
+
+        // Apply same filters
+        if ($request->filled('kelas')) {
+            $query->whereHas('jadwal', function ($q) use ($request) {
+                $q->where('kelas', $request->kelas);
+            });
+        }
+        if ($request->filled('id_mk')) {
+            $query->whereHas('jadwal', function ($q) use ($request) {
+                $q->where('id_mk', $request->id_mk);
+            });
+        }
+        if ($request->filled('nidn')) {
+            $query->whereHas('jadwal', function ($q) use ($request) {
+                $q->where('nidn', $request->nidn);
+            });
+        }
+        if ($request->filled('tanggal_mulai')) {
+            $query->where('tanggal', '>=', $request->tanggal_mulai);
+        }
+        if ($request->filled('tanggal_akhir')) {
+            $query->where('tanggal', '<=', $request->tanggal_akhir);
+        }
+
+        $absensis = $query->orderByDesc('tanggal')->get();
+
+        // Rekap per mahasiswa
+        $rekap = $absensis->groupBy('nim')->map(function ($items) {
+            return [
+                'nama' => $items->first()->mahasiswa->nama,
+                'hadir' => $items->where('status', 'Hadir')->count(),
+                'izin' => $items->where('status', 'Izin')->count(),
+                'sakit' => $items->where('status', 'Sakit')->count(),
+                'alpha' => $items->where('status', 'Alpha')->count(),
+                'total' => $items->count(),
+            ];
+        });
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.laporan.pdf', compact('absensis', 'rekap'));
+        $pdf->setPaper('a4', 'landscape');
+
+        return $pdf->download('laporan-absensi-' . date('Y-m-d') . '.pdf');
+    }
+
+    /**
+     * Export laporan absensi dalam format Excel (CSV).
+     */
+    public function laporanExcel(Request $request)
+    {
+        $query = Absensi::with(['mahasiswa', 'jadwal.mataKuliah', 'jadwal.dosen']);
+
+        // Apply same filters
+        if ($request->filled('kelas')) {
+            $query->whereHas('jadwal', function ($q) use ($request) {
+                $q->where('kelas', $request->kelas);
+            });
+        }
+        if ($request->filled('id_mk')) {
+            $query->whereHas('jadwal', function ($q) use ($request) {
+                $q->where('id_mk', $request->id_mk);
+            });
+        }
+        if ($request->filled('nidn')) {
+            $query->whereHas('jadwal', function ($q) use ($request) {
+                $q->where('nidn', $request->nidn);
+            });
+        }
+        if ($request->filled('tanggal_mulai')) {
+            $query->where('tanggal', '>=', $request->tanggal_mulai);
+        }
+        if ($request->filled('tanggal_akhir')) {
+            $query->where('tanggal', '<=', $request->tanggal_akhir);
+        }
+
+        $absensis = $query->orderByDesc('tanggal')->get();
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="laporan-absensi-' . date('Y-m-d') . '.csv"',
+        ];
+
+        $callback = function () use ($absensis) {
+            $file = fopen('php://output', 'w');
+            // BOM untuk UTF-8 Excel
+            fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+            // Header CSV
+            fputcsv($file, ['No', 'NIM', 'Nama', 'Mata Kuliah', 'Kelas', 'Dosen', 'Tanggal', 'Jam Masuk', 'Status', 'Validasi']);
+            // Data
+            foreach ($absensis as $index => $a) {
+                fputcsv($file, [
+                    $index + 1,
+                    $a->nim,
+                    $a->mahasiswa->nama ?? '-',
+                    $a->jadwal->mataKuliah->nama_mk ?? '-',
+                    $a->jadwal->kelas ?? '-',
+                    $a->jadwal->dosen->nama ?? '-',
+                    $a->tanggal->format('Y-m-d'),
+                    $a->jam_masuk ? substr($a->jam_masuk, 0, 5) : '-',
+                    $a->status,
+                    $a->validasi,
+                ]);
+            }
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 }

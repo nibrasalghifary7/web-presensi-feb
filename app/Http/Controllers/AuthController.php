@@ -31,7 +31,8 @@ class AuthController extends Controller
 
     /**
      * Memproses permintaan login.
-     * Melakukan autentikasi berdasarkan username, password, dan role.
+     * Melakukan autentikasi berdasarkan username dan password.
+     * Role otomatis dideteksi dari database.
      */
     public function login(Request $request)
     {
@@ -39,24 +40,20 @@ class AuthController extends Controller
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string|min:6',
-            'role' => 'required|in:admin,dosen,mahasiswa',
         ], [
-            'username.required' => 'NIM/NIP wajib diisi.',
+            'username.required' => 'NIM/NIP/Username wajib diisi.',
             'password.required' => 'Password wajib diisi.',
             'password.min' => 'Password minimal 6 karakter.',
-            'role.required' => 'Silakan pilih role Anda.',
         ]);
 
-        // Cari user berdasarkan username dan role
-        $user = User::where('username', $request->username)
-                     ->where('role', $request->role)
-                     ->first();
+        // Cari user berdasarkan username saja (role otomatis dari database)
+        $user = User::where('username', $request->username)->first();
 
         // Verifikasi password
         if (!$user || !Hash::check($request->password, $user->password)) {
             return back()
-                ->withInput($request->only('username', 'role'))
-                ->withErrors(['username' => 'NIM/NIP atau password salah.']);
+                ->withInput($request->only('username'))
+                ->withErrors(['username' => 'NIM/NIP/Username atau password salah.']);
         }
 
         // Lakukan login

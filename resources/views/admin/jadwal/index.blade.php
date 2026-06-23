@@ -62,13 +62,19 @@
                             <td class="px-5 py-3 text-sm text-gray-600">{{ $j->ruang }}</td>
                             <td class="px-5 py-3 text-sm text-gray-600">{{ $j->kelas }}</td>
                             <td class="px-5 py-3">
-                                <form action="{{ route('admin.jadwal.destroy', $j->id_jadwal) }}" method="POST"
-                                      onsubmit="return confirm('Yakin hapus jadwal ini?')">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-xs font-medium hover:bg-red-200">
-                                        <i class="fas fa-trash"></i>
+                                <div class="flex gap-2">
+                                    <button onclick="editJadwal({{ $j->id_jadwal }}, {{ $j->id_mk }}, '{{ $j->nidn }}', '{{ $j->hari }}', '{{ substr($j->jam_mulai, 0, 5) }}', '{{ substr($j->jam_selesai, 0, 5) }}', '{{ $j->ruang }}', '{{ $j->kelas }}', '{{ $j->semester_aktif }}')"
+                                            class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs font-medium hover:bg-blue-200">
+                                        <i class="fas fa-edit"></i>
                                     </button>
-                                </form>
+                                    <form action="{{ route('admin.jadwal.destroy', $j->id_jadwal) }}" method="POST"
+                                          onsubmit="return confirm('Yakin hapus jadwal ini?')">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-xs font-medium hover:bg-red-200">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty
@@ -143,5 +149,88 @@
             </form>
         </div>
     </div>
+
+    {{-- Modal Edit Jadwal --}}
+    <div id="modalEditJadwal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 w-full max-w-lg shadow-2xl">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">Edit Jadwal Kuliah</h3>
+            <form id="formEditJadwal" method="POST" class="space-y-4">
+                @csrf @method('PUT')
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Mata Kuliah</label>
+                        <select name="id_mk" id="edit_mk" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                            @foreach($mataKuliahs as $mk)
+                                <option value="{{ $mk->id_mk }}">{{ $mk->nama_mk }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Dosen</label>
+                        <select name="nidn" id="edit_nidn" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                            @foreach($dosens as $d)
+                                <option value="{{ $d->nidn }}">{{ $d->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Hari</label>
+                        <select name="hari" id="edit_hari" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                            @foreach(['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'] as $hari)
+                                <option value="{{ $hari }}">{{ $hari }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Kelas</label>
+                        <input type="text" name="kelas" id="edit_kelas" required
+                               class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Jam Mulai</label>
+                        <input type="time" name="jam_mulai" id="edit_jam_mulai" required
+                               class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Jam Selesai</label>
+                        <input type="time" name="jam_selesai" id="edit_jam_selesai" required
+                               class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Ruang</label>
+                        <input type="text" name="ruang" id="edit_ruang"
+                               class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Semester</label>
+                        <input type="text" name="semester_aktif" id="edit_semester" required
+                               class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                    </div>
+                </div>
+                <div class="flex gap-3 pt-2">
+                    <button type="submit" class="flex-1 px-4 py-2.5 bg-uin-green text-white rounded-xl font-medium hover:bg-uin-green-dark">Update</button>
+                    <button type="button" onclick="document.getElementById('modalEditJadwal').classList.add('hidden')"
+                            class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
+@push('scripts')
+<script>
+    function editJadwal(id, id_mk, nidn, hari, jam_mulai, jam_selesai, ruang, kelas, semester) {
+        document.getElementById('formEditJadwal').action = '/admin/jadwal/' + id;
+        document.getElementById('edit_mk').value = id_mk;
+        document.getElementById('edit_nidn').value = nidn;
+        document.getElementById('edit_hari').value = hari;
+        document.getElementById('edit_jam_mulai').value = jam_mulai;
+        document.getElementById('edit_jam_selesai').value = jam_selesai;
+        document.getElementById('edit_ruang').value = ruang;
+        document.getElementById('edit_kelas').value = kelas;
+        document.getElementById('edit_semester').value = semester;
+        document.getElementById('modalEditJadwal').classList.remove('hidden');
+    }
+</script>
+@endpush
 @endsection

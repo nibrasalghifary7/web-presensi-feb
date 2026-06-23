@@ -10,14 +10,24 @@
 @section('content')
 <div class="space-y-6">
     <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="flex items-center justify-between mb-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
             <div>
                 <h2 class="text-xl font-bold text-gray-800">Laporan Kehadiran</h2>
                 <p class="text-sm text-gray-500">{{ $jadwal->mataKuliah->nama_mk }} - {{ $jadwal->kelas }}</p>
             </div>
-            <button onclick="window.print()" class="px-4 py-2 bg-uin-green text-white rounded-lg text-sm font-medium hover:bg-uin-green-dark">
-                <i class="fas fa-print mr-1"></i> Cetak
-            </button>
+            <div class="flex gap-2">
+                <a href="{{ route('dosen.laporan.pdf', $jadwal->id_jadwal) }}"
+                   class="px-4 py-2 bg-red-500 text-white rounded-lg text-sm font-medium hover:bg-red-600 transition-colors">
+                    <i class="fas fa-file-pdf mr-1"></i> PDF
+                </a>
+                <a href="{{ route('dosen.laporan.excel', $jadwal->id_jadwal) }}"
+                   class="px-4 py-2 bg-emerald-500 text-white rounded-lg text-sm font-medium hover:bg-emerald-600 transition-colors">
+                    <i class="fas fa-file-excel mr-1"></i> Excel
+                </a>
+                <button onclick="window.print()" class="px-4 py-2 bg-uin-green text-white rounded-lg text-sm font-medium hover:bg-uin-green-dark transition-colors">
+                    <i class="fas fa-print mr-1"></i> Cetak
+                </button>
+            </div>
         </div>
 
         {{-- Header Laporan --}}
