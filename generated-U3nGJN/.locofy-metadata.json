@@ -1,0 +1,35 @@
+{
+  "downloadUrl": "https://d1xzdqg8s8ggsr.cloudfront.net/3FULVG66CrWyWTaOoRbEZRHAKdQ/1c2a8f50-4ecb-458f-a2b4-eff65147ea31_1782125556420091902?Expires=-62135596800&Signature=pkkXYNZPYqHG3V7qn-N0Uq~KuIrG0BO2gzdNXQyDd0FuFwqhRQq2c9~1PcJdzb59keDty1iRx4-OJMuZupdfY4KSpv1JyKTZv4~i6cFu8U28Ytmbu8LERCC1-0FQH5jjoo0g~fxBEc6I6zwOE96GUeKm-4uSWMfKMrKVw6UdvX97PuFih9zy-OdxqwG7WNGyJYkSlkIonmn4vig33HF2hblVQY04p049yLKmMFRse8bU17LI1GMd1-oWRt4uU9jGTDr04hGj8wr~ujQ70GRqGavMTtLsxt9ovPt6JEz-nGEwWT5QuO2bEnsYqlP0azDPfQK4LQYlECnOGmrDmZ0muA__&Key-Pair-Id=K1P54FZWCHCL6J",
+  "files": [
+    "index.html",
+    "global.css",
+    "tailwind.config.js",
+    ".postcssrc",
+    "assets.json",
+    "README.md",
+    ".gitignore",
+    "package.json",
+    "public/Key.svg",
+    "public/Line-1@2x.png",
+    "public/person.svg",
+    "public/Lock.svg",
+    "public/Vector.svg",
+    "public/aa1a091da405808d5b32d7d4f6ec1f4a-removebg-preview-1@2x.png",
+    "public/Line-2@2x.png",
+    "public/005d5b9dc825d74b4f47a1a022a7913f-removebg-preview-1@2x.png",
+    "public/Frame@3x.png",
+    "public/Frame1@3x.png",
+    ".locofy/screen-1:4.png"
+  ],
+  "generatedAt": "2026-06-22T10:52:37.67Z",
+  "framework": "html-css",
+  "projectId": "3FUMoPdNO6P8Fpxfl5xQYL8hMZP",
+  "teamId": "3FULVG66CrWyWTaOoRbEZRHAKdQ",
+  "projectName": "Untitled",
+  "id": "mqp3jjo5",
+  "screenshots": [
+    "https://d1xzdqg8s8ggsr.cloudfront.net/3FULVG66CrWyWTaOoRbEZRHAKdQ/bfa67d0c-0f2c-4b19-949e-be976d335419_1782125540688133114"
+  ],
+  "time": 1782125556053,
+  "name": "login desktop"
+}
