@@ -176,7 +176,7 @@ return [
     // STUDENT
     // ========================================
     'mahasiswa' => [
-        'dashboard' => 'Dashboard',
+        'dashboard' => 'Dashboard Student',
         'total_pertemuan' => 'Total Sessions',
         'hadir' => 'Present',
         'izin_sakit' => 'Leave / Sick',

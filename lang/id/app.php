@@ -39,7 +39,7 @@ return [
     // MENU SIDEBAR
     // ========================================
     'menu' => [
-        'dashboard' => 'Dashboard',
+        'dashboard' => 'Beranda',
         'mahasiswa' => 'Data Mahasiswa',
         'dosen' => 'Data Dosen',
         'mata_kuliah' => 'Mata Kuliah',
@@ -86,7 +86,7 @@ return [
     // ADMIN
     // ========================================
     'admin' => [
-        'dashboard' => 'Dashboard Admin',
+        'dashboard' => 'Beranda Admin',
         'total_mahasiswa' => 'Total Mahasiswa',
         'total_dosen' => 'Total Dosen',
         'total_matkul' => 'Mata Kuliah',
@@ -155,7 +155,7 @@ return [
     // DOSEN
     // ========================================
     'dosen' => [
-        'dashboard' => 'Dashboard Dosen',
+        'dashboard' => 'Beranda Dosen',
         'welcome' => 'Selamat Datang',
         'jadwal_hari_ini' => 'Jadwal Mengajar Hari Ini',
         'no_jadwal' => 'Tidak ada jadwal mengajar hari ini',
@@ -176,7 +176,7 @@ return [
     // MAHASISWA
     // ========================================
     'mahasiswa' => [
-        'dashboard' => 'Dashboard',
+        'dashboard' => 'Beranda Mahasiswa',
         'total_pertemuan' => 'Total Pertemuan',
         'hadir' => 'Hadir',
         'izin_sakit' => 'Izin / Sakit',
