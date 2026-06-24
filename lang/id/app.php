@@ -86,7 +86,7 @@ return [
     // ADMIN
     // ========================================
     'admin' => [
-        'dashboard' => 'Dashboard Admin',
+        'dashboard' => 'Beranda Admin',
         'total_mahasiswa' => 'Total Mahasiswa',
         'total_dosen' => 'Total Dosen',
         'total_matkul' => 'Mata Kuliah',

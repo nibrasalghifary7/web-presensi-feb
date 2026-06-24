@@ -14,6 +14,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminDosenController;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 
@@ -178,4 +179,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/laporan', [AdminController::class, 'laporanIndex'])->name('laporan.index');
     Route::get('/laporan/pdf', [AdminController::class, 'laporanPdf'])->name('laporan.pdf');
     Route::get('/laporan/excel', [AdminController::class, 'laporanExcel'])->name('laporan.excel');
+
+    // Monitoring Presensi Dosen
+    Route::get('/presensi', [AdminDosenController::class, 'index'])->name('presensi.index');
+    Route::get('/presensi/{idJadwal}/validasi', [AdminDosenController::class, 'validasi'])->name('presensi.validasi');
+    Route::get('/presensi/{idJadwal}/rekap', [AdminDosenController::class, 'rekap'])->name('presensi.rekap');
+    Route::get('/presensi/{idJadwal}/laporan', [AdminDosenController::class, 'laporan'])->name('presensi.laporan');
+    Route::get('/presensi/{idJadwal}/pdf', [AdminDosenController::class, 'exportPdf'])->name('presensi.exportPdf');
+    Route::get('/presensi/{idJadwal}/excel', [AdminDosenController::class, 'exportExcel'])->name('presensi.exportExcel');
+    Route::put('/presensi/{idAbsensi}/update-status', [AdminDosenController::class, 'updateStatus'])->name('presensi.updateStatus');
 });

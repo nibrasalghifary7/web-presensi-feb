@@ -27,10 +27,11 @@
         <form method="GET" class="flex flex-col sm:flex-row gap-3">
             <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('app.placeholder.search_nim_nama') }}"
                    class="flex-1 px-4 py-2 rounded-lg border border-gray-200 text-sm text-gray-800 focus:border-primary focus:ring-1 focus:ring-primary/20 dark:border-white/10 dark:bg-white/5 dark:text-white dark:focus:border-aurora-glow outline-none">
-            <select name="kelas" class="px-4 py-2 rounded-lg border border-gray-200 text-sm text-gray-800 dark:border-white/10 dark:bg-white/5 dark:text-white">
+            <select name="kelas" class="px-4 py-2 rounded-lg border border-gray-200 text-sm text-gray-800 dark:border-slate-600 dark:bg-slate-700 dark:text-white outline-none">
                 <option value="">{{ __('app.placeholder.all_classes') }}</option>
-                <option value="Manajemen A" {{ request('kelas')=='Manajemen A'?'selected':'' }}>Manajemen A</option>
-                <option value="Manajemen B" {{ request('kelas')=='Manajemen B'?'selected':'' }}>Manajemen B</option>
+                @foreach($kelasList as $k)
+                    <option value="{{ $k->nama_kelas }}" {{ request('kelas') == $k->nama_kelas ? 'selected' : '' }}>{{ $k->nama_kelas }}</option>
+                @endforeach
             </select>
             <button type="submit" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200 dark:bg-white/10 dark:text-white dark:hover:bg-white/15">
                 <i class="fas fa-search mr-1"></i> {{ __('app.filter') }}

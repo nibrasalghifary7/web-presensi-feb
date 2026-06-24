@@ -28,6 +28,11 @@
                             'glow-tertiary': '#8A7DFF',
                             'accent': '#4AA8FF',
                         },
+                        'uin-green': '#2563EB',
+                        'uin-green-dark': '#1D4ED8',
+                        'uin-green-light': '#3B82F6',
+                        'uin-gold': '#c8a951',
+                        'uin-gold-light': '#e8d48b',
                         'primary': '#2563EB',
                         'primary-dark': '#1D4ED8',
                         'primary-light': '#3B82F6',
@@ -163,6 +168,7 @@
                             ['route' => 'admin.absensi.index', 'icon' => 'fa-clipboard-check', 'label' => 'app.menu.absensi'],
                             ['route' => 'admin.pengajuan.index', 'icon' => 'fa-file-circle-exclamation', 'label' => 'app.menu.pengajuan'],
                             ['route' => 'admin.users.index', 'icon' => 'fa-user-gear', 'label' => 'app.menu.users'],
+                            ['route' => 'admin.presensi.index', 'icon' => 'fa-clipboard-check', 'label' => 'Monitoring Presensi'],
                             ['route' => 'admin.laporan.index', 'icon' => 'fa-chart-bar', 'label' => 'app.menu.laporan'],
                         ];
                     }
@@ -268,12 +274,12 @@
                     <div x-data="{ show: true }" x-show="show" x-transition
                          class="mb-4 rounded-xl px-4 py-3 flex items-center justify-between
                                 bg-emerald-50 border border-emerald-200 text-emerald-700
-                                dark:glass-elevated dark:border-emerald-500/20 dark:text-emerald-300">
+                                dark:bg-emerald-500/15 dark:border-emerald-500/30 dark:text-emerald-300">
                         <div class="flex items-center gap-2">
                             <i class="fas fa-check-circle text-emerald-500 dark:text-emerald-400"></i>
-                            <span class="text-sm">{{ session('success') }}</span>
+                            <span class="text-sm font-medium">{{ session('success') }}</span>
                         </div>
-                        <button @click="show = false" class="text-emerald-500 dark:text-emerald-400"><i class="fas fa-times"></i></button>
+                        <button @click="show = false" class="text-emerald-500 dark:text-emerald-400 hover:opacity-70"><i class="fas fa-times"></i></button>
                     </div>
                 @endif
 
@@ -281,12 +287,12 @@
                     <div x-data="{ show: true }" x-show="show" x-transition
                          class="mb-4 rounded-xl px-4 py-3 flex items-center justify-between
                                 bg-red-50 border border-red-200 text-red-700
-                                dark:glass-elevated dark:border-red-500/20 dark:text-red-300">
+                                dark:bg-red-500/15 dark:border-red-500/30 dark:text-red-300">
                         <div class="flex items-center gap-2">
                             <i class="fas fa-exclamation-circle text-red-500 dark:text-red-400"></i>
-                            <span class="text-sm">{{ session('error') }}</span>
+                            <span class="text-sm font-medium">{{ session('error') }}</span>
                         </div>
-                        <button @click="show = false" class="text-red-500 dark:text-red-400"><i class="fas fa-times"></i></button>
+                        <button @click="show = false" class="text-red-500 dark:text-red-400 hover:opacity-70"><i class="fas fa-times"></i></button>
                     </div>
                 @endif
 

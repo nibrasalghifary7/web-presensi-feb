@@ -5,7 +5,7 @@
 @section('content')
 <div class="max-w-2xl mx-auto">
     <!-- Card Profil -->
-    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden">
         <!-- Header biru -->
         <div class="bg-gradient-to-r from-uin-green to-uin-green-light px-6 py-8 text-center">
             <div class="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full shadow-lg mb-3">
@@ -20,68 +20,68 @@
 
         <!-- Data Profil -->
         <div class="p-6">
-            <h3 class="text-lg font-bold text-gray-800 mb-4">
+            <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-4">
                 <i class="fas fa-id-card text-uin-green mr-2"></i>Data Diri
             </h3>
 
             <div class="space-y-4">
-                <div class="flex items-start gap-4 p-3 bg-gray-50 rounded-xl">
-                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div class="flex items-start gap-4 p-3 bg-gray-50 dark:bg-slate-700 rounded-xl">
+                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
                         <i class="fas fa-hashtag text-uin-green"></i>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-500 font-semibold uppercase">NIM</p>
-                        <p class="text-sm font-bold text-gray-800">{{ $mahasiswa->nim ?? '-' }}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400 font-semibold uppercase">NIM</p>
+                        <p class="text-sm font-bold text-gray-800 dark:text-white">{{ $mahasiswa->nim ?? '-' }}</p>
                     </div>
                 </div>
 
-                <div class="flex items-start gap-4 p-3 bg-gray-50 rounded-xl">
-                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div class="flex items-start gap-4 p-3 bg-gray-50 dark:bg-slate-700 rounded-xl">
+                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
                         <i class="fas fa-user text-blue-600"></i>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-500 font-semibold uppercase">Nama Lengkap</p>
-                        <p class="text-sm font-bold text-gray-800">{{ $mahasiswa->nama ?? $user->name }}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400 font-semibold uppercase">Nama Lengkap</p>
+                        <p class="text-sm font-bold text-gray-800 dark:text-white">{{ $mahasiswa->nama ?? $user->name }}</p>
                     </div>
                 </div>
 
-                <div class="flex items-start gap-4 p-3 bg-gray-50 rounded-xl">
+                <div class="flex items-start gap-4 p-3 bg-gray-50 dark:bg-slate-700 rounded-xl">
                     <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
                         <i class="fas fa-envelope text-purple-600"></i>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-500 font-semibold uppercase">Email</p>
-                        <p class="text-sm font-bold text-gray-800">{{ $mahasiswa->email ?? $user->email ?? '-' }}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400 font-semibold uppercase">Email</p>
+                        <p class="text-sm font-bold text-gray-800 dark:text-white">{{ $mahasiswa->email ?? $user->email ?? '-' }}</p>
                     </div>
                 </div>
 
-                <div class="flex items-start gap-4 p-3 bg-gray-50 rounded-xl">
+                <div class="flex items-start gap-4 p-3 bg-gray-50 dark:bg-slate-700 rounded-xl">
                     <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center flex-shrink-0">
                         <i class="fas fa-users text-yellow-600"></i>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-500 font-semibold uppercase">Kelas</p>
-                        <p class="text-sm font-bold text-gray-800">{{ $mahasiswa->kelas ?? '-' }}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400 font-semibold uppercase">Kelas</p>
+                        <p class="text-sm font-bold text-gray-800 dark:text-white">{{ $mahasiswa->kelas ?? '-' }}</p>
                     </div>
                 </div>
 
-                <div class="flex items-start gap-4 p-3 bg-gray-50 rounded-xl">
+                <div class="flex items-start gap-4 p-3 bg-gray-50 dark:bg-slate-700 rounded-xl">
                     <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
                         <i class="fas fa-calendar text-red-600"></i>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-500 font-semibold uppercase">Angkatan</p>
-                        <p class="text-sm font-bold text-gray-800">{{ $mahasiswa->angkatan ?? '-' }}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400 font-semibold uppercase">Angkatan</p>
+                        <p class="text-sm font-bold text-gray-800 dark:text-white">{{ $mahasiswa->angkatan ?? '-' }}</p>
                     </div>
                 </div>
 
-                <div class="flex items-start gap-4 p-3 bg-gray-50 rounded-xl">
+                <div class="flex items-start gap-4 p-3 bg-gray-50 dark:bg-slate-700 rounded-xl">
                     <div class="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
                         <i class="fas fa-at text-gray-600"></i>
                     </div>
                     <div>
-                        <p class="text-xs text-gray-500 font-semibold uppercase">Username</p>
-                        <p class="text-sm font-bold text-gray-800">{{ $user->username }}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400 font-semibold uppercase">Username</p>
+                        <p class="text-sm font-bold text-gray-800 dark:text-white">{{ $user->username }}</p>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                 </a>
             </div>
 
-            <p class="text-xs text-gray-400 text-center mt-4">
+            <p class="text-xs text-gray-400 dark:text-slate-500 text-center mt-4">
                 <i class="fas fa-info-circle mr-1"></i>
                 Data profil dikelola oleh administrator. Hubungi admin untuk perubahan data.
             </p>

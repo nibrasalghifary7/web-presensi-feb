@@ -13,8 +13,8 @@
     {{-- Header & Tombol Tambah --}}
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-            <h3 class="text-lg font-bold text-gray-800">Daftar Kelas</h3>
-            <p class="text-sm text-gray-500">Kelola data kelas/rombongan belajar</p>
+            <h3 class="text-lg font-bold text-gray-800 dark:text-white">Daftar Kelas</h3>
+            <p class="text-sm text-gray-500 dark:text-slate-400">Kelola data kelas/rombongan belajar</p>
         </div>
         <button onclick="document.getElementById('modalTambah').classList.remove('hidden')"
                 class="inline-flex items-center gap-2 px-4 py-2.5 bg-uin-green text-white rounded-xl font-medium hover:bg-uin-green-dark transition-colors">
@@ -23,49 +23,49 @@
     </div>
 
     {{-- Pencarian --}}
-    <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+    <div class="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm dark:shadow-slate-900/50 border border-gray-100 dark:border-slate-700">
         <form method="GET" class="flex gap-3">
             <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama kelas..."
-                   class="flex-1 px-4 py-2 rounded-lg border border-gray-200 text-sm focus:border-uin-green focus:ring-1 focus:ring-uin-green/20 outline-none">
-            <button type="submit" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">
+                   class="flex-1 px-4 py-2 rounded-lg border border-gray-200 dark:border-slate-600 text-sm focus:border-uin-green focus:ring-1 focus:ring-uin-green/20 outline-none dark:bg-slate-700 dark:text-white">
+            <button type="submit" class="px-4 py-2 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-slate-200 rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-slate-600">
                 <i class="fas fa-search"></i>
             </button>
         </form>
     </div>
 
     {{-- Tabel --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm dark:shadow-slate-900/50 border border-gray-100 dark:border-slate-700 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full">
-                <thead class="bg-gray-50">
+                <thead class="bg-gray-50 dark:bg-slate-700">
                     <tr>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">No</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Nama Kelas</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Angkatan</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Prodi</th>
-                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Jumlah Mhs</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Aksi</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">No</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Nama Kelas</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Angkatan</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Prodi</th>
+                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Jumlah Mhs</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50">
                     @forelse($kelas as $index => $k)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-5 py-3 text-sm text-gray-500">{{ $kelas->firstItem() + $index }}</td>
-                            <td class="px-5 py-3 text-sm font-medium text-gray-800">{{ $k->nama_kelas }}</td>
-                            <td class="px-5 py-3 text-sm text-gray-600">{{ $k->angkatan }}</td>
-                            <td class="px-5 py-3 text-sm text-gray-600">{{ $k->prodi }}</td>
-                            <td class="px-5 py-3 text-sm text-center text-gray-600">{{ $k->mahasiswas_count }}</td>
+                        <tr class="hover:bg-gray-50 dark:hover:bg-slate-700">
+                            <td class="px-5 py-3 text-sm text-gray-500 dark:text-slate-400">{{ $kelas->firstItem() + $index }}</td>
+                            <td class="px-5 py-3 text-sm font-medium text-gray-800 dark:text-white">{{ $k->nama_kelas }}</td>
+                            <td class="px-5 py-3 text-sm text-gray-600 dark:text-slate-300">{{ $k->angkatan }}</td>
+                            <td class="px-5 py-3 text-sm text-gray-600 dark:text-slate-300">{{ $k->prodi }}</td>
+                            <td class="px-5 py-3 text-sm text-center text-gray-600 dark:text-slate-300">{{ $k->mahasiswas_count }}</td>
                             <td class="px-5 py-3">
                                 <div class="flex gap-2">
                                     <button onclick="editKelas({{ $k->id_kelas }}, '{{ $k->nama_kelas }}', '{{ $k->angkatan }}')"
-                                            class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs font-medium hover:bg-blue-200">
+                                            class="px-3 py-1 bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500/20 rounded-lg text-xs font-medium hover:bg-blue-200">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <form action="{{ route('admin.kelas.destroy', $k->id_kelas) }}" method="POST"
                                           onsubmit="return confirm('Yakin hapus kelas ini?')">
                                         @csrf @method('DELETE')
                                         <button type="submit"
-                                                class="px-3 py-1 bg-red-100 text-red-700 rounded-lg text-xs font-medium hover:bg-red-200">
+                                                class="px-3 py-1 bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400 dark:hover:bg-red-500/20 rounded-lg text-xs font-medium hover:bg-red-200">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
@@ -83,23 +83,23 @@
                 </tbody>
             </table>
         </div>
-        <div class="px-5 py-3 border-t border-gray-100">{{ $kelas->withQueryString()->links() }}</div>
+        <div class="px-5 py-3 border-t border-gray-100 dark:border-slate-700">{{ $kelas->withQueryString()->links() }}</div>
     </div>
 
     {{-- Modal Tambah --}}
     <div id="modalTambah" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
-            <h3 class="text-lg font-bold text-gray-800 mb-4">Tambah Kelas</h3>
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 w-full max-w-md shadow-2xl">
+            <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-4">Tambah Kelas</h3>
             <form method="POST" action="{{ route('admin.kelas.store') }}" class="space-y-4">
                 @csrf
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Nama Kelas</label>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-slate-200 mb-1">Nama Kelas</label>
                     <input type="text" name="nama_kelas" required placeholder="Contoh: Manajemen A"
-                           class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                           class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-slate-600 text-sm focus:border-uin-green outline-none dark:bg-slate-700 dark:text-white">
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Angkatan</label>
-                    <select name="angkatan" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-slate-200 mb-1">Angkatan</label>
+                    <select name="angkatan" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-slate-600 text-sm focus:border-uin-green outline-none dark:bg-slate-700 dark:text-white">
                         @for($y = date('Y'); $y >= 2020; $y--)
                             <option value="{{ $y }}">{{ $y }}</option>
                         @endfor
@@ -108,7 +108,7 @@
                 <div class="flex gap-3 pt-2">
                     <button type="submit" class="flex-1 px-4 py-2.5 bg-uin-green text-white rounded-xl font-medium hover:bg-uin-green-dark">Simpan</button>
                     <button type="button" onclick="document.getElementById('modalTambah').classList.add('hidden')"
-                            class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200">Batal</button>
+                            class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600 rounded-xl font-medium hover:bg-gray-200">Batal</button>
                 </div>
             </form>
         </div>
@@ -116,18 +116,18 @@
 
     {{-- Modal Edit --}}
     <div id="modalEdit" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
-            <h3 class="text-lg font-bold text-gray-800 mb-4">Edit Kelas</h3>
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 w-full max-w-md shadow-2xl">
+            <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-4">Edit Kelas</h3>
             <form id="formEdit" method="POST" class="space-y-4">
                 @csrf @method('PUT')
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Nama Kelas</label>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-slate-200 mb-1">Nama Kelas</label>
                     <input type="text" id="edit_nama" name="nama_kelas" required
-                           class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                           class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-slate-600 text-sm focus:border-uin-green outline-none dark:bg-slate-700 dark:text-white">
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Angkatan</label>
-                    <select id="edit_angkatan" name="angkatan" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-uin-green outline-none">
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-slate-200 mb-1">Angkatan</label>
+                    <select id="edit_angkatan" name="angkatan" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-slate-600 text-sm focus:border-uin-green outline-none dark:bg-slate-700 dark:text-white">
                         @for($y = date('Y'); $y >= 2020; $y--)
                             <option value="{{ $y }}">{{ $y }}</option>
                         @endfor
@@ -136,7 +136,7 @@
                 <div class="flex gap-3 pt-2">
                     <button type="submit" class="flex-1 px-4 py-2.5 bg-uin-green text-white rounded-xl font-medium hover:bg-uin-green-dark">Update</button>
                     <button type="button" onclick="document.getElementById('modalEdit').classList.add('hidden')"
-                            class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200">Batal</button>
+                            class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600 rounded-xl font-medium hover:bg-gray-200">Batal</button>
                 </div>
             </form>
         </div>

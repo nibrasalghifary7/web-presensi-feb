@@ -13,60 +13,60 @@
 
     {{-- Header --}}
     <div>
-        <h3 class="text-lg font-bold text-gray-800">Daftar Pengajuan Izin / Sakit</h3>
-        <p class="text-sm text-gray-500">Kelola pengajuan izin dan sakit dari mahasiswa</p>
+        <h3 class="text-lg font-bold text-gray-800 dark:text-white">Daftar Pengajuan Izin / Sakit</h3>
+        <p class="text-sm text-gray-500 dark:text-slate-400">Kelola pengajuan izin dan sakit dari mahasiswa</p>
     </div>
 
     {{-- Filter & Pencarian --}}
-    <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+    <div class="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm dark:shadow-slate-900/50 border border-gray-100 dark:border-slate-700">
         <form method="GET" class="flex flex-col sm:flex-row gap-3">
             <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari NIM atau nama..."
-                   class="flex-1 px-4 py-2 rounded-lg border border-gray-200 text-sm focus:border-uin-green focus:ring-1 focus:ring-uin-green/20 outline-none">
-            <select name="status" class="px-4 py-2 rounded-lg border border-gray-200 text-sm">
+                   class="flex-1 px-4 py-2 rounded-lg border border-gray-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white text-sm focus:border-uin-green focus:ring-1 focus:ring-uin-green/20 outline-none">
+            <select name="status" class="px-4 py-2 rounded-lg border border-gray-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white text-sm outline-none">
                 <option value="">Semua Status</option>
                 <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
                 <option value="disetujui" {{ request('status') == 'disetujui' ? 'selected' : '' }}>Disetujui</option>
                 <option value="ditolak" {{ request('status') == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
             </select>
-            <button type="submit" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200">
+            <button type="submit" class="px-4 py-2 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-slate-200 rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-slate-600">
                 <i class="fas fa-filter mr-1"></i> Filter
             </button>
         </form>
     </div>
 
     {{-- Tabel --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm dark:shadow-slate-900/50 border border-gray-100 dark:border-slate-700 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full">
-                <thead class="bg-gray-50">
+                <thead class="bg-gray-50 dark:bg-slate-700">
                     <tr>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">No</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">NIM</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Nama</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Mata Kuliah</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Tanggal</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Jenis</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Alasan</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Bukti</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Aksi</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">No</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">NIM</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Nama</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Mata Kuliah</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Tanggal</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Jenis</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Alasan</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Bukti</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Status</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50">
                     @forelse($pengajuans as $index => $p)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-5 py-3 text-sm text-gray-500">{{ $pengajuans->firstItem() + $index }}</td>
-                            <td class="px-5 py-3 text-sm font-medium text-gray-800">{{ $p->nim }}</td>
-                            <td class="px-5 py-3 text-sm text-gray-800">{{ $p->mahasiswa->nama ?? '-' }}</td>
-                            <td class="px-5 py-3 text-sm text-gray-600">{{ $p->jadwal->mataKuliah->nama_mk ?? '-' }}</td>
-                            <td class="px-5 py-3 text-sm text-gray-600">{{ $p->tanggal_izin->translatedFormat('d M Y') }}</td>
+                        <tr class="hover:bg-gray-50 dark:bg-slate-700">
+                            <td class="px-5 py-3 text-sm text-gray-500 dark:text-slate-400">{{ $pengajuans->firstItem() + $index }}</td>
+                            <td class="px-5 py-3 text-sm font-medium text-gray-800 dark:text-white">{{ $p->nim }}</td>
+                            <td class="px-5 py-3 text-sm text-gray-800 dark:text-white">{{ $p->mahasiswa->nama ?? '-' }}</td>
+                            <td class="px-5 py-3 text-sm text-gray-600 dark:text-slate-300">{{ $p->jadwal->mataKuliah->nama_mk ?? '-' }}</td>
+                            <td class="px-5 py-3 text-sm text-gray-600 dark:text-slate-300">{{ $p->tanggal_izin->translatedFormat('d M Y') }}</td>
                             <td class="px-5 py-3">
                                 <span class="px-2 py-0.5 rounded-full text-xs font-semibold
                                     {{ $p->jenis == 'Sakit' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700' }}">
                                     {{ $p->jenis }}
                                 </span>
                             </td>
-                            <td class="px-5 py-3 text-sm text-gray-600 max-w-xs truncate">{{ $p->alasan }}</td>
+                            <td class="px-5 py-3 text-sm text-gray-600 dark:text-slate-300 max-w-xs truncate">{{ $p->alasan }}</td>
                             <td class="px-5 py-3">
                                 @if($p->bukti_surat)
                                     <a href="{{ asset('storage/' . $p->bukti_surat) }}" target="_blank"
@@ -128,7 +128,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="px-5 py-3 border-t border-gray-100">
+        <div class="px-5 py-3 border-t border-gray-100 dark:border-slate-700">
             {{ $pengajuans->withQueryString()->links() }}
         </div>
     </div>

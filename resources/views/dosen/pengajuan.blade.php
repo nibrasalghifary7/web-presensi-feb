@@ -68,7 +68,7 @@
                                     {{ $p->jenis }}
                                 </span>
                             </td>
-                            <td class="px-5 py-3 text-sm text-gray-600 max-w-xs truncate">{{ $p->alasan }}</td>
+                            <td class="px-5 py-3 text-sm text-gray-600 dark:text-slate-300 max-w-xs truncate">{{ $p->alasan }}</td>
                             <td class="px-5 py-3">
                                 @if($p->bukti_surat)
                                     <a href="{{ asset('storage/' . $p->bukti_surat) }}" target="_blank"
@@ -81,15 +81,15 @@
                             </td>
                             <td class="px-5 py-3">
                                 @if($p->status == 'disetujui')
-                                    <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
+                                    <span class="px-2 py-0.5 bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 rounded-full text-xs font-semibold">
                                         <i class="fas fa-check mr-1"></i>Disetujui
                                     </span>
                                 @elseif($p->status == 'ditolak')
-                                    <span class="px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-xs font-semibold">
+                                    <span class="px-2 py-0.5 bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400 rounded-full text-xs font-semibold">
                                         <i class="fas fa-times mr-1"></i>Ditolak
                                     </span>
                                 @else
-                                    <span class="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold">
+                                    <span class="px-2 py-0.5 bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded-full text-xs font-semibold">
                                         <i class="fas fa-clock mr-1"></i>Pending
                                     </span>
                                 @endif
@@ -106,7 +106,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="px-5 py-3 border-t border-gray-100">
+        <div class="px-5 py-3 border-t border-gray-100 dark:border-slate-700">
             {{ $pengajuans->withQueryString()->links() }}
         </div>
     </div>

@@ -98,7 +98,7 @@
                                     @else
                                         <form action="{{ route('dosen.validasi.proses', $absen->id_absensi) }}" method="POST" class="flex gap-2">
                                             @csrf
-                                            <select name="status" class="text-xs border rounded-lg px-2 py-1">
+                                            <select name="status" class="text-xs border rounded-lg px-2 py-1 dark:bg-slate-700 dark:text-white dark:border-slate-600">
                                                 <option value="Hadir" {{ $absen->status == 'Hadir' ? 'selected' : '' }}>Hadir</option>
                                                 <option value="Izin" {{ $absen->status == 'Izin' ? 'selected' : '' }}>Izin</option>
                                                 <option value="Sakit" {{ $absen->status == 'Sakit' ? 'selected' : '' }}>Sakit</option>

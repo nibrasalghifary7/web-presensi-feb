@@ -20,7 +20,7 @@
                     <i class="fas fa-user-graduate text-blue-600 dark:text-blue-400"></i>
                 </div>
                 <div>
-                    <p class="text-2xl font-bold text-gray-800 dark:text-white">{{ $totalMahasiswa }}</p>
+                    <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">{{ $totalMahasiswa }}</p>
                     <p class="text-xs text-gray-500 dark:text-slate-400">{{ __('app.admin.total_mahasiswa') }}</p>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                     <i class="fas fa-chalkboard-teacher text-purple-600 dark:text-purple-400"></i>
                 </div>
                 <div>
-                    <p class="text-2xl font-bold text-gray-800 dark:text-white">{{ $totalDosen }}</p>
+                    <p class="text-2xl font-bold text-purple-600 dark:text-purple-400">{{ $totalDosen }}</p>
                     <p class="text-xs text-gray-500 dark:text-slate-400">{{ __('app.admin.total_dosen') }}</p>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                     <i class="fas fa-book text-emerald-600 dark:text-emerald-400"></i>
                 </div>
                 <div>
-                    <p class="text-2xl font-bold text-gray-800 dark:text-white">{{ $totalMataKuliah }}</p>
+                    <p class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">{{ $totalMataKuliah }}</p>
                     <p class="text-xs text-gray-500 dark:text-slate-400">{{ __('app.admin.total_matkul') }}</p>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                     <i class="fas fa-calendar-alt text-amber-600 dark:text-amber-400"></i>
                 </div>
                 <div>
-                    <p class="text-2xl font-bold text-gray-800 dark:text-white">{{ $totalJadwal }}</p>
+                    <p class="text-2xl font-bold text-amber-600 dark:text-amber-400">{{ $totalJadwal }}</p>
                     <p class="text-xs text-gray-500 dark:text-slate-400">{{ __('app.admin.total_jadwal') }}</p>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                     <i class="fas fa-check-double text-cyan-600 dark:text-cyan-400"></i>
                 </div>
                 <div>
-                    <p class="text-2xl font-bold text-gray-800 dark:text-white">{{ $totalAbsensiHariIni }}</p>
+                    <p class="text-2xl font-bold text-cyan-600 dark:text-cyan-400">{{ $totalAbsensiHariIni }}</p>
                     <p class="text-xs text-gray-500 dark:text-slate-400">{{ __('app.admin.absensi_hari_ini') }}</p>
                 </div>
             </div>

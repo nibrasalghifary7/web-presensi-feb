@@ -31,16 +31,16 @@
                 <thead class="bg-gray-50 dark:bg-white/5">
                     <tr>
                         <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">No</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">NIM</th>
-                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Nama</th>
-                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Hadir</th>
-                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Izin</th>
-                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Sakit</th>
-                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Alpha</th>
-                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase">%</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">NIM</th>
+                        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Nama</th>
+                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Hadir</th>
+                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Izin</th>
+                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Sakit</th>
+                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">Alpha</th>
+                        <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 dark:text-slate-400 uppercase">%</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-50">
+                <tbody class="divide-y divide-gray-50 dark:divide-slate-700">
                     @forelse($rekap as $nim => $absensis)
                         @php
                             $mahasiswa = $absensis->first()->mahasiswa;
@@ -51,17 +51,17 @@
                             $total = $absensis->count();
                             $persen = $total > 0 ? round(($hadir / $total) * 100, 1) : 0;
                         @endphp
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-5 py-3 text-sm text-gray-500">{{ $loop->iteration }}</td>
-                            <td class="px-5 py-3 text-sm font-medium text-gray-800">{{ $nim }}</td>
-                            <td class="px-5 py-3 text-sm text-gray-800">{{ $mahasiswa->nama ?? '-' }}</td>
+                        <tr class="hover:bg-gray-50 dark:hover:bg-white/5">
+                            <td class="px-5 py-3 text-sm text-gray-500 dark:text-slate-400">{{ $loop->iteration }}</td>
+                            <td class="px-5 py-3 text-sm font-medium text-gray-800 dark:text-white">{{ $nim }}</td>
+                            <td class="px-5 py-3 text-sm text-gray-800 dark:text-white">{{ $mahasiswa->nama ?? '-' }}</td>
                             <td class="px-5 py-3 text-center text-sm font-semibold text-emerald-600">{{ $hadir }}</td>
                             <td class="px-5 py-3 text-center text-sm text-amber-600">{{ $izin }}</td>
                             <td class="px-5 py-3 text-center text-sm text-yellow-600">{{ $sakit }}</td>
                             <td class="px-5 py-3 text-center text-sm text-red-600">{{ $alpha }}</td>
                             <td class="px-5 py-3 text-center">
                                 <span class="px-2 py-0.5 rounded-full text-xs font-semibold
-                                    {{ $persen >= 75 ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700' }}">
+                                    {{ $persen >= 75 ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400' : 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400' }}">
                                     {{ $persen }}%
                                 </span>
                             </td>
