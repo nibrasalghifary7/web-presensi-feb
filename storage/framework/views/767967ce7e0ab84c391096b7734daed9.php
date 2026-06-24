@@ -281,20 +281,12 @@
                     <div x-data="{ show: true }" x-show="show" x-transition
                          class="mb-4 rounded-xl px-4 py-3 flex items-center justify-between
                                 bg-emerald-50 border border-emerald-200 text-emerald-700
-<<<<<<< HEAD:storage/framework/views/767967ce7e0ab84c391096b7734daed9.php
                                 dark:bg-emerald-500/15 dark:border-emerald-500/30 dark:text-emerald-300">
-=======
-                                dark:bg-emerald-500/10 dark:border-emerald-500/30 dark:text-emerald-300">
->>>>>>> 60bdeacb79efd4564e6b7d186ebd20de95b30e4d:storage/framework/views/0f203bfa0af459fe935e8bd9c2b66317.php
                         <div class="flex items-center gap-2">
                             <i class="fas fa-check-circle text-emerald-500 dark:text-emerald-400"></i>
                             <span class="text-sm font-medium"><?php echo e(session('success')); ?></span>
                         </div>
-<<<<<<< HEAD:storage/framework/views/767967ce7e0ab84c391096b7734daed9.php
                         <button @click="show = false" class="text-emerald-500 dark:text-emerald-400 hover:opacity-70"><i class="fas fa-times"></i></button>
-=======
-                        <button @click="show = false" class="text-emerald-500 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"><i class="fas fa-times"></i></button>
->>>>>>> 60bdeacb79efd4564e6b7d186ebd20de95b30e4d:storage/framework/views/0f203bfa0af459fe935e8bd9c2b66317.php
                     </div>
                 <?php endif; ?>
 
@@ -302,20 +294,12 @@
                     <div x-data="{ show: true }" x-show="show" x-transition
                          class="mb-4 rounded-xl px-4 py-3 flex items-center justify-between
                                 bg-red-50 border border-red-200 text-red-700
-<<<<<<< HEAD:storage/framework/views/767967ce7e0ab84c391096b7734daed9.php
                                 dark:bg-red-500/15 dark:border-red-500/30 dark:text-red-300">
-=======
-                                dark:bg-red-500/10 dark:border-red-500/30 dark:text-red-300">
->>>>>>> 60bdeacb79efd4564e6b7d186ebd20de95b30e4d:storage/framework/views/0f203bfa0af459fe935e8bd9c2b66317.php
                         <div class="flex items-center gap-2">
                             <i class="fas fa-exclamation-circle text-red-500 dark:text-red-400"></i>
                             <span class="text-sm font-medium"><?php echo e(session('error')); ?></span>
                         </div>
-<<<<<<< HEAD:storage/framework/views/767967ce7e0ab84c391096b7734daed9.php
                         <button @click="show = false" class="text-red-500 dark:text-red-400 hover:opacity-70"><i class="fas fa-times"></i></button>
-=======
-                        <button @click="show = false" class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"><i class="fas fa-times"></i></button>
->>>>>>> 60bdeacb79efd4564e6b7d186ebd20de95b30e4d:storage/framework/views/0f203bfa0af459fe935e8bd9c2b66317.php
                     </div>
                 <?php endif; ?>
 
