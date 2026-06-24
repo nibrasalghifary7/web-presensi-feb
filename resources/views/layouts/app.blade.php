@@ -254,6 +254,12 @@
                                         <i class="fas fa-user w-4"></i>
                                         <span>Profil Saya</span>
                                     </a>
+                                @elseif(auth()->user()->isDosen())
+                                    <a href="{{ route('dosen.profil') }}"
+                                       class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 dark:text-slate-300 dark:hover:bg-white/5 transition-colors">
+                                        <i class="fas fa-user w-4"></i>
+                                        <span>Profil Saya</span>
+                                    </a>
                                 @endif
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf

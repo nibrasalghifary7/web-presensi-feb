@@ -333,4 +333,15 @@ class DosenController extends Controller
 
         return back()->with('success', 'Sesi pertemuan ke-' . $sesi->pertemuan_ke . ' berhasil ditutup.');
     }
+
+    /**
+     * Menampilkan profil dosen.
+     */
+    public function profil()
+    {
+        $user = Auth::user();
+        $dosen = $user->dosen;
+
+        return view('dosen.profil', compact('user', 'dosen'));
+    }
 }

@@ -8,12 +8,20 @@
 <div class="space-y-6">
 
     
-    <div class="bg-gradient-to-r from-uin-green to-uin-green-light rounded-2xl p-6 text-white">
-        <h2 class="text-2xl font-bold"><?php echo e(__('app.dosen.welcome')); ?>, <?php echo e($dosen->nama); ?></h2>
+    <div class="bg-gradient-to-r from-primary to-primary-light rounded-2xl p-6 text-white shadow-lg shadow-primary/10 dark:from-aurora-glow dark:to-aurora-glow-tertiary dark:shadow-aurora-glow/10">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+                <h2 class="text-2xl font-bold"><?php echo e(__('app.dosen.welcome')); ?>, <?php echo e($dosen->nama); ?></h2>
         <p class="text-white/80 text-sm mt-1">
             <i class="fas fa-id-badge mr-1"></i> <?php echo e(__('app.table.nidn')); ?>: <?php echo e($dosen->nidn); ?> &middot; <?php echo e($dosen->bidang_keahlian); ?>
 
         </p>
+            </div>
+            <div class="bg-white/10 px-4 py-2 rounded-xl text-sm text-white">
+                <i class="fas fa-calendar mr-1"></i> <?php echo e(now()->translatedFormat('l, d F Y')); ?>
+
+            </div>
+        </div>
     </div>
 
     
@@ -24,7 +32,7 @@
                     <i class="fas fa-calendar-day text-blue-600 dark:text-blue-400"></i>
                 </div>
                 <div>
-                    <p class="text-2xl font-bold text-gray-800 dark:text-white"><?php echo e($jadwalHariIni->count()); ?></p>
+                    <p class="text-2xl font-bold text-blue-600 dark:text-blue-400"><?php echo e($jadwalHariIni->count()); ?></p>
                     <p class="text-xs text-gray-500 dark:text-slate-400"><?php echo e(__('app.dosen.jadwal_hari_ini')); ?></p>
                 </div>
             </div>
@@ -64,14 +72,14 @@
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                             <div>
                                 <div class="flex items-center gap-2">
-                                    <p class="font-semibold text-gray-800"><?php echo e($jadwal->mataKuliah->nama_mk); ?></p>
+                                    <p class="font-semibold text-gray-800 dark:text-white"><?php echo e($jadwal->mataKuliah->nama_mk); ?></p>
                                     <?php if($sesiAktif): ?>
-                                        <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold animate-pulse">
+                                        <span class="px-2 py-0.5 bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 rounded-full text-xs font-semibold animate-pulse">
                                             <i class="fas fa-circle text-[6px] mr-1"></i>Sesi Aktif
                                         </span>
                                     <?php endif; ?>
                                 </div>
-                                <p class="text-sm text-gray-500 mt-1">
+                                <p class="text-sm text-gray-500 dark:text-slate-400 mt-1">
                                     <i class="fas fa-clock mr-1"></i> <?php echo e($jadwal->jam_formatted); ?> &middot;
                                     <i class="fas fa-users mr-1"></i> <?php echo e($jadwal->kelas); ?> &middot;
                                     <i class="fas fa-location-dot mr-1"></i> <?php echo e($jadwal->ruang); ?>
@@ -101,11 +109,12 @@
                                 <?php endif; ?>
 
                                 <a href="<?php echo e(route('dosen.validasi', $jadwal->id_jadwal)); ?>"
-                                   class="px-4 py-2 bg-uin-green text-white rounded-lg text-sm font-medium hover:bg-uin-green-dark transition-colors">
+                                   class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors
+                                          dark:bg-aurora-glow dark:hover:bg-aurora-glow-secondary">
                                     <i class="fas fa-check-double mr-1"></i> Validasi
                                 </a>
                                 <a href="<?php echo e(route('dosen.rekap', $jadwal->id_jadwal)); ?>"
-                                   class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">
+                                   class="px-4 py-2 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-slate-300 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-white/15 transition-colors">
                                     <i class="fas fa-chart-bar mr-1"></i> Rekap
                                 </a>
                             </div>
