@@ -98,14 +98,17 @@
                                     @else
                                         <form action="{{ route('dosen.validasi.proses', $absen->id_absensi) }}" method="POST" class="flex gap-2">
                                             @csrf
-                                            <select name="status" class="text-xs border rounded-lg px-2 py-1">
+                                            <select name="status" class="text-xs border rounded-lg px-2 py-1
+                                                                            border-gray-200 bg-white text-gray-800
+                                                                            dark:border-white/20 dark:bg-aurora-panel dark:text-white">
                                                 <option value="Hadir" {{ $absen->status == 'Hadir' ? 'selected' : '' }}>Hadir</option>
                                                 <option value="Izin" {{ $absen->status == 'Izin' ? 'selected' : '' }}>Izin</option>
                                                 <option value="Sakit" {{ $absen->status == 'Sakit' ? 'selected' : '' }}>Sakit</option>
                                                 <option value="Alpha" {{ $absen->status == 'Alpha' ? 'selected' : '' }}>Alpha</option>
                                             </select>
                                             <input type="hidden" name="validasi" value="divalidasi">
-                                            <button type="submit" class="px-3 py-1 bg-uin-green text-white rounded-lg text-xs font-medium hover:bg-uin-green-dark">
+                                            <button type="submit" class="px-3 py-1 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-dark
+                                                                         dark:bg-aurora-glow dark:hover:bg-aurora-glow-secondary">
                                                 <i class="fas fa-check"></i>
                                             </button>
                                         </form>

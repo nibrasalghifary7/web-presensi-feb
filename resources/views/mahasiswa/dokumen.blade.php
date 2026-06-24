@@ -14,7 +14,7 @@
         {{-- Form Pengajuan --}}
         <div class="bg-white glass rounded-xl p-6 shadow-sm border border-gray-100 dark:border-white/5">
             <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-5">
-                <i class="fas fa-file-medical text-uin-green mr-2"></i>{{ __('app.mahasiswa.form_pengajuan') }}
+                <i class="fas fa-file-medical text-primary dark:text-aurora-glow mr-2"></i>{{ __('app.mahasiswa.form_pengajuan') }}
             </h3>
 
             <form method="POST" action="{{ route('mahasiswa.dokumen.submit') }}" enctype="multipart/form-data" class="space-y-4">
@@ -23,17 +23,18 @@
                 {{-- Pilih Mata Kuliah --}}
                 <div>
                     <label for="id_jadwal" class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">
-                        <i class="fas fa-book-open text-uin-green mr-1"></i> Mata Kuliah / Kelas
+                        <i class="fas fa-book-open text-primary dark:text-aurora-glow mr-1"></i> Mata Kuliah / Kelas
                     </label>
                     <select id="id_jadwal" name="id_jadwal"
-                            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
-                                   focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
+                            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-800
+                                   focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white
                                    outline-none transition-all text-sm
-                                   dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                   dark:border-white/20 dark:bg-gray-800 dark:text-white dark:focus:border-aurora-glow"
                             required>
-                        <option value="">-- Pilih Mata Kuliah --</option>
+                        <option value="" class="bg-white dark:bg-gray-800">-- Pilih Mata Kuliah --</option>
                         @foreach($jadwalList as $jadwal)
-                            <option value="{{ $jadwal->id_jadwal }}" {{ old('id_jadwal') == $jadwal->id_jadwal ? 'selected' : '' }}>
+                            <option value="{{ $jadwal->id_jadwal }}" {{ old('id_jadwal') == $jadwal->id_jadwal ? 'selected' : '' }}
+                                    class="bg-white dark:bg-gray-800">
                                 {{ $jadwal->mataKuliah->nama_mk }} ({{ $jadwal->kelas }})
                             </option>
                         @endforeach
@@ -43,61 +44,61 @@
                 {{-- Jenis Pengajuan --}}
                 <div>
                     <label for="jenis" class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">
-                        <i class="fas fa-triangle-exclamation text-uin-green mr-1"></i> Jenis Halangan
+                        <i class="fas fa-triangle-exclamation text-primary dark:text-aurora-glow mr-1"></i> Jenis Halangan
                     </label>
                     <select id="jenis" name="jenis"
-                            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
-                                   focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
+                            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-800
+                                   focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white
                                    outline-none transition-all text-sm
-                                   dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                   dark:border-white/20 dark:bg-gray-800 dark:text-white dark:focus:border-aurora-glow"
                             required>
-                        <option value="Sakit" {{ old('jenis') == 'Sakit' ? 'selected' : '' }}>Sakit / Medis</option>
-                        <option value="Izin" {{ old('jenis') == 'Izin' ? 'selected' : '' }}>Izin Keperluan</option>
+                        <option value="Sakit" {{ old('jenis') == 'Sakit' ? 'selected' : '' }} class="bg-white dark:bg-gray-800">Sakit / Medis</option>
+                        <option value="Izin" {{ old('jenis') == 'Izin' ? 'selected' : '' }} class="bg-white dark:bg-gray-800">Izin Keperluan</option>
                     </select>
                 </div>
 
                 {{-- Tanggal --}}
                 <div>
                     <label for="tanggal_izin" class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">
-                        <i class="fas fa-calendar-day text-uin-green mr-1"></i> Tanggal Berhalangan
+                        <i class="fas fa-calendar-day text-primary dark:text-aurora-glow mr-1"></i> Tanggal Berhalangan
                     </label>
                     <input type="date" id="tanggal_izin" name="tanggal_izin" value="{{ old('tanggal_izin', date('Y-m-d')) }}"
-                           class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
-                                  focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
+                           class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-800
+                                  focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white
                                   outline-none transition-all text-sm
-                                  dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                  dark:border-white/20 dark:bg-gray-800 dark:text-white dark:focus:border-aurora-glow"
                            required>
                 </div>
 
                 {{-- Alasan --}}
                 <div>
                     <label for="alasan" class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">
-                        <i class="fas fa-pencil text-uin-green mr-1"></i> Catatan / Alasan Singkat
+                        <i class="fas fa-pencil text-primary dark:text-aurora-glow mr-1"></i> Catatan / Alasan Singkat
                     </label>
                     <textarea id="alasan" name="alasan" rows="3"
                               placeholder="Contoh: Mengalami demam tinggi dan harus rawat jalan."
-                              class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50
-                                     focus:border-uin-green focus:ring-2 focus:ring-uin-green/20 focus:bg-white
+                              class="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-800
+                                     focus:border-primary focus:ring-2 focus:ring-primary/20 focus:bg-white
                                      outline-none transition-all text-sm resize-none
-                                     dark:border-white/10 dark:bg-white/5 dark:text-white"
+                                     dark:border-white/20 dark:bg-gray-800 dark:text-white dark:focus:border-aurora-glow"
                               required>{{ old('alasan') }}</textarea>
                 </div>
 
                 {{-- Upload Bukti --}}
                 <div>
                     <label for="bukti_surat" class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">
-                        <i class="fas fa-paperclip text-uin-green mr-1"></i> Unggah Bukti Surat
+                        <i class="fas fa-paperclip text-primary dark:text-aurora-glow mr-1"></i> Unggah Bukti Surat
                     </label>
-                    <div class="border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl p-4 text-center hover:border-uin-green transition-colors">
-                        <i class="fas fa-cloud-arrow-up text-3xl text-gray-300 dark:text-slate-600 mb-2"></i>
+                    <div class="border-2 border-dashed border-gray-200 dark:border-white/20 rounded-xl p-4 text-center hover:border-primary dark:hover:border-aurora-glow transition-colors">
+                        <i class="fas fa-cloud-arrow-up text-3xl text-gray-300 dark:text-slate-500 mb-2"></i>
                         <p class="text-sm text-gray-500 dark:text-slate-400">Pilih file foto/PDF atau drag and drop</p>
                         <p class="text-xs text-gray-400 dark:text-slate-500 mt-1">PNG, JPG, JPEG, PDF &middot; Maks 2MB</p>
                         <input type="file" id="bukti_surat" name="bukti_surat"
                                accept=".jpg,.jpeg,.png,.pdf"
                                class="mt-3 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
                                       file:rounded-lg file:border-0 file:text-sm file:font-semibold
-                                      file:bg-uin-green file:text-white hover:file:bg-uin-green-dark
-                                      dark:text-slate-400 dark:file:bg-aurora-glow dark:hover:file:bg-aurora-glow-secondary">
+                                      file:bg-primary file:text-white hover:file:bg-primary-dark
+                                      dark:text-slate-400 dark:file:bg-gray-800 dark:hover:file:bg-aurora-glow-secondary">
                     </div>
                     @error('bukti_surat')
                         <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
@@ -106,8 +107,10 @@
 
                 {{-- Tombol Kirim --}}
                 <button type="submit"
-                        class="w-full bg-uin-green dark:bg-aurora-glow hover:bg-uin-green-dark dark:hover:bg-aurora-glow-secondary text-white font-bold py-3 px-4
-                               rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2">
+                        class="w-full bg-primary text-white font-bold py-3 px-4
+                               rounded-xl shadow-lg shadow-primary/20 hover:bg-primary-dark hover:shadow-xl transition-all
+                               dark:bg-gray-800 dark:hover:bg-gray-700 dark:shadow-gray-800/20
+                               flex items-center justify-center gap-2">
                     <i class="fas fa-paper-plane"></i>
                     <span>Kirim Pengajuan</span>
                 </button>
@@ -117,7 +120,7 @@
         {{-- Riwayat Pengajuan --}}
         <div class="bg-white glass rounded-xl p-6 shadow-sm border border-gray-100 dark:border-white/5">
             <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-5">
-                <i class="fas fa-list text-uin-green mr-2"></i>Daftar Pengajuan
+                <i class="fas fa-list text-primary dark:text-aurora-glow mr-2"></i>Daftar Pengajuan
             </h3>
 
             @if($riwayatIzin->isEmpty())

@@ -19,13 +19,13 @@
     {{-- Filter --}}
     <div class="bg-white glass rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/5">
         <form method="GET" class="flex flex-col sm:flex-row gap-3">
-            <select name="status" class="px-4 py-2 rounded-lg border border-gray-200 dark:border-white/10 dark:bg-white/5 dark:text-white text-sm">
+            <select name="status" class="px-4 py-2 rounded-lg border border-gray-200 dark:border-white/10 dark:bg-gray-800 dark:text-white text-sm">
                 <option value="">Semua Status</option>
                 <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
                 <option value="disetujui" {{ request('status') == 'disetujui' ? 'selected' : '' }}>Disetujui</option>
                 <option value="ditolak" {{ request('status') == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
             </select>
-            <select name="kelas" class="px-4 py-2 rounded-lg border border-gray-200 dark:border-white/10 dark:bg-white/5 dark:text-white text-sm">
+            <select name="kelas" class="px-4 py-2 rounded-lg border border-gray-200 dark:border-white/10 dark:bg-gray-800 dark:text-white text-sm">
                 <option value="">Semua Kelas</option>
                 @foreach($kelasDosen as $kelas)
                     <option value="{{ $kelas }}" {{ request('kelas') == $kelas ? 'selected' : '' }}>{{ $kelas }}</option>
@@ -68,28 +68,28 @@
                                     {{ $p->jenis }}
                                 </span>
                             </td>
-                            <td class="px-5 py-3 text-sm text-gray-600 max-w-xs truncate">{{ $p->alasan }}</td>
+                            <td class="px-5 py-3 text-sm text-gray-600 dark:text-slate-300 max-w-xs truncate">{{ $p->alasan }}</td>
                             <td class="px-5 py-3">
                                 @if($p->bukti_surat)
                                     <a href="{{ asset('storage/' . $p->bukti_surat) }}" target="_blank"
-                                       class="text-blue-600 hover:underline text-xs">
+                                       class="text-blue-600 dark:text-blue-400 hover:underline text-xs">
                                         <i class="fas fa-file-image mr-1"></i>Lihat
                                     </a>
                                 @else
-                                    <span class="text-gray-400 text-xs">-</span>
+                                    <span class="text-gray-400 dark:text-slate-500 text-xs">-</span>
                                 @endif
                             </td>
                             <td class="px-5 py-3">
                                 @if($p->status == 'disetujui')
-                                    <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
+                                    <span class="px-2 py-0.5 bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 rounded-full text-xs font-semibold">
                                         <i class="fas fa-check mr-1"></i>Disetujui
                                     </span>
                                 @elseif($p->status == 'ditolak')
-                                    <span class="px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-xs font-semibold">
+                                    <span class="px-2 py-0.5 bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400 rounded-full text-xs font-semibold">
                                         <i class="fas fa-times mr-1"></i>Ditolak
                                     </span>
                                 @else
-                                    <span class="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold">
+                                    <span class="px-2 py-0.5 bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded-full text-xs font-semibold">
                                         <i class="fas fa-clock mr-1"></i>Pending
                                     </span>
                                 @endif
@@ -97,7 +97,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="px-5 py-12 text-center text-gray-400">
+                            <td colspan="9" class="px-5 py-12 text-center text-gray-400 dark:text-slate-500">
                                 <i class="fas fa-file-circle-exclamation text-3xl mb-2"></i>
                                 <p>Belum ada pengajuan izin/sakit dari mahasiswa</p>
                             </td>
@@ -106,7 +106,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="px-5 py-3 border-t border-gray-100">
+        <div class="px-5 py-3 border-t border-gray-100 dark:border-white/5">
             {{ $pengajuans->withQueryString()->links() }}
         </div>
     </div>

@@ -62,10 +62,5 @@
             <div class="px-5 py-3 border-t border-gray-100 dark:border-white/5">{{ $riwayat->links() }}</div>
         @endif
     </div>
-
-    <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center justify-between dark:bg-blue-500/10 dark:border-blue-500/20">
-        <span class="text-sm font-semibold text-blue-800 dark:text-blue-300"><i class="fas fa-chart-simple mr-2"></i>{{ __('app.mahasiswa.rekap_total') }}</span>
-        <span class="px-4 py-1.5 bg-blue-600 text-white rounded-full text-sm font-semibold dark:bg-aurora-glow">{{ $totalHadir }} {{ __('app.dosen.welcome') }} {{ $totalPertemuan }}</span>
-    </div>
 </div>
 @endsection

@@ -218,13 +218,13 @@
                                 <a href="{{ route('language.switch', 'id') }}"
                                    class="flex items-center gap-3 px-4 py-2.5 text-sm rounded-t-xl transition-colors
                                           {{ app()->getLocale() === 'id' ? 'bg-primary/10 text-primary font-semibold dark:bg-aurora-glow/10 dark:text-aurora-glow' : 'text-gray-700 hover:bg-gray-50 dark:text-slate-300 dark:hover:bg-white/5' }}">
-                                    <span class="text-lg">🇮🇩</span> Indonesia
+                                    <span class="text-sm">ID</span> Indonesia
                                     @if(app()->getLocale() === 'id')<i class="fas fa-check ml-auto text-primary dark:text-aurora-glow"></i>@endif
                                 </a>
                                 <a href="{{ route('language.switch', 'en') }}"
                                    class="flex items-center gap-3 px-4 py-2.5 text-sm rounded-b-xl transition-colors
                                           {{ app()->getLocale() === 'en' ? 'bg-primary/10 text-primary font-semibold dark:bg-aurora-glow/10 dark:text-aurora-glow' : 'text-gray-700 hover:bg-gray-50 dark:text-slate-300 dark:hover:bg-white/5' }}">
-                                    <span class="text-lg">🇬🇧</span> English
+                                    <span class="text-sm">EN</span> English
                                     @if(app()->getLocale() === 'en')<i class="fas fa-check ml-auto text-primary dark:text-aurora-glow"></i>@endif
                                 </a>
                             </div>
@@ -248,6 +248,13 @@
                                     <p class="text-sm font-medium text-gray-800 dark:text-white">{{ auth()->user()->name }}</p>
                                     <p class="text-xs text-gray-500 dark:text-slate-400">{{ auth()->user()->email }}</p>
                                 </div>
+                                @if(auth()->user()->isMahasiswa())
+                                    <a href="{{ route('mahasiswa.profil') }}"
+                                       class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 dark:text-slate-300 dark:hover:bg-white/5 transition-colors">
+                                        <i class="fas fa-user w-4"></i>
+                                        <span>Profil Saya</span>
+                                    </a>
+                                @endif
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <button type="submit"
@@ -268,12 +275,12 @@
                     <div x-data="{ show: true }" x-show="show" x-transition
                          class="mb-4 rounded-xl px-4 py-3 flex items-center justify-between
                                 bg-emerald-50 border border-emerald-200 text-emerald-700
-                                dark:glass-elevated dark:border-emerald-500/20 dark:text-emerald-300">
+                                dark:bg-emerald-500/10 dark:border-emerald-500/30 dark:text-emerald-300">
                         <div class="flex items-center gap-2">
                             <i class="fas fa-check-circle text-emerald-500 dark:text-emerald-400"></i>
                             <span class="text-sm">{{ session('success') }}</span>
                         </div>
-                        <button @click="show = false" class="text-emerald-500 dark:text-emerald-400"><i class="fas fa-times"></i></button>
+                        <button @click="show = false" class="text-emerald-500 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"><i class="fas fa-times"></i></button>
                     </div>
                 @endif
 
@@ -281,12 +288,12 @@
                     <div x-data="{ show: true }" x-show="show" x-transition
                          class="mb-4 rounded-xl px-4 py-3 flex items-center justify-between
                                 bg-red-50 border border-red-200 text-red-700
-                                dark:glass-elevated dark:border-red-500/20 dark:text-red-300">
+                                dark:bg-red-500/10 dark:border-red-500/30 dark:text-red-300">
                         <div class="flex items-center gap-2">
                             <i class="fas fa-exclamation-circle text-red-500 dark:text-red-400"></i>
                             <span class="text-sm">{{ session('error') }}</span>
                         </div>
-                        <button @click="show = false" class="text-red-500 dark:text-red-400"><i class="fas fa-times"></i></button>
+                        <button @click="show = false" class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"><i class="fas fa-times"></i></button>
                     </div>
                 @endif
 

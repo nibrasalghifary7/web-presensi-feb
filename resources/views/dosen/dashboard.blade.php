@@ -11,11 +11,18 @@
 <div class="space-y-6">
 
     {{-- Salam --}}
-    <div class="bg-gradient-to-r from-uin-green to-uin-green-light rounded-2xl p-6 text-white">
-        <h2 class="text-2xl font-bold">{{ __('app.dosen.welcome') }}, {{ $dosen->nama }}</h2>
+    <div class="bg-gradient-to-r from-primary to-primary-light rounded-2xl p-6 text-white shadow-lg shadow-primary/10 dark:from-aurora-glow dark:to-aurora-glow-tertiary dark:shadow-aurora-glow/10">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+                <h2 class="text-2xl font-bold">{{ __('app.dosen.welcome') }}, {{ $dosen->nama }}</h2>
         <p class="text-white/80 text-sm mt-1">
             <i class="fas fa-id-badge mr-1"></i> {{ __('app.table.nidn') }}: {{ $dosen->nidn }} &middot; {{ $dosen->bidang_keahlian }}
         </p>
+            </div>
+            <div class="bg-white/10 px-4 py-2 rounded-xl text-sm text-white">
+                <i class="fas fa-calendar mr-1"></i> {{ now()->translatedFormat('l, d F Y') }}
+            </div>
+        </div>
     </div>
 
     {{-- Statistik --}}
@@ -26,7 +33,7 @@
                     <i class="fas fa-calendar-day text-blue-600 dark:text-blue-400"></i>
                 </div>
                 <div>
-                    <p class="text-2xl font-bold text-gray-800 dark:text-white">{{ $jadwalHariIni->count() }}</p>
+                    <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">{{ $jadwalHariIni->count() }}</p>
                     <p class="text-xs text-gray-500 dark:text-slate-400">{{ __('app.dosen.jadwal_hari_ini') }}</p>
                 </div>
             </div>
@@ -101,7 +108,8 @@
                                 @endif
 
                                 <a href="{{ route('dosen.validasi', $jadwal->id_jadwal) }}"
-                                   class="px-4 py-2 bg-uin-green dark:bg-aurora-glow text-white rounded-lg text-sm font-medium hover:bg-uin-green-dark dark:hover:bg-aurora-glow-secondary transition-colors">
+                                   class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors
+                                          dark:bg-aurora-glow dark:hover:bg-aurora-glow-secondary">
                                     <i class="fas fa-check-double mr-1"></i> Validasi
                                 </a>
                                 <a href="{{ route('dosen.rekap', $jadwal->id_jadwal) }}"
