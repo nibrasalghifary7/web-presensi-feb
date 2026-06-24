@@ -16,13 +16,21 @@
     
     <div class="bg-white glass rounded-xl p-4 shadow-sm border border-gray-100 dark:border-white/5">
         <form method="GET" class="flex flex-col sm:flex-row gap-3">
+<<<<<<< HEAD:storage/framework/views/f64b4fd209fbfa2ad9e996e846c35205.php
             <select name="status" class="px-4 py-2 rounded-lg border border-gray-200 dark:border-white/10 dark:bg-white/5 dark:text-white text-sm">
+=======
+            <select name="status" class="px-4 py-2 rounded-lg border border-gray-200 dark:border-white/10 dark:bg-gray-800 dark:text-white text-sm">
+>>>>>>> 60bdeacb79efd4564e6b7d186ebd20de95b30e4d:storage/framework/views/3440a16daa7009143527cc5b79a793b4.php
                 <option value="">Semua Status</option>
                 <option value="pending" <?php echo e(request('status') == 'pending' ? 'selected' : ''); ?>>Pending</option>
                 <option value="disetujui" <?php echo e(request('status') == 'disetujui' ? 'selected' : ''); ?>>Disetujui</option>
                 <option value="ditolak" <?php echo e(request('status') == 'ditolak' ? 'selected' : ''); ?>>Ditolak</option>
             </select>
+<<<<<<< HEAD:storage/framework/views/f64b4fd209fbfa2ad9e996e846c35205.php
             <select name="kelas" class="px-4 py-2 rounded-lg border border-gray-200 dark:border-white/10 dark:bg-white/5 dark:text-white text-sm">
+=======
+            <select name="kelas" class="px-4 py-2 rounded-lg border border-gray-200 dark:border-white/10 dark:bg-gray-800 dark:text-white text-sm">
+>>>>>>> 60bdeacb79efd4564e6b7d186ebd20de95b30e4d:storage/framework/views/3440a16daa7009143527cc5b79a793b4.php
                 <option value="">Semua Kelas</option>
                 <?php $__currentLoopData = $kelasDosen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kelas): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <option value="<?php echo e($kelas); ?>" <?php echo e(request('kelas') == $kelas ? 'selected' : ''); ?>><?php echo e($kelas); ?></option>
@@ -66,28 +74,28 @@
 
                                 </span>
                             </td>
-                            <td class="px-5 py-3 text-sm text-gray-600 max-w-xs truncate"><?php echo e($p->alasan); ?></td>
+                            <td class="px-5 py-3 text-sm text-gray-600 dark:text-slate-300 max-w-xs truncate"><?php echo e($p->alasan); ?></td>
                             <td class="px-5 py-3">
                                 <?php if($p->bukti_surat): ?>
                                     <a href="<?php echo e(asset('storage/' . $p->bukti_surat)); ?>" target="_blank"
-                                       class="text-blue-600 hover:underline text-xs">
+                                       class="text-blue-600 dark:text-blue-400 hover:underline text-xs">
                                         <i class="fas fa-file-image mr-1"></i>Lihat
                                     </a>
                                 <?php else: ?>
-                                    <span class="text-gray-400 text-xs">-</span>
+                                    <span class="text-gray-400 dark:text-slate-500 text-xs">-</span>
                                 <?php endif; ?>
                             </td>
                             <td class="px-5 py-3">
                                 <?php if($p->status == 'disetujui'): ?>
-                                    <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
+                                    <span class="px-2 py-0.5 bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 rounded-full text-xs font-semibold">
                                         <i class="fas fa-check mr-1"></i>Disetujui
                                     </span>
                                 <?php elseif($p->status == 'ditolak'): ?>
-                                    <span class="px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-xs font-semibold">
+                                    <span class="px-2 py-0.5 bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400 rounded-full text-xs font-semibold">
                                         <i class="fas fa-times mr-1"></i>Ditolak
                                     </span>
                                 <?php else: ?>
-                                    <span class="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold">
+                                    <span class="px-2 py-0.5 bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 rounded-full text-xs font-semibold">
                                         <i class="fas fa-clock mr-1"></i>Pending
                                     </span>
                                 <?php endif; ?>
@@ -95,7 +103,7 @@
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
-                            <td colspan="9" class="px-5 py-12 text-center text-gray-400">
+                            <td colspan="9" class="px-5 py-12 text-center text-gray-400 dark:text-slate-500">
                                 <i class="fas fa-file-circle-exclamation text-3xl mb-2"></i>
                                 <p>Belum ada pengajuan izin/sakit dari mahasiswa</p>
                             </td>
@@ -104,7 +112,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="px-5 py-3 border-t border-gray-100">
+        <div class="px-5 py-3 border-t border-gray-100 dark:border-white/5">
             <?php echo e($pengajuans->withQueryString()->links()); ?>
 
         </div>

@@ -15,12 +15,12 @@
     <div class="bg-gradient-to-r from-primary to-primary-light rounded-2xl p-6 text-white shadow-lg shadow-primary/10 dark:from-aurora-glow dark:to-aurora-glow-tertiary dark:shadow-aurora-glow/10">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-                <h2 class="text-2xl font-bold">{{ __('app.dosen.welcome') }}, {{ $mahasiswa->nama }}! 👋</h2>
+                <h2 class="text-2xl font-bold">{{ __('app.dosen.welcome') }}, {{ $mahasiswa->nama }}!</h2>
                 <p class="text-white/80 text-sm mt-1">
                     <i class="fas fa-id-card mr-1"></i> {{ $mahasiswa->nim }} &middot; {{ $mahasiswa->kelas }} &middot; {{ __('app.table.angkatan') }} {{ $mahasiswa->angkatan }}
                 </p>
             </div>
-            <div class="bg-white/20 px-4 py-2 rounded-xl text-sm">
+            <div class="bg-white/10 px-4 py-2 rounded-xl text-sm text-white">
                 <i class="fas fa-calendar mr-1"></i> {{ now()->translatedFormat('l, d F Y') }}
             </div>
         </div>
@@ -34,7 +34,7 @@
                     <i class="fas fa-calendar-days text-blue-600 dark:text-blue-400"></i>
                 </div>
                 <div>
-                    <p class="text-2xl font-bold text-gray-800 dark:text-white">{{ $totalPertemuan }}</p>
+                    <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">{{ $totalPertemuan }}</p>
                     <p class="text-xs text-gray-500 dark:text-slate-400">{{ __('app.mahasiswa.total_pertemuan') }}</p>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                         <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="{{ $persentase>=75?'#10b981':($persentase>=50?'#f59e0b':'#ef4444') }}" stroke-width="3" stroke-dasharray="{{ $persentase }}, 100"/>
                     </svg>
                     <div class="absolute inset-0 flex items-center justify-center">
-                        <span class="text-lg font-bold text-gray-800 dark:text-white">{{ $persentase }}%</span>
+                        <span class="text-base font-bold text-gray-800 dark:text-white">{{ $persentase }}%</span>
                     </div>
                 </div>
                 <div>

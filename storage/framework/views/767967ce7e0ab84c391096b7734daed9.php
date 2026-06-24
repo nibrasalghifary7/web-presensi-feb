@@ -217,13 +217,13 @@
                                 <a href="<?php echo e(route('language.switch', 'id')); ?>"
                                    class="flex items-center gap-3 px-4 py-2.5 text-sm rounded-t-xl transition-colors
                                           <?php echo e(app()->getLocale() === 'id' ? 'bg-primary/10 text-primary font-semibold dark:bg-aurora-glow/10 dark:text-aurora-glow' : 'text-gray-700 hover:bg-gray-50 dark:text-slate-300 dark:hover:bg-white/5'); ?>">
-                                    <span class="text-lg">🇮🇩</span> Indonesia
+                                    <span class="text-sm">ID</span> Indonesia
                                     <?php if(app()->getLocale() === 'id'): ?><i class="fas fa-check ml-auto text-primary dark:text-aurora-glow"></i><?php endif; ?>
                                 </a>
                                 <a href="<?php echo e(route('language.switch', 'en')); ?>"
                                    class="flex items-center gap-3 px-4 py-2.5 text-sm rounded-b-xl transition-colors
                                           <?php echo e(app()->getLocale() === 'en' ? 'bg-primary/10 text-primary font-semibold dark:bg-aurora-glow/10 dark:text-aurora-glow' : 'text-gray-700 hover:bg-gray-50 dark:text-slate-300 dark:hover:bg-white/5'); ?>">
-                                    <span class="text-lg">🇬🇧</span> English
+                                    <span class="text-sm">EN</span> English
                                     <?php if(app()->getLocale() === 'en'): ?><i class="fas fa-check ml-auto text-primary dark:text-aurora-glow"></i><?php endif; ?>
                                 </a>
                             </div>
@@ -248,6 +248,19 @@
                                     <p class="text-sm font-medium text-gray-800 dark:text-white"><?php echo e(auth()->user()->name); ?></p>
                                     <p class="text-xs text-gray-500 dark:text-slate-400"><?php echo e(auth()->user()->email); ?></p>
                                 </div>
+                                <?php if(auth()->user()->isMahasiswa()): ?>
+                                    <a href="<?php echo e(route('mahasiswa.profil')); ?>"
+                                       class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 dark:text-slate-300 dark:hover:bg-white/5 transition-colors">
+                                        <i class="fas fa-user w-4"></i>
+                                        <span>Profil Saya</span>
+                                    </a>
+                                <?php elseif(auth()->user()->isDosen()): ?>
+                                    <a href="<?php echo e(route('dosen.profil')); ?>"
+                                       class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 dark:text-slate-300 dark:hover:bg-white/5 transition-colors">
+                                        <i class="fas fa-user w-4"></i>
+                                        <span>Profil Saya</span>
+                                    </a>
+                                <?php endif; ?>
                                 <form action="<?php echo e(route('logout')); ?>" method="POST">
                                     <?php echo csrf_field(); ?>
                                     <button type="submit"
@@ -268,12 +281,20 @@
                     <div x-data="{ show: true }" x-show="show" x-transition
                          class="mb-4 rounded-xl px-4 py-3 flex items-center justify-between
                                 bg-emerald-50 border border-emerald-200 text-emerald-700
+<<<<<<< HEAD:storage/framework/views/767967ce7e0ab84c391096b7734daed9.php
                                 dark:bg-emerald-500/15 dark:border-emerald-500/30 dark:text-emerald-300">
+=======
+                                dark:bg-emerald-500/10 dark:border-emerald-500/30 dark:text-emerald-300">
+>>>>>>> 60bdeacb79efd4564e6b7d186ebd20de95b30e4d:storage/framework/views/0f203bfa0af459fe935e8bd9c2b66317.php
                         <div class="flex items-center gap-2">
                             <i class="fas fa-check-circle text-emerald-500 dark:text-emerald-400"></i>
                             <span class="text-sm font-medium"><?php echo e(session('success')); ?></span>
                         </div>
+<<<<<<< HEAD:storage/framework/views/767967ce7e0ab84c391096b7734daed9.php
                         <button @click="show = false" class="text-emerald-500 dark:text-emerald-400 hover:opacity-70"><i class="fas fa-times"></i></button>
+=======
+                        <button @click="show = false" class="text-emerald-500 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300"><i class="fas fa-times"></i></button>
+>>>>>>> 60bdeacb79efd4564e6b7d186ebd20de95b30e4d:storage/framework/views/0f203bfa0af459fe935e8bd9c2b66317.php
                     </div>
                 <?php endif; ?>
 
@@ -281,12 +302,20 @@
                     <div x-data="{ show: true }" x-show="show" x-transition
                          class="mb-4 rounded-xl px-4 py-3 flex items-center justify-between
                                 bg-red-50 border border-red-200 text-red-700
+<<<<<<< HEAD:storage/framework/views/767967ce7e0ab84c391096b7734daed9.php
                                 dark:bg-red-500/15 dark:border-red-500/30 dark:text-red-300">
+=======
+                                dark:bg-red-500/10 dark:border-red-500/30 dark:text-red-300">
+>>>>>>> 60bdeacb79efd4564e6b7d186ebd20de95b30e4d:storage/framework/views/0f203bfa0af459fe935e8bd9c2b66317.php
                         <div class="flex items-center gap-2">
                             <i class="fas fa-exclamation-circle text-red-500 dark:text-red-400"></i>
                             <span class="text-sm font-medium"><?php echo e(session('error')); ?></span>
                         </div>
+<<<<<<< HEAD:storage/framework/views/767967ce7e0ab84c391096b7734daed9.php
                         <button @click="show = false" class="text-red-500 dark:text-red-400 hover:opacity-70"><i class="fas fa-times"></i></button>
+=======
+                        <button @click="show = false" class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"><i class="fas fa-times"></i></button>
+>>>>>>> 60bdeacb79efd4564e6b7d186ebd20de95b30e4d:storage/framework/views/0f203bfa0af459fe935e8bd9c2b66317.php
                     </div>
                 <?php endif; ?>
 

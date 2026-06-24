@@ -224,13 +224,13 @@
                                 <a href="{{ route('language.switch', 'id') }}"
                                    class="flex items-center gap-3 px-4 py-2.5 text-sm rounded-t-xl transition-colors
                                           {{ app()->getLocale() === 'id' ? 'bg-primary/10 text-primary font-semibold dark:bg-aurora-glow/10 dark:text-aurora-glow' : 'text-gray-700 hover:bg-gray-50 dark:text-slate-300 dark:hover:bg-white/5' }}">
-                                    <span class="text-lg">🇮🇩</span> Indonesia
+                                    <span class="text-sm">ID</span> Indonesia
                                     @if(app()->getLocale() === 'id')<i class="fas fa-check ml-auto text-primary dark:text-aurora-glow"></i>@endif
                                 </a>
                                 <a href="{{ route('language.switch', 'en') }}"
                                    class="flex items-center gap-3 px-4 py-2.5 text-sm rounded-b-xl transition-colors
                                           {{ app()->getLocale() === 'en' ? 'bg-primary/10 text-primary font-semibold dark:bg-aurora-glow/10 dark:text-aurora-glow' : 'text-gray-700 hover:bg-gray-50 dark:text-slate-300 dark:hover:bg-white/5' }}">
-                                    <span class="text-lg">🇬🇧</span> English
+                                    <span class="text-sm">EN</span> English
                                     @if(app()->getLocale() === 'en')<i class="fas fa-check ml-auto text-primary dark:text-aurora-glow"></i>@endif
                                 </a>
                             </div>
@@ -254,6 +254,19 @@
                                     <p class="text-sm font-medium text-gray-800 dark:text-white">{{ auth()->user()->name }}</p>
                                     <p class="text-xs text-gray-500 dark:text-slate-400">{{ auth()->user()->email }}</p>
                                 </div>
+                                @if(auth()->user()->isMahasiswa())
+                                    <a href="{{ route('mahasiswa.profil') }}"
+                                       class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 dark:text-slate-300 dark:hover:bg-white/5 transition-colors">
+                                        <i class="fas fa-user w-4"></i>
+                                        <span>Profil Saya</span>
+                                    </a>
+                                @elseif(auth()->user()->isDosen())
+                                    <a href="{{ route('dosen.profil') }}"
+                                       class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 dark:text-slate-300 dark:hover:bg-white/5 transition-colors">
+                                        <i class="fas fa-user w-4"></i>
+                                        <span>Profil Saya</span>
+                                    </a>
+                                @endif
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <button type="submit"

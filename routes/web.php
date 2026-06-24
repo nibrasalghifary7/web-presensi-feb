@@ -111,6 +111,9 @@ Route::middleware(['auth', 'role:dosen'])->prefix('dosen')->name('dosen.')->grou
     // Sesi Pertemuan
     Route::post('/sesi/buka/{idJadwal}', [DosenController::class, 'bukaSesi'])->name('sesi.buka');
     Route::post('/sesi/tutup/{idSesi}', [DosenController::class, 'tutupSesi'])->name('sesi.tutup');
+
+    // Profil Dosen
+    Route::get('/profil', [DosenController::class, 'profil'])->name('profil');
 });
 
 // ========================================

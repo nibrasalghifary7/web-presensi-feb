@@ -43,7 +43,7 @@
         {{-- Tabel --}}
         <table class="w-full border border-gray-300">
             <thead>
-                <tr class="bg-gray-100">
+                <tr class="bg-gray-100 dark:bg-white/5">
                     <th class="border border-gray-300 px-3 py-2 text-xs">No</th>
                     <th class="border border-gray-300 px-3 py-2 text-xs">NIM</th>
                     <th class="border border-gray-300 px-3 py-2 text-xs">Nama</th>
@@ -77,7 +77,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8" class="border border-gray-300 px-3 py-8 text-center text-gray-400">Belum ada data</td>
+                        <td colspan="8" class="border border-gray-300 px-3 py-8 text-center text-gray-400 dark:text-slate-500">Belum ada data</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -90,7 +90,7 @@
                 <p class="text-sm text-gray-600 dark:text-slate-300 mt-1">Dosen Pengampu,</p>
                 <div class="h-16"></div>
                 <p class="text-sm font-semibold text-gray-800 dark:text-white">{{ $jadwal->dosen->nama }}</p>
-                <p class="text-xs text-gray-500">NIDN: {{ $jadwal->dosen->nidn }}</p>
+                <p class="text-xs text-gray-500 dark:text-slate-400">NIDN: {{ $jadwal->dosen->nidn }}</p>
             </div>
         </div>
     </div>
