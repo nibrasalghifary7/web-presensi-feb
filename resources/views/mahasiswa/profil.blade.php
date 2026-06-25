@@ -30,12 +30,12 @@
             <div class="space-y-4">
                 @php
                     $profileData = [
-                        ['icon' => 'fa-hashtag', 'color' => 'blue', 'label' => 'NIM', 'value' => $mahasiswa->nim ?? '-'],
                         ['icon' => 'fa-user', 'color' => 'blue', 'label' => 'Nama Lengkap', 'value' => $mahasiswa->nama ?? $user->name],
+                        ['icon' => 'fa-hashtag', 'color' => 'blue', 'label' => 'NIM', 'value' => $mahasiswa->nim ?? '-'],
                         ['icon' => 'fa-envelope', 'color' => 'purple', 'label' => 'Email', 'value' => $mahasiswa->email ?? $user->email ?? '-'],
+                        ['icon' => 'fa-graduation-cap', 'color' => 'emerald', 'label' => 'Program Studi', 'value' => $mahasiswa->prodi ?? '-'],
                         ['icon' => 'fa-users', 'color' => 'amber', 'label' => 'Kelas', 'value' => $mahasiswa->kelas ?? '-'],
                         ['icon' => 'fa-calendar', 'color' => 'red', 'label' => 'Angkatan', 'value' => $mahasiswa->angkatan ?? '-'],
-                        ['icon' => 'fa-at', 'color' => 'gray', 'label' => 'Username', 'value' => $user->username],
                     ];
                 @endphp
 

@@ -98,6 +98,27 @@ class AuthController extends Controller
     }
 
     /**
+     * Login biometrik (dummy).
+     * Auto-login sebagai dosen biometrik tanpa password.
+     */
+    public function biometricLogin(Request $request)
+    {
+        $user = User::where('username', 'biometric-dosen')->first();
+
+        if (!$user) {
+            return redirect()->route('login')
+                ->withErrors(['username' => 'Akun biometrik belum tersedia. Jalankan seeder terlebih dahulu.']);
+        }
+
+        Auth::login($user);
+        $user->update(['last_login' => now()]);
+        $request->session()->regenerate();
+
+        return redirect()->intended($user->getDashboardUrl())
+                         ->with('success', 'Login biometrik berhasil! Selamat datang, ' . $user->name . ' (Demo)');
+    }
+
+    /**
      * Menampilkan halaman registrasi mahasiswa.
      */
     public function showRegistrationForm()

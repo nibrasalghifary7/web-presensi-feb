@@ -41,6 +41,7 @@ Route::middleware('guest')->group(function () {
     // Halaman Login
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+    Route::get('/login/biometric', [AuthController::class, 'biometricLogin'])->name('login.biometric');
 
     // Halaman Registrasi
     Route::get('/register', function () { return redirect()->route('register-mahasiswa'); })->name('register');

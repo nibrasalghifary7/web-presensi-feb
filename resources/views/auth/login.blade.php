@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Poppins:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
     * {
@@ -157,6 +158,48 @@
       background: rgba(255,255,255,0.25);
     }
 
+    /* password wrapper */
+    .password-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .password-wrapper .form-input {
+      flex: 1;
+      padding-right: 40px;
+    }
+
+    .password-wrapper .input-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.35);
+      cursor: pointer;
+      font-size: 14px;
+      padding: 4px;
+      z-index: 2;
+      transition: 0.2s;
+    }
+
+    .password-toggle:hover {
+      color: rgba(255,255,255,0.7);
+    }
+
     /* primary button - gradient blue */
     .btn-masuk {
       width: 100%;
@@ -184,29 +227,172 @@
     /* secondary button - biometric */
     .btn-biometrik {
       width: 100%;
-      height: 44px;
-      background: rgba(255,255,255,0.2);
-      border: 1px solid #29438f;
+      height: 48px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
       border-radius: 10px;
       font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
-      font-weight: 900;
+      font-size: 12px;
+      font-weight: 800;
       color: #fff;
       cursor: pointer;
-      transition: 0.15s;
+      transition: all 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-    }
-
-    .btn-biometrik img {
-      height: 48px;
-      object-fit: contain;
+      gap: 10px;
     }
 
     .btn-biometrik:hover {
-      background: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.4);
+    }
+
+    /* modal biometric overlay */
+    .bio-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bio-overlay.active {
+      display: flex;
+    }
+
+    .bio-modal {
+      background: linear-gradient(145deg, #0d1f3c, #1a2f7a);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 24px;
+      padding: 36px 40px;
+      text-align: center;
+      width: 320px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      animation: bioSlideUp 0.3s ease;
+    }
+
+    @keyframes bioSlideUp {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .bio-modal h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .bio-modal p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 24px;
+    }
+
+    /* fingerprint circle */
+    .fingerprint-area {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 3px solid rgba(91, 127, 255, 0.4);
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      background: rgba(91, 127, 255, 0.08);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .fingerprint-area:hover {
+      border-color: rgba(91, 127, 255, 0.7);
+      background: rgba(91, 127, 255, 0.15);
+    }
+
+    .fingerprint-area.scanning {
+      border-color: #5B7FFF;
+      background: rgba(91, 127, 255, 0.2);
+      box-shadow: 0 0 30px rgba(91, 127, 255, 0.3), inset 0 0 20px rgba(91, 127, 255, 0.1);
+    }
+
+    .fingerprint-area.success {
+      border-color: #22c55e;
+      background: rgba(34, 197, 94, 0.2);
+      box-shadow: 0 0 30px rgba(34, 197, 94, 0.3);
+    }
+
+    .fingerprint-area .fp-icon {
+      font-size: 56px;
+      color: rgba(255,255,255,0.5);
+      transition: all 0.3s;
+    }
+
+    .fingerprint-area.scanning .fp-icon {
+      color: #5B7FFF;
+      animation: fpPulse 1s ease infinite;
+    }
+
+    .fingerprint-area.success .fp-icon {
+      color: #22c55e;
+    }
+
+    @keyframes fpPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.7; }
+    }
+
+    /* progress ring */
+    .fp-ring {
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: #5B7FFF;
+      border-right-color: #5B7FFF;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .fingerprint-area.scanning .fp-ring {
+      opacity: 1;
+      animation: fpSpin 1.2s linear infinite;
+    }
+
+    @keyframes fpSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .bio-hint {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 16px;
+    }
+
+    .bio-close {
+      margin-top: 16px;
+      background: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.6);
+      padding: 8px 24px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .bio-close:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
     }
 
     /* link style */
@@ -431,19 +617,37 @@
       </div>
 
       <label class="field-label">KATA SANDI / PIN MASUK</label>
-      <div class="input-group">
+      <div class="password-wrapper" style="margin-bottom: 0;">
         <img class="input-icon" alt="" src="{{ asset('Lock.svg') }}">
         <input type="password" name="password" id="password" class="form-input" placeholder="Masukan Sandi atau PIN ..." required>
+        <button type="button" class="password-toggle" onclick="toggleLoginPassword()">
+          <i id="eyeLogin" class="fas fa-eye"></i>
+        </button>
       </div>
 
       <!-- Tombol Masuk Aplikasi -->
       <button type="submit" class="btn-masuk" style="margin-top: 10px;">MASUK APLIKASI</button>
 
       <!-- Tombol Biometrik -->
-      <button type="button" class="btn-biometrik" style="margin-top: 14px;">
-        <img alt="" src="{{ asset('aa1a091da405808d5b32d7d4f6ec1f4a-removebg-preview-1@2x.png') }}">
-        MASUK INSTAN BIOMETRIK
+      <button type="button" class="btn-biometrik" id="btnBiometrik" style="margin-top: 14px;" onclick="openBioModal()">
+        <i class="fas fa-fingerprint" style="font-size:20px;"></i> MASUK INSTAN BIOMETRIK
       </button>
+
+      <!-- Modal Biometric -->
+      <div class="bio-overlay" id="bioOverlay">
+        <div class="bio-modal">
+          <h3><i class="fas fa-shield-halved" style="color:#5B7FFF;margin-right:6px;"></i> Autentikasi Biometrik</h3>
+          <p>Tempelkan jari Anda pada sensor untuk masuk</p>
+          <div class="fingerprint-area" id="fpArea"
+               onmousedown="startBioScan()" onmouseup="cancelBioScan()" onmouseleave="cancelBioScan()"
+               ontouchstart="startBioScan()" ontouchend="cancelBioScan()">
+            <div class="fp-ring"></div>
+            <i class="fas fa-fingerprint fp-icon"></i>
+          </div>
+          <p class="bio-hint" id="bioHint">Tekan dan tahan sidik jari selama 2 detik</p>
+          <button class="bio-close" onclick="closeBioModal()">Batal</button>
+        </div>
+      </div>
 
       <!-- Butuh Bantuan di bawah biometrik -->
       <a href="https://wa.me/6285934228607" target="_blank" class="link-underlined" style="margin-top: 10px;">Butuh Bantuan Akses Masuk?</a>
@@ -459,5 +663,74 @@
   </div>
 </div>
 
+<script>
+function toggleLoginPassword() {
+  const input = document.getElementById('password');
+  const icon = document.getElementById('eyeLogin');
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.classList.remove('fa-eye');
+    icon.classList.add('fa-eye-slash');
+  } else {
+    input.type = 'password';
+    icon.classList.remove('fa-eye-slash');
+    icon.classList.add('fa-eye');
+  }
+}
+
+let bioTimer = null;
+
+function openBioModal() {
+  document.getElementById('bioOverlay').classList.add('active');
+  resetBioState();
+}
+
+function closeBioModal() {
+  document.getElementById('bioOverlay').classList.remove('active');
+  resetBioState();
+}
+
+function resetBioState() {
+  const area = document.getElementById('fpArea');
+  const hint = document.getElementById('bioHint');
+  area.classList.remove('scanning', 'success');
+  hint.textContent = 'Tekan dan tahan sidik jari selama 2 detik';
+  hint.style.color = 'rgba(255,255,255,0.4)';
+  if (bioTimer) { clearTimeout(bioTimer); bioTimer = null; }
+}
+
+function startBioScan() {
+  const area = document.getElementById('fpArea');
+  const hint = document.getElementById('bioHint');
+  area.classList.add('scanning');
+  hint.textContent = 'Memindai sidik jari...';
+  hint.style.color = '#5B7FFF';
+
+  bioTimer = setTimeout(function() {
+    area.classList.remove('scanning');
+    area.classList.add('success');
+    hint.textContent = 'Sidik jari terverifikasi!';
+    hint.style.color = '#22c55e';
+
+    setTimeout(function() {
+      window.location.href = '{{ route("login.biometric") }}';
+    }, 800);
+  }, 2000);
+}
+
+function cancelBioScan() {
+  const area = document.getElementById('fpArea');
+  const hint = document.getElementById('bioHint');
+  area.classList.remove('scanning');
+  hint.textContent = 'Tekan dan tahan sidik jari selama 2 detik';
+  hint.style.color = 'rgba(255,255,255,0.4)';
+  if (bioTimer) { clearTimeout(bioTimer); bioTimer = null; }
+}
+
+// Tutup modal kalau klik di luar
+document.getElementById('bioOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeBioModal();
+});
+</script>
 </body>
 </html>

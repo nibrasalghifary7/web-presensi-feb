@@ -10,12 +10,12 @@
         
         <div class="bg-gradient-to-r from-primary to-primary-light px-6 py-8 text-center dark:from-aurora-glow dark:to-aurora-glow-tertiary">
             <div class="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full shadow-lg mb-3">
-                <span class="text-3xl font-bold text-primary dark:text-aurora-glow"><?php echo e(strtoupper(substr($mahasiswa->nama ?? $user->name, 0, 1))); ?></span>
+                <span class="text-3xl font-bold text-primary dark:text-aurora-glow"><?php echo e(strtoupper(substr($dosen->nama ?? $user->name, 0, 1))); ?></span>
             </div>
-            <h2 class="text-2xl font-bold text-white"><?php echo e($mahasiswa->nama ?? $user->name); ?></h2>
-            <p class="text-white/80 text-sm mt-1"><?php echo e($mahasiswa->nim ?? '-'); ?></p>
+            <h2 class="text-2xl font-bold text-white"><?php echo e($dosen->nama ?? $user->name); ?></h2>
+            <p class="text-white/80 text-sm mt-1"><?php echo e($dosen->nidn ?? '-'); ?></p>
             <span class="inline-block mt-2 bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                Mahasiswa
+                Dosen
             </span>
         </div>
 
@@ -28,12 +28,12 @@
             <div class="space-y-4">
                 <?php
                     $profileData = [
-                        ['icon' => 'fa-user', 'color' => 'blue', 'label' => 'Nama Lengkap', 'value' => $mahasiswa->nama ?? $user->name],
-                        ['icon' => 'fa-hashtag', 'color' => 'blue', 'label' => 'NIM', 'value' => $mahasiswa->nim ?? '-'],
-                        ['icon' => 'fa-envelope', 'color' => 'purple', 'label' => 'Email', 'value' => $mahasiswa->email ?? $user->email ?? '-'],
-                        ['icon' => 'fa-graduation-cap', 'color' => 'emerald', 'label' => 'Program Studi', 'value' => $mahasiswa->prodi ?? '-'],
-                        ['icon' => 'fa-users', 'color' => 'amber', 'label' => 'Kelas', 'value' => $mahasiswa->kelas ?? '-'],
-                        ['icon' => 'fa-calendar', 'color' => 'red', 'label' => 'Angkatan', 'value' => $mahasiswa->angkatan ?? '-'],
+                        ['icon' => 'fa-id-badge', 'color' => 'blue', 'label' => 'NIDN', 'value' => $dosen->nidn ?? '-'],
+                        ['icon' => 'fa-user', 'color' => 'blue', 'label' => 'Nama Lengkap', 'value' => $dosen->nama ?? $user->name],
+                        ['icon' => 'fa-envelope', 'color' => 'purple', 'label' => 'Email', 'value' => $dosen->email ?? $user->email ?? '-'],
+                        ['icon' => 'fa-phone', 'color' => 'green', 'label' => 'No. HP', 'value' => $dosen->phone ?? $user->phone ?? '-'],
+                        ['icon' => 'fa-book', 'color' => 'amber', 'label' => 'Bidang Keahlian', 'value' => $dosen->bidang_keahlian ?? '-'],
+                        ['icon' => 'fa-at', 'color' => 'gray', 'label' => 'Username', 'value' => $user->username],
                     ];
                 ?>
 
@@ -68,4 +68,4 @@
 </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\ghifa's court\web-presensi-feb\resources\views/mahasiswa/profil.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\ghifa's court\web-presensi-feb\resources\views/dosen/profil.blade.php ENDPATH**/ ?>

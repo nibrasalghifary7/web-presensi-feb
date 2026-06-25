@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             MataKuliahSeeder::class,
             JadwalSeeder::class,
             AbsensiSeeder::class,
+            BiometricDosenSeeder::class,
         ]);
     }
 }
