@@ -608,7 +608,7 @@ class AdminController extends Controller
         $pengajuan = PengajuanIzin::findOrFail($id);
         $pengajuan->update(['status' => 'ditolak']);
 
-        return back()->with('success', 'Pengajuan izin/sakit berhasil ditolak.');
+        return back()->with('success', 'Pengajuan izin/sakit berhasil ditolak. Notifikasi telah dikirim ke dosen.');
     }
 
     // ========================================

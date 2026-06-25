@@ -1,0 +1,73 @@
+
+
+
+<?php $__env->startSection('title', __('app.mahasiswa.absensi_title')); ?>
+<?php $__env->startSection('page-title', __('app.mahasiswa.absensi_title')); ?>
+
+<?php $__env->startSection('content'); ?>
+<div class="space-y-6">
+    <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm border border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20">
+        <i class="fas fa-location-dot"></i>
+        <span>GPS LOKASI: Dalam Kampus (FEB)</span>
+    </div>
+
+    <?php if($jadwalHariIni->isEmpty()): ?>
+        <div class="bg-white rounded-xl p-12 shadow-sm border border-gray-100 glass text-center">
+            <i class="fas fa-calendar-xmark text-5xl text-gray-300 dark:text-slate-600 mb-4"></i>
+            <h3 class="text-lg font-semibold text-gray-600 dark:text-white"><?php echo e(__('app.mahasiswa.no_jadwal')); ?></h3>
+        </div>
+    <?php else: ?>
+        <?php $__currentLoopData = $jadwalHariIni; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $jadwal): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $sudahAbsen = isset($absensiHariIni[$jadwal->id_jadwal]); ?>
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 glass">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white"><?php echo e($jadwal->mataKuliah->nama_mk); ?></h3>
+                            <span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full text-xs font-medium dark:bg-white/10 dark:text-slate-300"><?php echo e($jadwal->kelas); ?></span>
+                        </div>
+                        <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm text-gray-500 dark:text-slate-400">
+                            <span><i class="far fa-clock text-gray-400 dark:text-slate-500 mr-1"></i> <?php echo e(now()->translatedFormat('l')); ?>, <?php echo e($jadwal->jam_formatted); ?> WIB</span>
+                            <span><i class="fas fa-location-dot text-gray-400 dark:text-slate-500 mr-1"></i> <?php echo e($jadwal->ruang); ?></span>
+                            <span><i class="fas fa-layer-group text-gray-400 dark:text-slate-500 mr-1"></i> <?php echo e($jadwal->mataKuliah->sks); ?> SKS</span>
+                        </div>
+                        <p class="text-sm text-gray-400 dark:text-slate-500 mt-2"><i class="fas fa-chalkboard-teacher mr-1"></i> <?php echo e($jadwal->dosen->nama); ?></p>
+                    </div>
+                    <div class="flex flex-col items-end gap-2">
+                        <?php if($sudahAbsen): ?>
+                            <span class="inline-flex items-center gap-1 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-xl text-sm font-medium dark:bg-emerald-500/10 dark:text-emerald-400">
+                                <i class="fas fa-check-circle"></i> <?php echo e(__('app.mahasiswa.sudah_absen')); ?>
+
+                            </span>
+                        <?php elseif(isset($sesiAktif[$jadwal->id_jadwal])): ?>
+                            <form action="<?php echo e(route('mahasiswa.absensi.proses', $jadwal->id_jadwal)); ?>" method="POST" class="flex flex-col sm:flex-row gap-2">
+                                <?php echo csrf_field(); ?>
+                                <button type="submit" name="status" value="Hadir"
+                                        class="px-5 py-2.5 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 shadow-md transition-all dark:bg-emerald-500 dark:hover:bg-emerald-600">
+                                    <i class="fas fa-user-check mr-1"></i> Hadir
+                                </button>
+                                <button type="submit" name="status" value="Sakit"
+                                        class="px-5 py-2.5 bg-amber-500 text-white rounded-xl font-semibold hover:bg-amber-600 shadow-md transition-all dark:bg-amber-500 dark:hover:bg-amber-600">
+                                    <i class="fas fa-head-side-virus mr-1"></i> Sakit
+                                </button>
+                                <button type="submit" name="status" value="Izin"
+                                        class="px-5 py-2.5 bg-blue-500 text-white rounded-xl font-semibold hover:bg-blue-600 shadow-md transition-all dark:bg-blue-500 dark:hover:bg-blue-600">
+                                    <i class="fas fa-file-lines mr-1"></i> Izin
+                                </button>
+                            </form>
+                        <?php else: ?>
+                            <span class="inline-flex items-center gap-1 px-4 py-2 bg-gray-100 text-gray-500 rounded-xl text-sm font-medium dark:bg-white/5 dark:text-slate-400">
+                                <i class="fas fa-lock"></i> <?php echo e(__('app.mahasiswa.sesi_belum_dibuka')); ?>
+
+                            </span>
+                            <span class="text-xs text-gray-400 dark:text-slate-500"><i class="fas fa-info-circle mr-1"></i> <?php echo e(__('app.mahasiswa.menunggu_sesi')); ?></span>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <?php endif; ?>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\ghifa's court\web-presensi-feb\resources\views/mahasiswa/absensi.blade.php ENDPATH**/ ?>

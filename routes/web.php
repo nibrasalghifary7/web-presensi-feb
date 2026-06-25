@@ -16,6 +16,7 @@ use App\Http\Controllers\DosenController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminDosenController;
 use App\Http\Controllers\LanguageController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // ========================================
@@ -33,6 +34,13 @@ Route::get('/', function () {
  * Switch bahasa aplikasi.
  */
 Route::get('/language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
+
+/**
+ * Dashboard redirect — cegah redirect loop dari guest middleware.
+ */
+Route::middleware('auth')->get('/dashboard', function () {
+    return redirect(Auth::user()->getDashboardUrl());
+});
 
 /**
  * Autentikasi - Login & Registrasi.
@@ -81,6 +89,9 @@ Route::middleware(['auth', 'role:mahasiswa'])->prefix('mahasiswa')->name('mahasi
     Route::get('/dokumen', [MahasiswaController::class, 'formIzin'])->name('dokumen');
     Route::post('/dokumen', [MahasiswaController::class, 'submitIzin'])->name('dokumen.submit');
 
+    // Riwayat Pengajuan
+    Route::get('/riwayat-pengajuan', [MahasiswaController::class, 'riwayatPengajuan'])->name('riwayat-pengajuan');
+
     // Profil Mahasiswa (PRD F-13)
     Route::get('/profil', [MahasiswaController::class, 'profil'])->name('profil');
 
@@ -112,6 +123,10 @@ Route::middleware(['auth', 'role:dosen'])->prefix('dosen')->name('dosen.')->grou
     // Sesi Pertemuan
     Route::post('/sesi/buka/{idJadwal}', [DosenController::class, 'bukaSesi'])->name('sesi.buka');
     Route::post('/sesi/tutup/{idSesi}', [DosenController::class, 'tutupSesi'])->name('sesi.tutup');
+
+    // Pengajuan Izin/Sakit — approve/reject
+    Route::post('/pengajuan/{id}/approve', [DosenController::class, 'pengajuanApprove'])->name('pengajuan.approve');
+    Route::post('/pengajuan/{id}/reject', [DosenController::class, 'pengajuanReject'])->name('pengajuan.reject');
 
     // Profil Dosen
     Route::get('/profil', [DosenController::class, 'profil'])->name('profil');

@@ -1,43 +1,41 @@
-{{--
-    Halaman Validasi Absensi Dosen
-    Menampilkan daftar mahasiswa yang sudah klik absen.
-    Dosen bisa memvalidasi atau mengubah status kehadiran.
---}}
-@extends('layouts.app')
 
-@section('title', __('app.dosen.validasi_title'))
-@section('page-title', __('app.dosen.validasi_title'))
 
-@section('content')
+
+<?php $__env->startSection('title', __('app.dosen.validasi_title')); ?>
+<?php $__env->startSection('page-title', __('app.dosen.validasi_title')); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="space-y-6">
 
-    {{-- Info Jadwal --}}
+    
     <div class="bg-white glass rounded-xl p-5 shadow-sm border border-gray-100 dark:border-white/5">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-                <h3 class="text-lg font-bold text-gray-800 dark:text-white">{{ $jadwal->mataKuliah->nama_mk }}</h3>
+                <h3 class="text-lg font-bold text-gray-800 dark:text-white"><?php echo e($jadwal->mataKuliah->nama_mk); ?></h3>
                 <p class="text-sm text-gray-500 dark:text-slate-400">
-                    {{ $jadwal->kelas }} &middot; {{ $jadwal->jam_formatted }} &middot; {{ $jadwal->ruang }}
+                    <?php echo e($jadwal->kelas); ?> &middot; <?php echo e($jadwal->jam_formatted); ?> &middot; <?php echo e($jadwal->ruang); ?>
+
                 </p>
             </div>
             <span class="px-3 py-1.5 bg-blue-100 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 rounded-full text-sm font-medium">
-                <i class="fas fa-calendar mr-1"></i> {{ now()->translatedFormat('d F Y') }}
+                <i class="fas fa-calendar mr-1"></i> <?php echo e(now()->translatedFormat('d F Y')); ?>
+
             </span>
         </div>
     </div>
 
-    {{-- Tabel Mahasiswa --}}
+    
     <div class="bg-white glass rounded-xl shadow-sm border border-gray-100 dark:border-white/5 overflow-hidden">
         <div class="p-5 border-b border-gray-100 dark:border-white/5">
             <h3 class="font-bold text-gray-800 dark:text-white">Daftar Kehadiran Mahasiswa</h3>
         </div>
 
-        @if($absensis->isEmpty())
+        <?php if($absensis->isEmpty()): ?>
             <div class="text-center py-12 text-gray-400 dark:text-slate-500">
                 <i class="fas fa-users-slash text-4xl mb-3"></i>
                 <p>Belum ada mahasiswa yang melakukan absensi</p>
             </div>
-        @else
+        <?php else: ?>
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead class="bg-gray-50 dark:bg-white/5">
@@ -52,77 +50,80 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-50 dark:divide-white/5">
-                        @foreach($absensis as $index => $absen)
-                            @php
+                        <?php $__currentLoopData = $absensis; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $absen): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php
                                 $pengajuan = $pengajuans->get($absen->nim);
-                            @endphp
+                            ?>
                             <tr class="hover:bg-gray-50 dark:hover:bg-white/5">
-                                <td class="px-5 py-3 text-sm text-gray-500 dark:text-slate-400">{{ $index + 1 }}</td>
-                                <td class="px-5 py-3 text-sm font-medium text-gray-800 dark:text-white">{{ $absen->nim }}</td>
+                                <td class="px-5 py-3 text-sm text-gray-500 dark:text-slate-400"><?php echo e($index + 1); ?></td>
+                                <td class="px-5 py-3 text-sm font-medium text-gray-800 dark:text-white"><?php echo e($absen->nim); ?></td>
                                 <td class="px-5 py-3 text-sm text-gray-800 dark:text-white">
-                                    {{ $absen->mahasiswa->nama }}
-                                    {{-- Info pengajuan dari admin --}}
-                                    @if($pengajuan)
+                                    <?php echo e($absen->mahasiswa->nama); ?>
+
+                                    
+                                    <?php if($pengajuan): ?>
                                         <div class="mt-1">
-                                            @if($pengajuan->status === 'disetujui')
+                                            <?php if($pengajuan->status === 'disetujui'): ?>
                                                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
-                                                    <i class="fas fa-check"></i> Admin: {{ $pengajuan->jenis }} Disetujui
+                                                    <i class="fas fa-check"></i> Admin: <?php echo e($pengajuan->jenis); ?> Disetujui
                                                 </span>
-                                            @elseif($pengajuan->status === 'ditolak')
+                                            <?php elseif($pengajuan->status === 'ditolak'): ?>
                                                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400">
-                                                    <i class="fas fa-times"></i> Admin: {{ $pengajuan->jenis }} Ditolak
+                                                    <i class="fas fa-times"></i> Admin: <?php echo e($pengajuan->jenis); ?> Ditolak
                                                 </span>
-                                            @else
+                                            <?php else: ?>
                                                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400">
-                                                    <i class="fas fa-clock"></i> Admin: {{ $pengajuan->jenis }} Pending
+                                                    <i class="fas fa-clock"></i> Admin: <?php echo e($pengajuan->jenis); ?> Pending
                                                 </span>
-                                            @endif
+                                            <?php endif; ?>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </td>
-                                <td class="px-5 py-3 text-sm text-gray-600 dark:text-slate-300">{{ $absen->jam_masuk ? substr($absen->jam_masuk, 0, 5) : '-' }}</td>
+                                <td class="px-5 py-3 text-sm text-gray-600 dark:text-slate-300"><?php echo e($absen->jam_masuk ? substr($absen->jam_masuk, 0, 5) : '-'); ?></td>
                                 <td class="px-5 py-3">
                                     <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold
-                                        {{ $absen->status_badge_class }}">
-                                        {{ $absen->status }}
+                                        <?php echo e($absen->status_badge_class); ?>">
+                                        <?php echo e($absen->status); ?>
+
                                     </span>
                                 </td>
                                 <td class="px-5 py-3">
-                                    @if($absen->validasi === 'divalidasi')
+                                    <?php if($absen->validasi === 'divalidasi'): ?>
                                         <span class="text-emerald-600 dark:text-emerald-400 text-xs font-semibold"><i class="fas fa-check-circle mr-1"></i>Divalidasi</span>
-                                    @elseif($absen->validasi === 'ditolak')
+                                    <?php elseif($absen->validasi === 'ditolak'): ?>
                                         <span class="text-red-600 dark:text-red-400 text-xs font-semibold"><i class="fas fa-times-circle mr-1"></i>Ditolak</span>
-                                    @else
+                                    <?php else: ?>
                                         <span class="text-amber-600 dark:text-amber-400 text-xs font-semibold"><i class="fas fa-clock mr-1"></i>Pending</span>
-                                    @endif
+                                    <?php endif; ?>
                                 </td>
                                 <td class="px-5 py-3">
-                                    @if($absen->status === 'Menunggu')
-                                        {{-- Mahasiswa pilih Hadir/Sakit/Izin → Dosen validasi --}}
+                                    <?php if($absen->status === 'Menunggu'): ?>
+                                        
                                         <div class="flex gap-1.5">
-                                            @if($absen->status === 'Menunggu' && $pengajuan && $pengajuan->status === 'disetujui')
-                                                {{-- Sakit/Izin dengan pengajuan disetujui → langsung validasi sesuai pengajuan --}}
-                                                <form action="{{ route('dosen.validasi.proses', $absen->id_absensi) }}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="status" value="{{ $pengajuan->jenis }}">
+                                            <?php if($absen->status === 'Menunggu' && $pengajuan && $pengajuan->status === 'disetujui'): ?>
+                                                
+                                                <form action="<?php echo e(route('dosen.validasi.proses', $absen->id_absensi)); ?>" method="POST">
+                                                    <?php echo csrf_field(); ?>
+                                                    <input type="hidden" name="status" value="<?php echo e($pengajuan->jenis); ?>">
                                                     <input type="hidden" name="validasi" value="divalidasi">
-                                                    <button type="submit" class="px-3 py-1.5 bg-emerald-500 text-white rounded-lg text-xs font-medium hover:bg-emerald-600" title="Validasi {{ $pengajuan->jenis }}">
-                                                        <i class="fas fa-check mr-1"></i> {{ $pengajuan->jenis }}
+                                                    <button type="submit" class="px-3 py-1.5 bg-emerald-500 text-white rounded-lg text-xs font-medium hover:bg-emerald-600" title="Validasi <?php echo e($pengajuan->jenis); ?>">
+                                                        <i class="fas fa-check mr-1"></i> <?php echo e($pengajuan->jenis); ?>
+
                                                     </button>
                                                 </form>
-                                            @else
-                                                {{-- Hadir atau Sakit/Izin tanpa pengajuan disetujui --}}
-                                                <form action="{{ route('dosen.validasi.proses', $absen->id_absensi) }}" method="POST">
-                                                    @csrf
+                                            <?php else: ?>
+                                                
+                                                <form action="<?php echo e(route('dosen.validasi.proses', $absen->id_absensi)); ?>" method="POST">
+                                                    <?php echo csrf_field(); ?>
                                                     <input type="hidden" name="status" value="Hadir">
                                                     <input type="hidden" name="validasi" value="divalidasi">
                                                     <button type="submit" class="px-3 py-1.5 bg-emerald-500 text-white rounded-lg text-xs font-medium hover:bg-emerald-600" title="Validasi Hadir">
                                                         <i class="fas fa-check mr-1"></i> Hadir
                                                     </button>
                                                 </form>
-                                            @endif
-                                            <form action="{{ route('dosen.validasi.proses', $absen->id_absensi) }}" method="POST">
-                                                @csrf
+                                            <?php endif; ?>
+                                            <form action="<?php echo e(route('dosen.validasi.proses', $absen->id_absensi)); ?>" method="POST">
+                                                <?php echo csrf_field(); ?>
                                                 <input type="hidden" name="status" value="Alpha">
                                                 <input type="hidden" name="validasi" value="ditolak">
                                                 <button type="submit" class="px-3 py-1.5 bg-red-500 text-white rounded-lg text-xs font-medium hover:bg-red-600" title="Tolak (Alpha)">
@@ -130,17 +131,17 @@
                                                 </button>
                                             </form>
                                         </div>
-                                    @else
-                                        {{-- Dosen bisa ubah status --}}
-                                        <form action="{{ route('dosen.validasi.proses', $absen->id_absensi) }}" method="POST" class="flex gap-2">
-                                            @csrf
+                                    <?php else: ?>
+                                        
+                                        <form action="<?php echo e(route('dosen.validasi.proses', $absen->id_absensi)); ?>" method="POST" class="flex gap-2">
+                                            <?php echo csrf_field(); ?>
                                             <select name="status" class="text-xs border rounded-lg px-2 py-1
                                                                             border-gray-200 bg-white text-gray-800
                                                                             dark:border-white/20 dark:bg-aurora-panel dark:text-white">
-                                                <option value="Hadir" {{ $absen->status == 'Hadir' ? 'selected' : '' }}>Hadir</option>
-                                                <option value="Izin" {{ $absen->status == 'Izin' ? 'selected' : '' }}>Izin</option>
-                                                <option value="Sakit" {{ $absen->status == 'Sakit' ? 'selected' : '' }}>Sakit</option>
-                                                <option value="Alpha" {{ $absen->status == 'Alpha' ? 'selected' : '' }}>Alpha</option>
+                                                <option value="Hadir" <?php echo e($absen->status == 'Hadir' ? 'selected' : ''); ?>>Hadir</option>
+                                                <option value="Izin" <?php echo e($absen->status == 'Izin' ? 'selected' : ''); ?>>Izin</option>
+                                                <option value="Sakit" <?php echo e($absen->status == 'Sakit' ? 'selected' : ''); ?>>Sakit</option>
+                                                <option value="Alpha" <?php echo e($absen->status == 'Alpha' ? 'selected' : ''); ?>>Alpha</option>
                                             </select>
                                             <input type="hidden" name="validasi" value="divalidasi">
                                             <button type="submit" class="px-3 py-1 bg-primary text-white rounded-lg text-xs font-medium hover:bg-primary-dark
@@ -148,14 +149,16 @@
                                                 <i class="fas fa-check"></i>
                                             </button>
                                         </form>
-                                    @endif
+                                    <?php endif; ?>
                                 </td>
                             </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
             </div>
-        @endif
+        <?php endif; ?>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\ghifa's court\web-presensi-feb\resources\views/dosen/validasi.blade.php ENDPATH**/ ?>

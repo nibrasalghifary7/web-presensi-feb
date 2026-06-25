@@ -62,7 +62,13 @@ class DosenController extends Controller
             ->with('mahasiswa')
             ->get();
 
-        return view('dosen.validasi', compact('user', 'dosen', 'jadwal', 'absensis'));
+        // Ambil data pengajuan izin/sakit untuk jadwal & tanggal ini
+        $pengajuans = PengajuanIzin::where('id_jadwal', $idJadwal)
+            ->whereDate('tanggal_izin', today())
+            ->get()
+            ->keyBy('nim');
+
+        return view('dosen.validasi', compact('user', 'dosen', 'jadwal', 'absensis', 'pengajuans'));
     }
 
     /**
@@ -343,5 +349,71 @@ class DosenController extends Controller
         $dosen = $user->dosen;
 
         return view('dosen.profil', compact('user', 'dosen'));
+    }
+
+    /**
+     * Menyetujui pengajuan izin/sakit mahasiswa.
+     * Mengubah status pengajuan menjadi 'disetujui' + update absensi.
+     */
+    public function pengajuanApprove(Request $request, $id)
+    {
+        $user = Auth::user();
+        $dosen = $user->dosen;
+
+        $pengajuan = PengajuanIzin::with('jadwal')->findOrFail($id);
+
+        // Pastikan pengajuan untuk jadwal dosen ini
+        if (!$pengajuan->jadwal || $pengajuan->jadwal->nidn !== $dosen->nidn) {
+            return back()->with('error', 'Anda tidak memiliki akses ke pengajuan ini.');
+        }
+
+        $pengajuan->update([
+            'status' => 'disetujui',
+            'catatan_admin' => $request->input('catatan'),
+        ]);
+
+        // Update absensi terkait: status jadi Sakit/Izin, validasi divalidasi
+        Absensi::where('nim', $pengajuan->nim)
+            ->where('id_jadwal', $pengajuan->id_jadwal)
+            ->whereDate('tanggal', $pengajuan->tanggal_izin)
+            ->update([
+                'status' => $pengajuan->jenis,
+                'validasi' => 'divalidasi',
+            ]);
+
+        return back()->with('success', 'Pengajuan ' . $pengajuan->jenis . ' dari ' . ($pengajuan->mahasiswa->nama ?? $pengajuan->nim) . ' disetujui.');
+    }
+
+    /**
+     * Menolak pengajuan izin/sakit mahasiswa.
+     * Mengubah status pengajuan menjadi 'ditolak' + update absensi jadi Alpha.
+     */
+    public function pengajuanReject(Request $request, $id)
+    {
+        $user = Auth::user();
+        $dosen = $user->dosen;
+
+        $pengajuan = PengajuanIzin::with('jadwal')->findOrFail($id);
+
+        // Pastikan pengajuan untuk jadwal dosen ini
+        if (!$pengajuan->jadwal || $pengajuan->jadwal->nidn !== $dosen->nidn) {
+            return back()->with('error', 'Anda tidak memiliki akses ke pengajuan ini.');
+        }
+
+        $pengajuan->update([
+            'status' => 'ditolak',
+            'catatan_admin' => $request->input('catatan'),
+        ]);
+
+        // Update absensi terkait: status jadi Alpha, validasi divalidasi
+        Absensi::where('nim', $pengajuan->nim)
+            ->where('id_jadwal', $pengajuan->id_jadwal)
+            ->whereDate('tanggal', $pengajuan->tanggal_izin)
+            ->update([
+                'status' => 'Alpha',
+                'validasi' => 'divalidasi',
+            ]);
+
+        return back()->with('success', 'Pengajuan ' . $pengajuan->jenis . ' dari ' . ($pengajuan->mahasiswa->nama ?? $pengajuan->nim) . ' ditolak.');
     }
 }

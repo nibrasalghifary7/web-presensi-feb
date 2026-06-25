@@ -87,6 +87,11 @@ class MahasiswaController extends Controller
         $user = Auth::user();
         $mahasiswa = $user->mahasiswa;
 
+        // Validasi input status
+        $request->validate([
+            'status' => 'required|in:Hadir,Sakit,Izin',
+        ]);
+
         // Cek apakah jadwal ada dan sesuai dengan kelas mahasiswa
         $jadwal = Jadwal::where('id_jadwal', $idJadwal)
             ->where('kelas', $mahasiswa->kelas)
@@ -112,7 +117,17 @@ class MahasiswaController extends Controller
             return back()->with('error', 'Anda sudah melakukan absensi untuk mata kuliah ini hari ini.');
         }
 
-        // Catat absensi dengan status "Menunggu" (belum divalidasi dosen)
+        $statusInput = $request->input('status');
+
+        // Jika Sakit/Izin → redirect ke Dokumen, BELUM buat absensi
+        if ($statusInput === 'Sakit' || $statusInput === 'Izin') {
+            return redirect()->route('mahasiswa.dokumen', [
+                'jenis' => $statusInput,
+                'id_jadwal' => $idJadwal,
+            ])->with('success', 'Silakan unggah bukti pengajuan ' . $statusInput . ' Anda.');
+        }
+
+        // Jika Hadir → langsung catat absensi
         Absensi::create([
             'nim' => $mahasiswa->nim,
             'id_jadwal' => $idJadwal,
@@ -153,6 +168,22 @@ class MahasiswaController extends Controller
     }
 
     /**
+     * Menampilkan riwayat pengajuan izin/sakit mahasiswa.
+     */
+    public function riwayatPengajuan()
+    {
+        $user = Auth::user();
+        $mahasiswa = $user->mahasiswa;
+
+        $riwayatPengajuan = PengajuanIzin::where('nim', $mahasiswa->nim)
+            ->with('jadwal.mataKuliah')
+            ->orderByDesc('tanggal_izin')
+            ->paginate(10);
+
+        return view('mahasiswa.riwayat-pengajuan', compact('user', 'mahasiswa', 'riwayatPengajuan'));
+    }
+
+    /**
      * Menampilkan form pengajuan izin/sakit.
      */
     public function formIzin()
@@ -165,13 +196,11 @@ class MahasiswaController extends Controller
             ->with('mataKuliah')
             ->get();
 
-        // Ambil riwayat pengajuan izin
-        $riwayatIzin = PengajuanIzin::where('nim', $mahasiswa->nim)
-            ->with('jadwal.mataKuliah')
-            ->orderByDesc('tanggal_izin')
-            ->paginate(10);
+        // Query params dari redirect absensi (untuk pre-fill form)
+        $prefillJenis = request('jenis');
+        $prefillJadwalId = request('id_jadwal');
 
-        return view('mahasiswa.dokumen', compact('user', 'mahasiswa', 'jadwalList', 'riwayatIzin'));
+        return view('mahasiswa.dokumen', compact('user', 'mahasiswa', 'jadwalList', 'prefillJenis', 'prefillJadwalId'));
     }
 
     /**
@@ -186,14 +215,14 @@ class MahasiswaController extends Controller
             'tanggal_izin' => 'required|date',
             'jenis' => 'required|in:Izin,Sakit',
             'alasan' => 'required|string|max:500',
-            'bukti_surat' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'bukti_surat' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ], [
             'id_jadwal.required' => 'Pilih mata kuliah terlebih dahulu.',
             'tanggal_izin.required' => 'Tanggal izin wajib diisi.',
             'jenis.required' => 'Pilih jenis pengajuan.',
             'alasan.required' => 'Alasan wajib diisi.',
             'bukti_surat.max' => 'Ukuran file maksimal 2MB.',
-            'bukti_surat.mimes' => 'Format file harus JPG, JPEG, PNG, atau PDF.',
+            'bukti_surat.mimes' => 'Format file harus PDF atau Word (DOC, DOCX).',
         ]);
 
         $user = Auth::user();
@@ -206,8 +235,18 @@ class MahasiswaController extends Controller
                 ->store('izin/' . $mahasiswa->nim, 'public');
         }
 
+        // Cek apakah sudah absen hari ini untuk jadwal ini
+        $sudahAbsen = Absensi::where('nim', $mahasiswa->nim)
+            ->where('id_jadwal', $request->id_jadwal)
+            ->whereDate('tanggal', today())
+            ->exists();
+
+        if ($sudahAbsen) {
+            return back()->with('error', 'Anda sudah melakukan absensi untuk mata kuliah ini hari ini.');
+        }
+
         // Simpan pengajuan
-        PengajuanIzin::create([
+        $pengajuan = PengajuanIzin::create([
             'nim' => $mahasiswa->nim,
             'id_jadwal' => $request->id_jadwal,
             'tanggal_izin' => $request->tanggal_izin,
@@ -217,7 +256,18 @@ class MahasiswaController extends Controller
             'status' => 'pending',
         ]);
 
-        return back()->with('success', 'Pengajuan izin/sakit berhasil dikirim! Menunggu persetujuan.');
+        // Baru buat absensi setelah form di-submit
+        Absensi::create([
+            'nim' => $mahasiswa->nim,
+            'id_jadwal' => $request->id_jadwal,
+            'tanggal' => today(),
+            'jam_masuk' => now(),
+            'status' => 'Menunggu',
+            'validasi' => 'pending',
+            'catatan' => 'Pengajuan #' . $pengajuan->id_pengajuan . ' - ' . $request->jenis,
+        ]);
+
+        return redirect()->route('mahasiswa.absensi')->with('success', 'Pengajuan ' . $request->jenis . ' berhasil dikirim! Menunggu persetujuan dosen.');
     }
 
     /**

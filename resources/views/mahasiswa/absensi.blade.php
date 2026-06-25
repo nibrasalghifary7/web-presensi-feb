@@ -41,10 +41,19 @@
                                 <i class="fas fa-check-circle"></i> {{ __('app.mahasiswa.sudah_absen') }}
                             </span>
                         @elseif(isset($sesiAktif[$jadwal->id_jadwal]))
-                            <form action="{{ route('mahasiswa.absensi.proses', $jadwal->id_jadwal) }}" method="POST">
+                            <form action="{{ route('mahasiswa.absensi.proses', $jadwal->id_jadwal) }}" method="POST" class="flex flex-col sm:flex-row gap-2">
                                 @csrf
-                                <button type="submit" class="px-6 py-2.5 bg-primary text-white rounded-xl font-semibold hover:bg-primary-dark shadow-md transition-all dark:bg-aurora-glow dark:hover:bg-aurora-glow-secondary">
-                                    <i class="fas fa-check mr-1"></i> {{ __('app.mahasiswa.absen_sekarang') }}
+                                <button type="submit" name="status" value="Hadir"
+                                        class="px-5 py-2.5 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 shadow-md transition-all dark:bg-emerald-500 dark:hover:bg-emerald-600">
+                                    <i class="fas fa-user-check mr-1"></i> Hadir
+                                </button>
+                                <button type="submit" name="status" value="Sakit"
+                                        class="px-5 py-2.5 bg-amber-500 text-white rounded-xl font-semibold hover:bg-amber-600 shadow-md transition-all dark:bg-amber-500 dark:hover:bg-amber-600">
+                                    <i class="fas fa-head-side-virus mr-1"></i> Sakit
+                                </button>
+                                <button type="submit" name="status" value="Izin"
+                                        class="px-5 py-2.5 bg-blue-500 text-white rounded-xl font-semibold hover:bg-blue-600 shadow-md transition-all dark:bg-blue-500 dark:hover:bg-blue-600">
+                                    <i class="fas fa-file-lines mr-1"></i> Izin
                                 </button>
                             </form>
                         @else
