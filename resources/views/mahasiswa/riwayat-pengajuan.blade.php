@@ -44,7 +44,7 @@
                             </p>
                             <p class="text-sm text-gray-600 dark:text-slate-300 mt-1">{{ $izin->alasan }}</p>
                             @if($izin->bukti_surat)
-                                <a href="{{ asset('storage/' . $izin->bukti_surat) }}" target="_blank"
+                                <a href="{{ str_starts_with($izin->bukti_surat, 'http') ? $izin->bukti_surat : asset('storage/' . $izin->bukti_surat) }}" target="_blank"
                                    class="inline-flex items-center gap-1 mt-2 text-xs text-blue-600 dark:text-blue-400 hover:underline">
                                     <i class="fas fa-file-alt"></i> Lihat Bukti
                                 </a>

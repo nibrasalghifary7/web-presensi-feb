@@ -9,6 +9,7 @@ use App\Models\Sesi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 /**
  * Controller Mahasiswa
@@ -229,10 +230,13 @@ class MahasiswaController extends Controller
         $mahasiswa = $user->mahasiswa;
         $buktiPath = null;
 
-        // Upload bukti surat jika ada
+        // Upload bukti surat ke Cloudinary jika ada
         if ($request->hasFile('bukti_surat')) {
-            $buktiPath = $request->file('bukti_surat')
-                ->store('izin/' . $mahasiswa->nim, 'public');
+            $uploaded = Cloudinary::upload($request->file('bukti_surat')->getRealPath(), [
+                'folder' => 'izin/' . $mahasiswa->nim,
+                'resource_type' => 'auto',
+            ]);
+            $buktiPath = $uploaded->getSecurePath();
         }
 
         // Cek apakah sudah absen hari ini untuk jadwal ini

@@ -89,7 +89,7 @@
                             <td class="px-5 py-3 text-sm text-gray-600 dark:text-slate-300 max-w-xs truncate">{{ $p->alasan }}</td>
                             <td class="px-5 py-3">
                                 @if($p->bukti_surat)
-                                    <a href="{{ asset('storage/' . $p->bukti_surat) }}" target="_blank"
+                                    <a href="{{ str_starts_with($p->bukti_surat, 'http') ? $p->bukti_surat : asset('storage/' . $p->bukti_surat) }}" target="_blank"
                                        class="text-blue-600 dark:text-blue-400 hover:underline text-xs">
                                         <i class="fas fa-file-image mr-1"></i>Lihat
                                     </a>
