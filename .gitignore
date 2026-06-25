@@ -4,8 +4,11 @@
 /public/storage
 /storage/*.key
 /storage/framework/sessions/*
+!/storage/framework/sessions/.gitkeep
 /storage/framework/views/*
+!/storage/framework/views/.gitkeep
 /storage/framework/cache/*
+!/storage/framework/cache/.gitkeep
 /vendor
 .env
 .env.backup
