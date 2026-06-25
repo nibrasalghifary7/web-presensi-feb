@@ -181,8 +181,8 @@ class AuthController extends Controller
             'nama' => $request->nama,
             'email' => $request->email,
             'phone' => $request->phone ?? null,
-            'kelas' => $request->kelas ?? 'Manajemen A',
-            'angkatan' => $request->angkatan ?? date('Y'),
+            'kelas' => $request->kelas ?? 'Belum Terdaftar',
+            'angkatan' => $request->angkatan ?? '2024',
             'prodi' => 'Manajemen',
             'status_aktif' => 1,
         ]);

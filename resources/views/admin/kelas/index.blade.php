@@ -57,7 +57,7 @@
                             <td class="px-5 py-3 text-sm text-center text-gray-600 dark:text-slate-300">{{ $k->mahasiswas_count }}</td>
                             <td class="px-5 py-3">
                                 <div class="flex gap-2">
-                                    <button onclick="editKelas({{ $k->id_kelas }}, '{{ $k->nama_kelas }}', '{{ $k->angkatan }}')"
+                                    <button onclick="editKelas({{ $k->id_kelas }}, '{{ $k->nama_kelas }}', '{{ $k->angkatan }}', '{{ $k->prodi }}')"
                                             class="px-3 py-1 bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500/20 rounded-lg text-xs font-medium hover:bg-blue-200">
                                         <i class="fas fa-edit"></i>
                                     </button>
@@ -105,6 +105,16 @@
                         @endfor
                     </select>
                 </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-slate-200 mb-1">Program Studi</label>
+                    <select name="prodi" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-slate-600 text-sm focus:border-uin-green outline-none dark:bg-slate-700 dark:text-white">
+                        <option value="Manajemen">Manajemen</option>
+                        <option value="Akuntansi">Akuntansi</option>
+                        <option value="Ekonomi Pembangunan">Ekonomi Pembangunan</option>
+                        <option value="Perbankan Syariah">Perbankan Syariah</option>
+                        <option value="Ekonomi Syariah">Ekonomi Syariah</option>
+                    </select>
+                </div>
                 <div class="flex gap-3 pt-2">
                     <button type="submit" class="flex-1 px-4 py-2.5 bg-uin-green text-white rounded-xl font-medium hover:bg-uin-green-dark">Simpan</button>
                     <button type="button" onclick="document.getElementById('modalTambah').classList.add('hidden')"
@@ -133,6 +143,16 @@
                         @endfor
                     </select>
                 </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-slate-200 mb-1">Program Studi</label>
+                    <select id="edit_prodi" name="prodi" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-slate-600 text-sm focus:border-uin-green outline-none dark:bg-slate-700 dark:text-white">
+                        <option value="Manajemen">Manajemen</option>
+                        <option value="Akuntansi">Akuntansi</option>
+                        <option value="Ekonomi Pembangunan">Ekonomi Pembangunan</option>
+                        <option value="Perbankan Syariah">Perbankan Syariah</option>
+                        <option value="Ekonomi Syariah">Ekonomi Syariah</option>
+                    </select>
+                </div>
                 <div class="flex gap-3 pt-2">
                     <button type="submit" class="flex-1 px-4 py-2.5 bg-uin-green text-white rounded-xl font-medium hover:bg-uin-green-dark">Update</button>
                     <button type="button" onclick="document.getElementById('modalEdit').classList.add('hidden')"
@@ -145,10 +165,11 @@
 
 @push('scripts')
 <script>
-    function editKelas(id, nama, angkatan) {
+    function editKelas(id, nama, angkatan, prodi) {
         document.getElementById('formEdit').action = '/admin/kelas/' + id;
         document.getElementById('edit_nama').value = nama;
         document.getElementById('edit_angkatan').value = angkatan;
+        document.getElementById('edit_prodi').value = prodi;
         document.getElementById('modalEdit').classList.remove('hidden');
     }
 </script>

@@ -639,12 +639,13 @@ class AdminController extends Controller
         $request->validate([
             'nama_kelas' => 'required|string|max:20|unique:kelas,nama_kelas',
             'angkatan' => 'required|string|max:10',
+            'prodi' => 'required|string|max:50',
         ]);
 
         Kelas::create([
             'nama_kelas' => $request->nama_kelas,
             'angkatan' => $request->angkatan,
-            'prodi' => $request->prodi ?? 'Manajemen',
+            'prodi' => $request->prodi,
         ]);
 
         return redirect()->route('admin.kelas.index')

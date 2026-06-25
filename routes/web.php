@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
  * Halaman utama - redirect ke login.
  */
 Route::get('/', function () {
-    return redirect()->route('login');
+    return view('index');
 });
 
 /**

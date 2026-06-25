@@ -424,9 +424,19 @@
         <input type="text" name="nama" class="form-input" placeholder="Nama Lengkap Anda..." value="{{ old('nama') }}" required>
       </div>
 
-      <label class="field-label">NIM (NOMOR INDUK MAHASISWA)</label>
-      <div class="input-group">
-        <input type="text" name="nim" class="form-input" placeholder="Contoh: 1220905" value="{{ old('nim') }}" required>
+      <div class="form-row">
+        <div class="form-col">
+          <label class="field-label">NIM</label>
+          <div class="input-group">
+            <input type="text" name="nim" class="form-input" placeholder="Contoh: 1220905" value="{{ old('nim') }}" required>
+          </div>
+        </div>
+        <div class="form-col">
+          <label class="field-label">Nomor Telepon</label>
+          <div class="input-group">
+            <input type="text" name="phone" class="form-input" placeholder="Contoh: 08123456789" value="{{ old('phone') }}" required>
+          </div>
+        </div>
       </div>
 
       <label class="field-label">ALAMAT EMAIL</label>
