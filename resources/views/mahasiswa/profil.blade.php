@@ -54,7 +54,7 @@
             </div>
 
             <div class="mt-6">
-                <a href="#"
+                <a href="{{ route('password.change.form') }}"
                    class="w-full flex items-center justify-center gap-2 bg-primary text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-primary/20 hover:bg-primary-dark transition-all
                           dark:bg-aurora-glow dark:hover:bg-aurora-glow-secondary dark:shadow-aurora-glow/20">
                     <i class="fas fa-key"></i> Ganti Password
