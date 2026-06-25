@@ -228,6 +228,11 @@ class MahasiswaController extends Controller
 
         $user = Auth::user();
         $mahasiswa = $user->mahasiswa;
+
+        if (!$mahasiswa) {
+            return back()->with('error', 'Data mahasiswa tidak ditemukan. Hubungi administrator.');
+        }
+
         $buktiPath = null;
 
         // Upload bukti surat ke Cloudinary
