@@ -845,28 +845,76 @@
             color: var(--slate-500);
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* ===== MOBILE NAV OVERLAY ===== */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: rgba(10,22,40,0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .mobile-nav.open {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 12px 32px;
+            border-radius: 12px;
+            transition: 0.2s;
+        }
+
+        .mobile-nav a:hover {
+            background: var(--white-06);
+        }
+
+        .mobile-nav .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* ===== RESPONSIVE: TABLET (769px - 1024px) ===== */
         @media (max-width: 1024px) {
-            .nav {
-                padding: 0 28px;
-            }
+            .nav { padding: 0 28px; }
 
             .hero {
                 padding: 100px 28px 60px;
+                min-height: auto;
             }
 
             .hero-wrap {
                 grid-template-columns: 1fr;
-                gap: 48px;
+                gap: 40px;
+                text-align: center;
             }
 
             .hero-text {
                 max-width: 100%;
-                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
 
             .hero-text .desc {
-                margin: 0 auto 36px;
+                margin: 0 auto 32px;
+                max-width: 520px;
             }
 
             .hero-actions {
@@ -878,148 +926,160 @@
             }
 
             .deko-wrapper {
-                max-width: 400px;
-                height: 380px;
+                max-width: 360px;
+                height: 340px;
+                margin: 0 auto;
             }
 
-            .deko-image {
-                width: 300px;
-            }
-
-            .deko-ring {
-                width: 360px;
-                height: 360px;
-            }
-
-            .deko-ring-2 {
-                width: 420px;
-                height: 420px;
-            }
-
-            .deko-glow {
-                width: 320px;
-                height: 320px;
-            }
+            .deko-image { width: 260px; }
+            .deko-ring { width: 320px; height: 320px; }
+            .deko-ring-2 { width: 380px; height: 380px; }
+            .deko-glow { width: 280px; height: 280px; }
 
             .hero-text h1 {
-                font-size: 42px;
+                font-size: 40px;
+                letter-spacing: -1px;
             }
 
-            .fitur,
-            .cara-kerja,
-            .cta {
-                padding: 80px 28px;
-            }
+            .fitur, .cara-kerja, .cta { padding: 72px 28px; }
 
             .fitur-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
             }
 
             .steps {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 32px;
+                gap: 28px;
             }
 
-            .steps::before {
-                display: none;
-            }
+            .steps::before { display: none; }
+            .float-badge.mid-right { display: none; }
 
-            .float-badge.mid-right {
-                display: none;
-            }
+            .section-header h2 { font-size: 34px; }
+            .section-header p { font-size: 15px; }
         }
 
+        /* ===== RESPONSIVE: MOBILE (481px - 768px) ===== */
         @media (max-width: 768px) {
             .nav {
                 padding: 0 20px;
-                height: 64px;
+                height: 60px;
             }
 
-            .nav-links,
-            .nav-cta {
-                display: none;
-            }
-
-            .nav-hamburger {
-                display: block;
-            }
+            .nav-links, .nav-cta { display: none; }
+            .nav-hamburger { display: block; }
 
             .hero {
-                padding: 90px 20px 50px;
+                padding: 80px 20px 48px;
+                min-height: auto;
+            }
+
+            .hero-wrap {
+                gap: 32px;
+            }
+
+            .hero-badge {
+                font-size: 11px;
+                padding: 5px 14px 5px 6px;
+                margin-bottom: 20px;
             }
 
             .hero-text h1 {
-                font-size: 34px;
-                letter-spacing: -1px;
+                font-size: 32px;
+                letter-spacing: -0.5px;
+                margin-bottom: 16px;
+            }
+
+            .hero-text .desc {
+                font-size: 14px;
+                margin-bottom: 28px;
+                max-width: 100%;
             }
 
             .hero-actions {
                 flex-direction: column;
                 width: 100%;
+                gap: 12px;
             }
 
-            .btn-primary,
-            .btn-ghost {
+            .btn-primary, .btn-ghost {
                 width: 100%;
                 justify-content: center;
+                padding: 14px 24px;
+                font-size: 14px;
             }
 
             .deko-wrapper {
-                max-width: 320px;
-                height: 300px;
+                max-width: 280px;
+                height: 260px;
             }
 
-            .deko-image {
-                width: 240px;
-            }
+            .deko-image { width: 200px; }
+            .deko-ring { width: 240px; height: 240px; }
+            .deko-ring-2 { width: 300px; height: 300px; }
+            .deko-glow { width: 200px; height: 200px; }
 
-            .deko-ring {
-                width: 280px;
-                height: 280px;
-            }
+            .float-badge { display: none; }
 
-            .deko-ring-2 {
-                width: 340px;
-                height: 340px;
-            }
+            .section-header { margin-bottom: 48px; }
+            .section-header h2 { font-size: 28px; }
+            .section-header p { font-size: 14px; }
+            .section-tag { font-size: 10px; padding: 5px 14px; }
 
-            .deko-glow {
-                width: 240px;
-                height: 240px;
-            }
-
-            .float-badge {
-                display: none;
-            }
-
-            .fitur,
-            .cara-kerja,
-            .cta {
-                padding: 60px 20px;
-            }
-
-            .section-header h2 {
-                font-size: 30px;
-            }
+            .fitur, .cara-kerja, .cta { padding: 56px 20px; }
 
             .fitur-grid {
                 grid-template-columns: 1fr;
+                gap: 14px;
             }
+
+            .fitur-card {
+                padding: 24px 20px;
+            }
+
+            .fitur-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 18px;
+                margin-bottom: 16px;
+            }
+
+            .fitur-card h3 { font-size: 15px; }
+            .fitur-card p { font-size: 12px; }
 
             .steps {
                 grid-template-columns: 1fr;
+                gap: 24px;
             }
+
+            .step-num {
+                width: 48px;
+                height: 48px;
+                font-size: 18px;
+                margin-bottom: 14px;
+            }
+
+            .step h4 { font-size: 14px; }
+            .step p { font-size: 12px; }
 
             .cta-box {
-                padding: 48px 24px;
+                padding: 40px 20px;
+                border-radius: 20px;
             }
 
-            .cta-box h2 {
-                font-size: 28px;
-            }
+            .cta-box h2 { font-size: 26px; }
+            .cta-box p { font-size: 14px; margin-bottom: 28px; }
 
             .cta-actions {
                 flex-direction: column;
+                gap: 12px;
+            }
+
+            .cta-actions .btn-primary,
+            .cta-actions .btn-ghost {
+                width: 100%;
+                justify-content: center;
             }
 
             .footer {
@@ -1031,16 +1091,43 @@
                 gap: 12px;
                 text-align: center;
             }
+
+            .footer-left {
+                justify-content: center;
+            }
         }
 
-        @media (max-width: 450px) {
-            .hero-text h1 {
-                font-size: 28px;
+        /* ===== RESPONSIVE: SMALL PHONE (≤ 480px) ===== */
+        @media (max-width: 480px) {
+            .hero { padding: 72px 16px 40px; }
+            .hero-text h1 { font-size: 26px; }
+            .hero-text .desc { font-size: 13px; }
+
+            .hero-badge { font-size: 10px; }
+
+            .deko-wrapper {
+                max-width: 220px;
+                height: 220px;
             }
 
-            .deko-image {
-                width: 150px;
-            }
+            .deko-image { width: 160px; }
+            .deko-ring { width: 200px; height: 200px; }
+            .deko-ring-2 { width: 250px; height: 250px; }
+            .deko-glow { width: 160px; height: 160px; }
+
+            .section-header h2 { font-size: 24px; }
+
+            .fitur, .cara-kerja, .cta { padding: 48px 16px; }
+
+            .fitur-card { padding: 20px 16px; }
+            .fitur-card h3 { font-size: 14px; }
+            .fitur-card p { font-size: 11px; }
+
+            .cta-box { padding: 32px 16px; }
+            .cta-box h2 { font-size: 22px; }
+            .cta-box p { font-size: 13px; }
+
+            .footer { padding: 20px 16px; }
         }
     </style>
 </head>
@@ -1070,6 +1157,15 @@
         </div>
         <button class="nav-hamburger" onclick="toggleMobile()"><i class="fas fa-bars"></i></button>
     </nav>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="close-btn" onclick="toggleMobile()"><i class="fas fa-xmark"></i></button>
+        <a href="#beranda" onclick="toggleMobile()">Beranda</a>
+        <a href="#fitur" onclick="toggleMobile()">Fitur</a>
+        <a href="#cara-kerja" onclick="toggleMobile()">Cara Kerja</a>
+        <a href="{{ route('login') }}" class="btn-login" style="margin-top:16px;"><i class="fas fa-right-to-bracket"></i> Masuk</a>
+    </div>
 
     <!-- Hero -->
     <section class="hero" id="beranda">
@@ -1233,10 +1329,8 @@
 
         // Mobile menu toggle
         function toggleMobile() {
-            const links = document.querySelector('.nav-links');
-            const cta = document.querySelector('.nav-cta');
-            links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
-            cta.style.display = cta.style.display === 'flex' ? 'none' : 'flex';
+            document.getElementById('mobileNav').classList.toggle('open');
+            document.body.style.overflow = document.getElementById('mobileNav').classList.contains('open') ? 'hidden' : '';
         }
     </script>
 

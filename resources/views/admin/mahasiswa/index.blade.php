@@ -75,7 +75,7 @@
                             </td>
                         </tr>
                     @empty
-                        <tr><td colspan="6" class="px-5 py-12 text-center text-gray-400 dark:text-slate-500"><i class="fas fa-users-slash text-3xl mb-2"></i><p>{{ __('app.message.delete_success') }}</p></td></tr>
+                       <tr><td colspan="5" class="px-5 py-12 text-center text-gray-400">Belum ada data mahasiswa</td></tr>
                     @endforelse
                 </tbody>
             </table>
