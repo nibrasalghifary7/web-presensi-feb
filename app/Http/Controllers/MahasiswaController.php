@@ -237,11 +237,15 @@ class MahasiswaController extends Controller
 
         // Upload bukti surat ke Cloudinary
         if ($request->hasFile('bukti_surat')) {
-            $uploaded = Cloudinary::upload($request->file('bukti_surat')->getRealPath(), [
-                'folder' => 'izin/' . $mahasiswa->nim,
-                'resource_type' => 'auto',
-            ]);
-            $buktiPath = $uploaded->getSecurePath();
+            $file = $request->file('bukti_surat');
+            $uploaded = Cloudinary::uploadApi()->upload(
+                $file->getRealPath(), [
+                    'folder' => 'izin/' . $mahasiswa->nim,
+                    'resource_type' => 'raw',
+                    'public_id' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME),
+                ]
+            );
+            $buktiPath = $uploaded['secure_url'];
         }
 
         // Cek apakah sudah absen hari ini untuk jadwal ini

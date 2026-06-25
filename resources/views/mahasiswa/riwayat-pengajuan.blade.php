@@ -44,9 +44,14 @@
                             </p>
                             <p class="text-sm text-gray-600 dark:text-slate-300 mt-1">{{ $izin->alasan }}</p>
                             @if($izin->bukti_surat)
-                                <a href="{{ str_starts_with($izin->bukti_surat, 'http') ? $izin->bukti_surat : asset('storage/' . $izin->bukti_surat) }}" target="_blank"
+                                @php
+                                    $buktiUrl = str_starts_with($izin->bukti_surat, 'http')
+                                        ? 'https://docs.google.com/viewer?url=' . urlencode($izin->bukti_surat) . '&embedded=true'
+                                        : asset('storage/' . $izin->bukti_surat);
+                                @endphp
+                                <a href="{{ $buktiUrl }}" target="_blank"
                                    class="inline-flex items-center gap-1 mt-2 text-xs text-blue-600 dark:text-blue-400 hover:underline">
-                                    <i class="fas fa-file-alt"></i> Lihat Bukti
+                                    <i class="fas fa-file-pdf"></i> Lihat Bukti
                                 </a>
                             @endif
                         </div>
