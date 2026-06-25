@@ -61,9 +61,9 @@ return [
     // ========================================
     'auth' => [
         'login_title' => 'Masuk ke Akun',
-        'login_subtitle' => 'Gunakan NIM/NIP/Username dan password Anda',
-        'username' => 'NIM / NIP / Username',
-        'username_placeholder' => 'Masukkan NIM, NIP, atau Username',
+        'login_subtitle' => 'Gunakan NIM/NIDN/Username dan password Anda',
+        'username' => 'NIM / NIDN / Username',
+        'username_placeholder' => 'Masukkan NIM, NIDN, atau Username',
         'password' => 'Password',
         'password_placeholder' => 'Masukkan password Anda',
         'remember_me' => 'Ingat saya',
@@ -261,7 +261,7 @@ return [
     'message' => [
         'login_success' => 'Selamat datang, :name!',
         'logout_success' => 'Anda telah berhasil logout.',
-        'login_failed' => 'NIM/NIP/Username atau password salah.',
+        'login_failed' => 'NIM/NIDN/Username atau password salah.',
         'unauthorized' => 'Anda tidak memiliki akses ke halaman ini.',
         'create_success' => ':item berhasil ditambahkan.',
         'update_success' => ':item berhasil diupdate.',

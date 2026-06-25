@@ -75,6 +75,27 @@
       display: flex;
       flex-direction: column;
       z-index: 3;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    /* custom scrollbar - blue theme */
+    .login-panel::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .login-panel::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+      border-radius: 3px;
+    }
+
+    .login-panel::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #25429f, #3d8ade);
+      border-radius: 3px;
+    }
+
+    .login-panel::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #3d8ade, #5a9ee6);
     }
 
     /* header icon + title */
@@ -610,7 +631,7 @@
     <form method="POST" action="{{ route('login.post') }}" style="display:flex;flex-direction:column;flex:1;">
       @csrf
 
-      <label class="field-label">NIM / NIP / EMAIL PEMAKAI</label>
+      <label class="field-label">NIM / NIDN / EMAIL PENGGUNA</label>
       <div class="input-group">
         <img class="input-icon" alt="" src="{{ asset('person.svg') }}">
         <input type="text" name="username" class="form-input" placeholder="Contoh: naisyarahma@mhs.uinjkt.ac.id" value="{{ old('username') }}" required autofocus>

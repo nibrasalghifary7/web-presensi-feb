@@ -52,7 +52,26 @@
       background: #001149; border-radius: 15px;
       padding: 20px 24px;
       display: flex; flex-direction: column;
-      z-index: 3; overflow: hidden;
+      z-index: 3; overflow-y: auto; overflow-x: hidden;
+    }
+
+    /* custom scrollbar - blue theme */
+    .register-panel::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .register-panel::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+      border-radius: 3px;
+    }
+
+    .register-panel::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #25429f, #3d8ade);
+      border-radius: 3px;
+    }
+
+    .register-panel::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #3d8ade, #5a9ee6);
     }
 
     /* header */

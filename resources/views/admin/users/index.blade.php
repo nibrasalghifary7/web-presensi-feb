@@ -120,7 +120,7 @@
                 @csrf
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 dark:text-slate-200 mb-1">Username</label>
-                    <input type="text" name="username" required placeholder="NIM/NIP/Username"
+                    <input type="text" name="username" required placeholder="NIM/NIDN/Username"
                            class="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-slate-600 text-sm focus:border-uin-green dark:bg-slate-700 dark:text-white outline-none">
                 </div>
                 <div>

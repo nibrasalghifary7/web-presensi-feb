@@ -38,9 +38,9 @@ class AuthController extends Controller
     {
         $request->validate([
             'username' => 'required|string',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string',
         ], [
-            'username.required' => 'NIM/NIP/Username wajib diisi.',
+            'username.required' => 'NIM/NIDN/Username wajib diisi.',
             'password.required' => 'Password wajib diisi.',
             'password.min' => 'Password minimal 6 karakter.',
         ]);
@@ -57,16 +57,21 @@ class AuthController extends Controller
                 ->withErrors(['username' => 'Akun terkunci sementara karena 5x percobaan gagal. Coba lagi dalam 15 menit.']);
         }
 
-        // Cari user
-        $user = User::where('username', $username)->first();
+        // Cari user berdasarkan username atau email
+        $user = User::where('username', $username)
+                    ->orWhere('email', $username)
+                    ->first();
 
-        // Verifikasi password
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        // Verifikasi password atau PIN
+        $isPasswordValid = $user && Hash::check($request->password, $user->password);
+        $isPinValid = $user && $user->pin && Hash::check($request->password, $user->pin);
+
+        if (!$user || (!$isPasswordValid && !$isPinValid)) {
             // Increment percobaan gagal
             Cache::put($lockKey, $attempts + 1, now()->addMinutes(15));
 
             $sisa = 5 - ($attempts + 1);
-            $pesan = 'NIM/NIP/Username atau password salah.';
+            $pesan = 'NIM/NIDN/Username atau password salah.';
             if ($sisa > 0 && $sisa <= 3) {
                 $pesan .= " Sisa percobaan: {$sisa}";
             }
@@ -142,7 +147,8 @@ class AuthController extends Controller
         $request->validate([
             'nim' => 'required|string|max:20|unique:mahasiswas,nim',
             'nama' => 'required|string|max:100',
-            'email' => 'required|email|max:100',
+            'email' => 'required|email|max:100|unique:users,email',
+            'pin' => 'required|string|digits:6',
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ], [
             'nim.required' => 'NIM wajib diisi.',
@@ -150,6 +156,9 @@ class AuthController extends Controller
             'nama.required' => 'Nama lengkap wajib diisi.',
             'email.required' => 'Email wajib diisi.',
             'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah terdaftar. Gunakan email lain.',
+            'pin.required' => 'PIN wajib diisi.',
+            'pin.digits' => 'PIN harus 6 angka.',
             'password.required' => 'Password wajib diisi.',
             'password.min' => 'Password minimal 6 karakter.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
@@ -161,6 +170,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'phone' => $request->phone ?? null,
             'password' => Hash::make($request->password),
+            'pin' => Hash::make($request->pin),
             'role' => 'mahasiswa',
             'is_active' => 1,
         ]);
@@ -191,7 +201,8 @@ class AuthController extends Controller
         $request->validate([
             'nidn' => 'required|string|max:20|unique:users,username|unique:dosens,nidn',
             'nama' => 'required|string|max:100',
-            'email' => 'required|email|max:100',
+            'email' => 'required|email|max:100|unique:users,email',
+            'pin' => 'required|string|digits:6',
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ], [
             'nidn.required' => 'NIDN wajib diisi.',
@@ -199,6 +210,9 @@ class AuthController extends Controller
             'nama.required' => 'Nama lengkap wajib diisi.',
             'email.required' => 'Email wajib diisi.',
             'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah terdaftar. Gunakan email lain atau login.',
+            'pin.required' => 'PIN wajib diisi.',
+            'pin.digits' => 'PIN harus 6 angka.',
             'password.required' => 'Password wajib diisi.',
             'password.min' => 'Password minimal 6 karakter.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
@@ -210,6 +224,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'phone' => $request->phone ?? null,
             'password' => Hash::make($request->password),
+            'pin' => Hash::make($request->pin),
             'role' => 'dosen',
             'is_active' => 1,
         ]);

@@ -61,9 +61,9 @@ return [
     // ========================================
     'auth' => [
         'login_title' => 'Sign In',
-        'login_subtitle' => 'Use your NIM/NIP/Username and password',
-        'username' => 'NIM / NIP / Username',
-        'username_placeholder' => 'Enter NIM, NIP, or Username',
+        'login_subtitle' => 'Use your NIM/NIDN/Username and password',
+        'username' => 'NIM / NIDN / Username',
+        'username_placeholder' => 'Enter NIM, NIDN, or Username',
         'password' => 'Password',
         'password_placeholder' => 'Enter your password',
         'remember_me' => 'Remember me',
@@ -261,7 +261,7 @@ return [
     'message' => [
         'login_success' => 'Welcome, :name!',
         'logout_success' => 'You have been logged out successfully.',
-        'login_failed' => 'NIM/NIP/Username or password is incorrect.',
+        'login_failed' => 'NIM/NIDN/Username or password is incorrect.',
         'unauthorized' => 'You do not have access to this page.',
         'create_success' => ':item created successfully.',
         'update_success' => ':item updated successfully.',
