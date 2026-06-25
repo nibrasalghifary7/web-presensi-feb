@@ -9,8 +9,9 @@ class TrustProxies extends Middleware
 {
     /**
      * Daftar proxy yang dipercaya.
+     * '*' = percaya semua proxy (dibutuhkan untuk Railway/Cloudflare).
      */
-    protected $proxies;
+    protected $proxies = '*';
 
     /**
      * Header yang digunakan untuk mendeteksi proxy.

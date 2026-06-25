@@ -60,6 +60,8 @@
     </script>
 
     <style>
+        [x-cloak] { display: none !important; }
+
         /* ===== DARK THEME GLASS EFFECTS ===== */
         html.dark .glass {
             background: rgba(10, 18, 40, 0.65) !important;
@@ -102,6 +104,39 @@
             border: 1px solid rgba(91, 127, 255, 0.2) !important;
             color: white !important;
         }
+
+        /* Sidebar tooltip (only when collapsed) */
+        .sidebar-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            left: calc(100% + 8px);
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 6px 12px;
+            background: #1f2937;
+            color: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 100;
+            pointer-events: none;
+            transition: opacity 0.15s ease, visibility 0.15s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .sidebar-link:hover .sidebar-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        html.dark .sidebar-tooltip {
+            background: #1e293b;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        }
+        @media (max-width: 1023px) {
+            .sidebar-tooltip { display: none !important; }
+        }
     </style>
 
     <?php echo $__env->yieldPushContent('styles'); ?>
@@ -115,7 +150,23 @@
         <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-aurora-glow-tertiary/5 rounded-full blur-[180px]"></div>
     </div>
 
-    <div class="h-screen flex overflow-hidden relative z-10" x-data="{ sidebarOpen: false }">
+    <div class="h-screen flex overflow-hidden relative z-10"
+         x-data="{
+             sidebarOpen: false,
+             sidebarCollapsed: localStorage.getItem('sidebarCollapsed') === 'true',
+             isDesktop: window.innerWidth >= 1024,
+             get sidebarWidth() {
+                 if (!this.isDesktop) return '256px';
+                 return this.sidebarCollapsed ? '80px' : '256px';
+             },
+             toggleSidebar() {
+                 this.sidebarCollapsed = !this.sidebarCollapsed;
+                 localStorage.setItem('sidebarCollapsed', this.sidebarCollapsed);
+             },
+             init() {
+                 window.addEventListener('resize', () => { this.isDesktop = window.innerWidth >= 1024; });
+             }
+         }">
 
         
         <div x-show="sidebarOpen" x-transition
@@ -123,29 +174,46 @@
 
         
         <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-               class="fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto flex flex-col h-screen
+               :style="{ width: sidebarWidth }"
+               class="fixed inset-y-0 left-0 z-50 w-64 transform transition-all duration-300 lg:translate-x-0 lg:static lg:z-auto flex flex-col h-screen
                       bg-white border-r border-gray-200 glass-light">
 
             
-            <div class="flex items-center gap-3 px-5 py-5 border-b border-gray-100 dark:border-white/5">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-primary shadow-lg shadow-primary/20 dark:bg-gradient-to-br dark:from-aurora-glow dark:to-aurora-glow-tertiary">
-                    <i class="fas fa-graduation-cap text-white text-xl"></i>
+            <div class="flex items-center gap-2.5 px-4 py-4 border-b border-gray-100 dark:border-white/5"
+                 :class="sidebarCollapsed ? 'lg:justify-center lg:px-2 lg:gap-0' : ''">
+                <div class="w-9 h-9 rounded-lg flex items-center justify-center bg-primary shadow-lg shadow-primary/20 dark:bg-gradient-to-br dark:from-aurora-glow dark:to-aurora-glow-tertiary flex-shrink-0">
+                    <i class="fas fa-graduation-cap text-white text-base"></i>
                 </div>
-                <div>
-                    <h1 class="text-lg font-bold leading-tight text-gray-800 dark:text-white"><?php echo e(__('app.app_name')); ?></h1>
-                    <p class="text-xs text-gray-500 dark:text-slate-400"><?php echo e(__('app.faculty')); ?></p>
+                <div x-show="!sidebarCollapsed" x-transition class="hidden lg:block overflow-hidden whitespace-nowrap flex-1 min-w-0">
+                    <h1 class="text-sm font-bold leading-tight text-gray-800 dark:text-white"><?php echo e(__('app.app_name')); ?></h1>
+                    <p class="text-[10px] text-gray-500 dark:text-slate-400 leading-tight"><?php echo e(__('app.faculty')); ?></p>
                 </div>
+                <div class="lg:hidden overflow-hidden flex-1 min-w-0">
+                    <h1 class="text-sm font-bold leading-tight text-gray-800 dark:text-white"><?php echo e(__('app.app_name')); ?></h1>
+                    <p class="text-[10px] text-gray-500 dark:text-slate-400 leading-tight"><?php echo e(__('app.faculty')); ?></p>
+                </div>
+                
+                <button @click="toggleSidebar()"
+                        class="hidden lg:flex w-7 h-7 flex-shrink-0 items-center justify-center rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:text-slate-500 dark:hover:text-white dark:hover:bg-white/10 transition-all"
+                        x-show="!sidebarCollapsed" x-transition>
+                    <i class="fas fa-angles-left text-xs"></i>
+                </button>
+                <button @click="toggleSidebar()"
+                        class="hidden lg:flex w-7 h-7 flex-shrink-0 items-center justify-center rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:text-slate-500 dark:hover:text-white dark:hover:bg-white/10 transition-all"
+                        x-show="sidebarCollapsed" x-cloak x-transition>
+                    <i class="fas fa-angles-right text-xs"></i>
+                </button>
             </div>
 
             
-            <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+            <nav class="flex-1 px-2 py-3 space-y-0.5">
                 <?php
                     if(auth()->user()->isMahasiswa()) {
                         $menuItems = [
                             ['route' => 'mahasiswa.dashboard', 'icon' => 'fa-home', 'label' => 'app.menu.dashboard'],
                             ['route' => 'mahasiswa.absensi', 'icon' => 'fa-calendar-check', 'label' => 'app.menu.absensi'],
                             ['route' => 'mahasiswa.riwayat', 'icon' => 'fa-clock-rotate-left', 'label' => 'app.menu.riwayat'],
-                            ['route' => 'mahasiswa.dokumen', 'icon' => 'fa-file-pen', 'label' => 'app.menu.dokumen'],
+                            ['route' => 'mahasiswa.riwayat-pengajuan', 'icon' => 'fa-file-circle-check', 'label' => 'Riwayat Pengajuan'],
                         ];
                     } elseif(auth()->user()->isDosen()) {
                         $menuItems = [
@@ -170,14 +238,28 @@
                 ?>
 
                 <?php $__currentLoopData = $menuItems ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <?php $isActive = request()->routeIs($item['route'] . '*'); ?>
+                    <?php $isActive = request()->routeIs($item['route']); ?>
                     <a href="<?php echo e(route($item['route'])); ?>"
-                       class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all
+                       class="sidebar-link flex items-center gap-3 px-2.5 py-2 rounded-lg transition-all relative
                               <?php echo e($isActive
                                   ? 'nav-active font-medium'
-                                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5'); ?>">
-                        <i class="fas <?php echo e($item['icon']); ?> w-5 text-center"></i>
-                        <span class="text-sm font-medium"><?php echo e(__($item['label'])); ?></span>
+                                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5'); ?>"
+                       :class="sidebarCollapsed ? 'lg:justify-center lg:px-0' : ''">
+                        <i class="fas <?php echo e($item['icon']); ?> w-4 text-center flex-shrink-0 text-[13px]"></i>
+                        <span class="text-[13px] font-medium whitespace-nowrap" x-show="!sidebarCollapsed" x-transition><?php echo e(__($item['label'])); ?></span>
+                        <?php if(!empty($item['badge']) && $item['badge'] > 0): ?>
+                            <span class="ml-auto bg-red-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0"
+                                  x-show="!sidebarCollapsed" x-transition>
+                                <?php echo e($item['badge'] > 9 ? '9+' : $item['badge']); ?>
+
+                            </span>
+                            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center"
+                                  x-show="sidebarCollapsed" x-cloak>
+                                <?php echo e($item['badge'] > 9 ? '9+' : $item['badge']); ?>
+
+                            </span>
+                        <?php endif; ?>
+                        <span class="sidebar-tooltip" x-show="sidebarCollapsed" x-cloak><?php echo e(__($item['label'])); ?></span>
                     </a>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </nav>
