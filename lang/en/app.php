@@ -5,7 +5,7 @@ return [
     // ========================================
     // GENERAL
     // ========================================
-    'app_name' => 'M-Presence FEB',
+    'app_name' => 'M-Presence',
     'app_description' => 'Web-Based Attendance Information System',
     'university' => 'UIN Syarif Hidayatullah Jakarta',
     'faculty' => 'Faculty of Economics and Business',

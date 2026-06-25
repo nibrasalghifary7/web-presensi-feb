@@ -112,7 +112,7 @@ class AuthController extends Controller
 
         if (!$user) {
             return redirect()->route('login')
-                ->withErrors(['username' => 'Akun biometrik belum tersedia. Jalankan seeder terlebih dahulu.']);
+                ->withErrors(['username' => 'Akun biometrik belum tersedia. Fitur ini akan di realisasi kemudian hari.']);
         }
 
         Auth::login($user);

@@ -5,7 +5,7 @@ return [
     // ========================================
     // UMUM
     // ========================================
-    'app_name' => 'M-Presence FEB',
+    'app_name' => 'M-Presence',
     'app_description' => 'Sistem Informasi Absensi Berbasis Web',
     'university' => 'UIN Syarif Hidayatullah Jakarta',
     'faculty' => 'Fakultas Ekonomi dan Bisnis',
